@@ -11,19 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115001411) do
+ActiveRecord::Schema.define(version: 20141118024847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "deliveries", force: true do |t|
+    t.string   "delivery_method"
+    t.string   "delivered_by"
+    t.string   "estimated_delivery_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_id"
+  end
+
+  add_index "deliveries", ["order_id"], name: "index_deliveries_on_order_id", using: :btree
+
+  create_table "details", force: true do |t|
+    t.string   "status"
+    t.string   "additional_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_id"
+  end
+
+  add_index "details", ["order_id"], name: "index_details_on_order_id", using: :btree
+
   create_table "orders", force: true do |t|
     t.string   "product_count"
-    t.string   "delivery_option"
     t.integer  "processing_time"
-    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "payments", force: true do |t|
+    t.string   "payment_method"
+    t.string   "amount"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_id"
+  end
+
+  add_index "payments", ["order_id"], name: "index_payments_on_order_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -37,7 +67,10 @@ ActiveRecord::Schema.define(version: 20141115001411) do
     t.integer  "discount_inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order_id"
   end
+
+  add_index "products", ["order_id"], name: "index_products_on_order_id", using: :btree
 
   create_table "restaurants", force: true do |t|
     t.string   "name"
@@ -49,7 +82,12 @@ ActiveRecord::Schema.define(version: 20141115001411) do
     t.string   "categories"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "lat"
+    t.string   "lng"
+    t.integer  "order_id"
   end
+
+  add_index "restaurants", ["order_id"], name: "index_restaurants_on_order_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -59,6 +97,9 @@ ActiveRecord::Schema.define(version: 20141115001411) do
     t.string   "lng"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order_id"
   end
+
+  add_index "users", ["order_id"], name: "index_users_on_order_id", using: :btree
 
 end
