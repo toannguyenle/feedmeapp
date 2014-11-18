@@ -11,15 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115001411) do
+ActiveRecord::Schema.define(version: 20141118022348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "deliveries", force: true do |t|
+    t.string   "delivery_method"
+    t.string   "delivered_by"
+    t.string   "estimated_delivery_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "details", force: true do |t|
+    t.string   "status"
+    t.string   "additional_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "orders", force: true do |t|
     t.string   "product_count"
-    t.string   "delivery_option"
     t.integer  "processing_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.string   "payment_method"
+    t.string   "amount"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -49,6 +70,8 @@ ActiveRecord::Schema.define(version: 20141115001411) do
     t.string   "categories"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "lat"
+    t.string   "lng"
   end
 
   create_table "users", force: true do |t|
