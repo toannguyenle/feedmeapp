@@ -49,3 +49,12 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'bootstrap-sass', '~> 3.2.0'
+
+#added to the bottom of the Gemfile, note we do not need to specify the 'pg' postgres
+#gem as we have already added it by default
+group :production do
+
+  #gem for heroku to handle assets
+  gem 'rails_12factor', '0.0.2'
+
+end
