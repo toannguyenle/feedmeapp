@@ -29,6 +29,11 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
       templateUrl: 'product.html',
       controller: 'productController'
     })
+    .state('newProduct', {
+      url: '/product/new',
+      templateUrl: 'new_product.html',
+      controller: 'productController'
+    })
     .state('restaurant', {
       url: '/restaurant',
       templateUrl: 'restaurant.html',
@@ -57,9 +62,12 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
 
 // Controller for products
 .controller('productController', ['$scope','api', function($scope, api){
-  $scope.test = "productController test!";
-
-  // Add new PRODUCT
+  // Show RESTAURANTS
+  api.getProduct()
+  .then(function(data){
+    $scope.products = data.data;
+  });
+  // Add new Product
   $scope.addProduct = function(product){
     api.addProduct(product);
   }
@@ -71,11 +79,13 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
 
 // Controllers for restaurants
 .controller('restaurantController',['$scope','api', function($scope, api){
-  $scope.test = "restaurantController test!";
-
-  // Add new PRODUCT
+  // Show RESTAURANTS
+  api.getRestaurant()
+  .then(function(data){
+    $scope.restaurants = data.data;
+  });
+  // Add new RESTAURANT
   $scope.addRestaurant = function(restaurant){
-    console.log(restaurant);
     api.addRestaurant(restaurant);
   }
 }])
@@ -87,7 +97,7 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
     getOrder: function(){
       var promise = $http.get('/api/orders')
       .then(function(response){
-        return response
+        return response;
       });
       return promise;
     },
@@ -102,15 +112,48 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
       $http.patch('/api/orders/' + planet._id.$oid, {name: planet.name, image: planet.image});
     },
 
+    // GET PRODUCT
+    getProduct: function(){
+      var promise = $http.get('/api/products')
+      .then(function(response){
+        return response;
+      });
+      return promise;
+    },
     // ADD PRODUCT
     addProduct: function(product){
-      $http.post('/api/products', {name: product.name, categories: product.categories, description: product.description, image_urls: product.image_urls, regular_price: product.regular_price, discount_price: product.discount_price, discount_start_time: product.discount_start_time, discount_end_time: product.discount_end_time, discount_inventory: product.discount_inventory});
+      $http.post('/api/products', {
+        name: product.name,
+        categories: product.categories,
+        description: product.description,
+        image_urls: product.image_urls,
+        regular_price: product.regular_price,
+        discount_price: product.discount_price,
+        discount_start_time: product.discount_start_time,
+        discount_end_time: product.discount_end_time,
+        discount_inventory: product.discount_inventory});
     },
 
+    // GET RESTAURANT
+    getRestaurant: function(){
+      var promise = $http.get('/api/restaurants')
+      .then(function(response){
+        return response;
+      });
+      return promise;
+    },
     // ADD RESTAURANT
     addRestaurant: function(restaurant){
-      console.log("inside api= "+restaurant);
-      $http.post('/api/restaurants', {name: restaurant.name, categories: restaurant.categories, description: restaurant.description, image_urls: restaurant.image_urls, regular_price: restaurant.regular_price, discount_price: restaurant.discount_price, discount_start_time: restaurant.discount_start_time, discount_end_time: restaurant.discount_end_time, discount_inventory: restaurant.discount_inventory});
+      $http.post('/api/restaurants', {
+        name: restaurant.name,
+        website: restaurant.website,
+        phone_number: restaurant.phone_number,
+        address: restaurant.address,
+        yelp_id: restaurant.yelp_id,
+        image_url: restaurant.image_url,
+        categories: restaurant.categories,
+        lat: restaurant.lat,
+        lng: restaurant.lng});
     }
 
   }
