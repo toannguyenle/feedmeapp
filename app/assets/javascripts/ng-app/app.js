@@ -24,6 +24,11 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
       templateUrl: 'user.html',
       controller: 'userController'
     })
+    .state('product', {
+      url: '/product',
+      templateUrl: 'product.html',
+      controller: 'productController'
+    })
     .state('restaurant', {
       url: '/restaurant',
       templateUrl: 'restaurant.html',
@@ -34,11 +39,21 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
 // Building out controllers for index page
 .controller('homeController',['$scope', function($scope){
   $scope.test = "homeController test!";
+  
+  // Add new ORDER
+  $scope.addOrder = function(order){
+    api.newOrder(order);
+  }
 }])
 
 // Controller for users
 .controller('userController',['$scope', function($scope){
   $scope.test = "userController test!";
+}])
+
+// Controller for products
+.controller('productController', ['$scope', function($scope){
+  $scope.test = "productController test!";
 }])
 // Controller for orders
 .controller('orderController',['$scope', function($scope){
@@ -51,15 +66,26 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
 }])
 
 // SERVICE
-.service('api', function($http){
+.service('api',['$http', function($http){
   return {
-    getProducts: function(){
+    getOrder: function(){
       var promise = $http.get('/api/orders')
       .then(function(response){
         return response
       });
       return promise;
+    },
+
+    // CREATE ORDER
+    newOrder: function(planetName, planetImage){
+      $http.post('api/planets', {name: planetName, image: planetImage});
+    },
+
+    // EDIT ORDER
+    editOrder: function(planet) {
+      $http.patch('api/planets/' + planet._id.$oid, {name: planet.name, image: planet.image});
     }
+
   }
-})
+}])
 ;
