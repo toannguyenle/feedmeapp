@@ -1,6 +1,6 @@
 angular.module('feedmeApp', ['ui.router', 'templates'])
 
-.config(function($stateProvider, $urlRouterProvider){
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
@@ -29,7 +29,7 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
       templateUrl: 'restaurant.html',
       controller: 'restaurantController'
     });
-})
+}])
 
 // Building out controllers for index page
 .controller('homeController', function($scope){
