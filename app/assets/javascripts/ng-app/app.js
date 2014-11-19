@@ -62,7 +62,7 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
 
 // Controller for products
 .controller('productController', ['$scope','api', function($scope, api){
-  // Show RESTAURANTS
+  // Show Products
   api.getProduct()
   .then(function(data){
     $scope.products = data.data;
