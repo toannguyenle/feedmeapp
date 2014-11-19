@@ -91,7 +91,7 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
 }])
 
 // SERVICE
-.service('api', function($http){
+.service('api',['$http', function($http){
   return {
 
     getOrder: function(){
@@ -157,4 +157,5 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
     }
 
   }
-});
+}]);
+
