@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-
+# Unicorn
+gem 'unicorn'
 # Rails Templates Helper
 gem 'angular-rails-templates'
 # Bower gem file
@@ -58,3 +59,4 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 
 end
+ruby "2.1.2"
