@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+# Rails Templates Helper
+gem 'angular-rails-templates'
+# Bower gem file
+gem 'bower-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
