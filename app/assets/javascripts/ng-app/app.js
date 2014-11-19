@@ -32,23 +32,23 @@ angular.module('feedmeApp', ['ui.router', 'templates'])
 }])
 
 // Building out controllers for index page
-.controller('homeController', function($scope){
+.controller('homeController',['$scope', function($scope){
   $scope.test = "homeController test!";
-})
+}])
 
 // Controller for users
-.controller('userController', function($scope){
+.controller('userController',['$scope', function($scope){
   $scope.test = "userController test!";
-})
+}])
 // Controller for orders
-.controller('orderController', function($scope){
+.controller('orderController',['$scope', function($scope){
   $scope.test = "orderController test!";
-})
+}])
 
 // Controllers for restaurants
-.controller('restaurantController', function($scope){
+.controller('restaurantController',['$scope', function($scope){
   $scope.test = "restaurantController test!";
-})
+}])
 
 // SERVICE
 .service('api', function($http){
