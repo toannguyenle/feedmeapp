@@ -1,12 +1,15 @@
 class RestaurantsController < ApplicationController
   def index
-    restaurants = Restaurant.all
-    render json: restaurants, status: 200
+    @restaurants = Restaurant.all
+    respond_to do |format|
+      format.html { render html: @restaurants, status: 200} 
+      format.json { render json: @restaurants, status: 200}
+    end
   end
   
   def show
-    restaurant = Restaurant.find(params[:id])
-    render json: restaurant, sRatus: 201
+    @restaurant = Restaurant.find(params[:id])
+    render json: @restaurant, status: 201
   end
 
   def new

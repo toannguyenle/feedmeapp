@@ -1,18 +1,18 @@
 Feedmeapp::Application.routes.draw do
   # Root Routing
-  root 'application#index'
+  root 'restaurants#index'
   # Rerouting everything else to index page
-  get '*path' => 'application#index'
+  get '*path' => 'restaurants#index'
   # API ROUTES
-  scope 'api', defaults: {format: :json} do
-    # resources :orders, only: [:index, :create, :update, :destroy]
-    # resources :restaurants, only: [:index, :create, :update, :destroy]
-    # resources :products, only: [:index, :create, :update, :destroy]
-    # resources :users, only: [:index, :create, :update, :destroy]
-    # resources :delivery, only: [:index, :create, :update, :destroy]
-    # resources :detail, only: [:index, :create, :update, :destroy]
-    # resources :payment, only: [:index, :create, :update, :destroy]
-  end
+  # scope 'api', defaults: {format: :json} do
+  #   resources :orders, only: [:index, :create, :update, :destroy]
+  #   resources :restaurants, only: [:index, :create, :update, :destroy]
+  #   resources :products, only: [:index, :create, :update, :destroy]
+  #   resources :users, only: [:index, :create, :update, :destroy]
+  #   resources :delivery, only: [:index, :create, :update, :destroy]
+  #   resources :detail, only: [:index, :create, :update, :destroy]
+  #   resources :payment, only: [:index, :create, :update, :destroy]
+  # end
 
   # Restaurants Routes
   get 'restaurants/' => 'restaurants#index'
