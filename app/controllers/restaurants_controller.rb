@@ -9,29 +9,40 @@ class RestaurantsController < ApplicationController
   
   def show
     @restaurant = Restaurant.find(params[:id])
-    render json: @restaurant, status: 201
+    # respond_to do |format|
+    #   format.html { render html: @restaurant, status: 201} 
+    #   format.json { render json: @restaurant, status: 201}
+    # end
   end
 
   def new
     restaurant = Restaurant.new
-    #render json: restaurant, status: 201
   end
   
   def create
-    restaurant = Restaurant.create(restaurant_params)
-    render json: restaurant, status: 201
+    @restaurant = Restaurant.create(restaurant_params)
+    # respond_to do |format|
+    #   format.html { render html: @restaurant, status: 201} 
+    #   format.json { render json: @restaurant, status: 201}
+    # end
   end
 
   def update
     restaurant = Restaurant.find(params[:id])
     restaurant.update_attributes(restaurant_params)
-    render nothing: true, status: 204
+    # respond_to do |format|
+    #   format.html { render nothing: true, status: 204} 
+    #   format.json { render nothing: true, status: 204}
+    # end
   end
 
   def destroy
     restaurant = Restaurant.find(params[:id])
     restaurant.destroy
-    render nothing: true, status: 204
+    # respond_to do |format|
+    #   format.html { render nothing: true, status: 204} 
+    #   format.json { render nothing: true, status: 204}
+    # end
   end
 
   private

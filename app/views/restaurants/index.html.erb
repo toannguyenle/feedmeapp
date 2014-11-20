@@ -14,7 +14,6 @@
       <th>Lng</th>
     </tr>
   </thead>
-
   <tbody>
     <% @restaurants.each do |restaurant| %>
       <tr>
@@ -27,9 +26,9 @@
         <td><%= restaurant.categories %></td>
         <td><%= restaurant.lat %></td>
         <td><%= restaurant.lng %></td>
-        <td><%= link_to 'Show', restaurant %></td>
+        <td><%= link_to 'Show', restaurant_path(restaurant) %></td>
         <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-        <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', restaurant, method: :delete%></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,16 @@
+<h1>Restaurant</h1>
+<strong>Name</strong>  <%= @restaurant.name %>
+<strong>Website</strong> <%= @restaurant.website %>
+<strong>Phone</strong> <%= @restaurant.phone_number %>
+<strong>Address</strong> <%= @restaurant.address %>
+<strong>Yelp ID</strong> <%= @restaurant.yelp_id %>
+<strong>Image</strong> <%= @restaurant.image_url %>
+<strong>Categories</strong> <%= @restaurant.categories %>
+<strong>Lat</strong> <%= @restaurant.lat %>
+<strong>Long</strong> <%= @restaurant.lng %>
+
+<%= link_to 'Show', restaurant %>
+<%= link_to 'Edit', edit_restaurant_path(restaurant) %>
+<%= link_to 'Destroy', restaurant, method: :delete%>
+<%= link_to 'New Restaurant', new_restaurant_path %>
+<%= link_to 'Restaurants', restaurants_path %>
