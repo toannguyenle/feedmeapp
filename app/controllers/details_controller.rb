@@ -1,4 +1,4 @@
-class RestaurantsController < ApplicationController
+class DetailsController < ApplicationController
   def index
     details = Details.all
     render json: details, status: 200
