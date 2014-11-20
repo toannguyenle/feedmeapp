@@ -13,6 +13,8 @@ end
 gem 'unicorn'
 # Rails Templates Helper
 gem 'angular-rails-templates'
+
+
 # Bower gem file
 gem 'bower-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

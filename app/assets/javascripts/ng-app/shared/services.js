@@ -1,6 +1,6 @@
-angular.module('feedmeApp')
-// SERVICE
-.service('api',['$http', function($http){
+var app = angular.module('feedmeApp');
+
+app.service('api',['$http', function($http){
   return {
 
     getOrder: function(){
