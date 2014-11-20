@@ -2,7 +2,7 @@ Feedmeapp::Application.routes.draw do
   # Root Routing
   root 'restaurants#index'
   # Rerouting everything else to index page
-  get '*path' => 'restaurants#index'
+  # get '*path' => 'restaurants#index'
   # API ROUTES
   # scope 'api', defaults: {format: :json} do
   #   resources :orders, only: [:index, :create, :update, :destroy]
