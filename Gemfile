@@ -1,4 +1,14 @@
 source 'https://rubygems.org'
+# Testing
+# Add factory girl
+gem 'factory_girl_rails'
+group :development, :test do
+  # Gem for rspec
+  gem 'rspec-rails', '~>3.0.0'
+
+  # validation-association matchers
+  gem 'shoulda-matchers', require: false
+end
 # Unicorn
 gem 'unicorn'
 # Rails Templates Helper
