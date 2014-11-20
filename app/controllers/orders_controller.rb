@@ -4,6 +4,11 @@ class OrdersController < ApplicationController
     render json: orders, status: 200
   end
 
+  def new
+    order = Order.new
+    # render json: order, status: 201
+  end
+  
   def create
     order = Order.create(order_params)
     render json: order, status: 201

@@ -1,5 +1,16 @@
 source 'https://rubygems.org'
+# Testing
+# Add factory girl
+gem 'factory_girl_rails'
+group :development, :test do
+  # Gem for rspec
+  gem 'rspec-rails', '~>3.0.0'
 
+  # validation-association matchers
+  gem 'shoulda-matchers', require: false
+end
+# Unicorn
+gem 'unicorn'
 # Rails Templates Helper
 gem 'angular-rails-templates'
 # Bower gem file
@@ -49,3 +60,13 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'bootstrap-sass', '~> 3.2.0'
+
+#added to the bottom of the Gemfile, note we do not need to specify the 'pg' postgres
+#gem as we have already added it by default
+group :production do
+
+  #gem for heroku to handle assets
+  gem 'rails_12factor', '0.0.2'
+
+end
+ruby "2.1.2"
