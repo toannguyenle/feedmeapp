@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119064202) do
+ActiveRecord::Schema.define(version: 20141121014144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,20 +22,14 @@ ActiveRecord::Schema.define(version: 20141119064202) do
     t.string   "estimated_delivery_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id"
   end
-
-  add_index "deliveries", ["order_id"], name: "index_deliveries_on_order_id", using: :btree
 
   create_table "details", force: true do |t|
     t.string   "status"
     t.string   "additional_info"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id"
   end
-
-  add_index "details", ["order_id"], name: "index_details_on_order_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.string   "product_count"
@@ -57,10 +51,7 @@ ActiveRecord::Schema.define(version: 20141119064202) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id"
   end
-
-  add_index "payments", ["order_id"], name: "index_payments_on_order_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -106,9 +97,7 @@ ActiveRecord::Schema.define(version: 20141119064202) do
     t.string   "lng"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id"
+    t.string   "password_digest"
   end
-
-  add_index "users", ["order_id"], name: "index_users_on_order_id", using: :btree
 
 end
