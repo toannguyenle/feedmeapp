@@ -1,4 +1,7 @@
 class DeliveriesController < ApplicationController
+
+  skip_before_filter :authorize
+
   def index
     deliveries = Delivery.all
     render json: deliveries, status: 200

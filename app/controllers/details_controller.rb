@@ -1,4 +1,7 @@
 class DetailsController < ApplicationController
+
+  skip_before_filter :authorize
+  
   def index
     details = Details.all
     render json: details, status: 200
