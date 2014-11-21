@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+
+  skip_before_filter :authorize
+  
   def index
     orders = Order.all
     render json: orders, status: 200

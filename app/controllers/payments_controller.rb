@@ -1,4 +1,7 @@
 class PaymentsController < ApplicationController
+
+  skip_before_filter :authorize
+  
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
   def index

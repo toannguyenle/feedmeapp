@@ -9,6 +9,21 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 </head>
 <body>
+
+  <div id="container">
+    <div id="user_header">
+        <% if current_user %>
+          Logged in as <%= current_user.email %>.
+          <%= link_to "Log Out", logout_path %>
+        <% else %>
+          <%= link_to "Sign Up", signup_path %> or
+          <%= link_to "Log In", login_path %>
+        <% end %>
+    </div>
+  </div>
+    <% flash.each do |name,msg| %>
+        <%= content_tag :div, msg, id: "flash_#{name}" %>
+    <% end %>
 <!-- ng-app="feedmeApp" manifest="assets/javascripts/ng-app/app.js" -->
 <!--   <a ui-sref="home">home</a>
   <a ui-sref="options">options</a>
