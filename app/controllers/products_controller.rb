@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-  skip_before_filter :authorize
+  skip_before_filter :authorize, only: [:index, :show]
 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
   end
 
   def new
+    @restaurant = current_user.restaurants.first
     @product = Product.new
   end
 
@@ -19,8 +20,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-
+    @product = current_user.restaurants.first.products.new(product_params)
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -58,6 +58,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :categories, :description, :image_urls, :regular_price, :discount_price, :discount_start_time, :discount_end_time, :discount_inventory, order_ids: [])
+      params.require(:product).permit(:name, :categories, :description, :image_urls, :regular_price, :discount_price, :discount_start_time, :discount_end_time, :discount_inventory, :ordr, :delivery_method, :restaurant_id, order_ids: [])
     end
 end

@@ -1,6 +1,4 @@
-<h1>Listing products</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -24,15 +22,19 @@
         <td><%= product.name %></td>
         <td><%= product.categories %></td>
         <td><%= product.description %></td>
-        <td><%= product.image_urls %></td>
+        <td><%= image_tag(product.image_urls, width: "50px") %></td>
         <td><%= product.regular_price %></td>
         <td><%= product.discount_price %></td>
-        <td><%= product.discount_start_time %></td>
-        <td><%= product.discount_end_time %></td>
+        <td><%= product.discount_start_time.strftime("%I:%M %p") %></td>
+        <td><%= product.discount_end_time.strftime("%I:%M %p") %></td>
         <td><%= product.discount_inventory %></td>
+        <% if current_user == product.restaurant.user %>
+          <td><%= link_to 'Edit', edit_product_path(product) %></td>
+          <td><%= link_to 'Delete', product, method: :delete %></td>
+        <% else %>
+          <td><%= link_to 'Order', new_order_path(product), :data => {:controller => "orders", :action => "new"}%></td>
+        <% end %>
         <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +42,4 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New item', new_product_path %>

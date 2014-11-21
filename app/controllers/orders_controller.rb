@@ -1,25 +1,25 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
-  skip_before_filter :authorize
+  skip_before_filter :authorize, only: [:new]
   
   def index
-    orders = Order.all
+    @orders = Order.all
   end
 
   def show
   end
   
   def new
-    order = Order.new
+    @product = Product.find(params[:format])
+    @order = Order.new
   end
 
   def edit
   end
   
   def create
-    order = Order.new(order_params)
-
+    @order = current_user.orders.new(order_params)
+    
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -45,6 +45,7 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
+    
     respond_to do |format|
       format.html { redirect_to orders_url }
       format.json { head :no_content }
@@ -55,9 +56,11 @@ class OrdersController < ApplicationController
 
   def set_order
       @order = Order.find(params[:id])
-    end
+  end
     
   def order_params
-    params.require(:order).permit(:product_count, :processing_time, :payment_id, :detail_id, :delivery_id, :restaurant_id, :product_id)
+    params.require(:order).permit(:product_count, :processing_time, :payment_type, :amount, :status, :delivery_option, :delivered_by, :additional_info, :user_id, :product_id)
   end
+
 end
+
