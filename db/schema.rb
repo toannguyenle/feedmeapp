@@ -11,63 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121014144) do
+ActiveRecord::Schema.define(version: 20141121050625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "auths", force: true do |t|
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "deliveries", force: true do |t|
-    t.string   "delivery_method"
-    t.string   "delivered_by"
-    t.string   "estimated_delivery_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "order_id"
-  end
-
-  add_index "deliveries", ["order_id"], name: "index_deliveries_on_order_id", using: :btree
-
-  create_table "details", force: true do |t|
+  create_table "orders", force: true do |t|
+    t.string   "product_count"
+    t.string   "payment_type"
+    t.integer  "processing_time"
+    t.float    "amount"
     t.string   "status"
+    t.string   "delivery_option"
+    t.string   "delivered_by"
     t.string   "additional_info"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id"
+    t.integer  "user_id"
+    t.integer  "product_id"
   end
 
-  add_index "details", ["order_id"], name: "index_details_on_order_id", using: :btree
-
-  create_table "orders", force: true do |t|
-    t.string   "product_count"
-    t.integer  "processing_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "payment_id"
-    t.integer  "detail_id"
-    t.integer  "delivery_id"
-  end
-
-  add_index "orders", ["delivery_id"], name: "index_orders_on_delivery_id", using: :btree
-  add_index "orders", ["detail_id"], name: "index_orders_on_detail_id", using: :btree
-  add_index "orders", ["payment_id"], name: "index_orders_on_payment_id", using: :btree
-
-  create_table "payments", force: true do |t|
-    t.string   "payment_method"
-    t.string   "amount"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "order_id"
-  end
-
-  add_index "payments", ["order_id"], name: "index_payments_on_order_id", using: :btree
+  add_index "orders", ["product_id"], name: "index_product_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_order_user_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -79,12 +44,14 @@ ActiveRecord::Schema.define(version: 20141121014144) do
     t.time     "discount_start_time"
     t.time     "discount_end_time"
     t.integer  "discount_inventory"
+    t.string   "ordr"
+    t.string   "delivery_method"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id"
+    t.integer  "restaurant_id"
   end
 
-  add_index "products", ["order_id"], name: "index_products_on_order_id", using: :btree
+  add_index "products", ["restaurant_id"], name: "index_restaurant_id", using: :btree
 
   create_table "restaurants", force: true do |t|
     t.string   "name"
@@ -94,29 +61,25 @@ ActiveRecord::Schema.define(version: 20141121014144) do
     t.string   "yelp_id"
     t.string   "image_url"
     t.string   "categories"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "lat"
     t.string   "lng"
-    t.integer  "order_id"
-    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
-  add_index "restaurants", ["order_id"], name: "index_restaurants_on_order_id", using: :btree
-  add_index "restaurants", ["product_id"], name: "index_restaurants_on_product_id", using: :btree
+  add_index "restaurants", ["user_id"], name: "index_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
+    t.string   "password_digest"
     t.string   "email"
     t.string   "phone_number"
     t.string   "lat"
     t.string   "lng"
+    t.integer  "type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id"
-    t.string   "password_digest"
   end
-
-  add_index "users", ["order_id"], name: "index_users_on_order_id", using: :btree
 
 end
