@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Categories:</strong>
+  <%= @product.categories %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>Image urls:</strong>
+  <%= @product.image_urls %>
+</p>
+
+<p>
+  <strong>Regular price:</strong>
+  <%= @product.regular_price %>
+</p>
+
+<p>
+  <strong>Discount price:</strong>
+  <%= @product.discount_price %>
+</p>
+
+<p>
+  <strong>Discount start time:</strong>
+  <%= @product.discount_start_time %>
+</p>
+
+<p>
+  <strong>Discount end time:</strong>
+  <%= @product.discount_end_time %>
+</p>
+
+<p>
+  <strong>Discount inventory:</strong>
+  <%= @product.discount_inventory %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

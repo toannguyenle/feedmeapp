@@ -49,5 +49,14 @@ Feedmeapp::Application.routes.draw do
   get 'orders/:id/edit' => 'orders#edit', as: :edit_order
   patch 'orders/:id' => 'orders#update'
   delete 'orders/:id' => 'orders#destroy'
+
+  # Payment Routes
+  get 'payments/' => 'payments#index'
+  get 'payments/new' => 'payments#new', as: :new_payment
+  get 'payments/:id' => 'payments#show', as: :payment
+  post 'payments/' => 'payments#create'
+  get 'payments/:id/edit' => 'payments#edit', as: :edit_payment
+  patch 'payments/:id' => 'payments#update'
+  delete 'payments/:id' => 'payments#destroy'
   
 end
