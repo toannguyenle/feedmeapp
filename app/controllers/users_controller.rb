@@ -23,20 +23,11 @@ class UsersController < ApplicationController
 
     if @user.save
         session[:user_id] = @user.id
-        redirect_to root_url, notice: "Thank you for signing up!"
-    else
-        render "new"
-    end
-  end
-
-    respond_to do |format|
-      if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
-      else
+    else
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
     end
   end
 
@@ -60,12 +51,13 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    def set_user
-      @user = User.find(params[:id])
-    end
+private
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def user_params
-      params.require(:user).permit(:name, :email, :phone_number, :lat, :lng, :password, :password_confirmation, :password_digest, order_ids: [])
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :phone_number, :lat, :lng, :type, :password, :password_confirmation, :password_digest)
+  end
 
+end
