@@ -1,14 +1,38 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Product count:</strong>
-  <%= @order.product_count %>
+  <strong>Product Name</strong>
+    <strong>Name</strong>
+    <%#= raise @order.user.inspect %>
+    <%= @order.product.name %><br>
+    from <%= @order.product.restaurant.name %><br>
+    price: $<%= @order.product.regular_price %>
+    <strong>Ordered by </strong><%= @order.user.name %>
+    <strong>Product count:</strong>
+    <%= @order.product_count %><br>
+    <strong>Amount</strong>
+    <%= @order.amount %>
+    <strong>Processing time:</strong>
+    <%= @order.processing_time %>
+    <strong>Payment Type</strong>
+    <%= @order.payment_type %><br>
+    <strong>Processing Time</strong>
+    <%= @order.processing_time %>
+    <strong>Status</strong>
+    <%= @order.status %>
+    <strong>Delivery Option</strong>
+    <%= @order.delivery_option %>
+    <strong>Delivered By</strong>
+    <%= @order.delivered_by %>
+    <strong>Additional Info</strong>
+    <%= @order.additional_info %>
+    <strong>Created at</strong>
+    <%= @order.created_at %>
+    <strong>Last updated at</strong>
+    <%= @order.updated_at %>
 </p>
 
-<p>
-  <strong>Processing time:</strong>
-  <%= @order.processing_time %>
-</p>
+
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

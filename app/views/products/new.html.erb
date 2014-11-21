@@ -1,59 +1,77 @@
-<%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<% if current_user.restaurants.first %>
+  <div> New menu item for <%= current_user.restaurants.first.name %></div>
+  <%= form_for(@product) do |f| %>
+    <% if @product.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+        <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :categories %><br>
+      <%= f.text_field :categories %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_field :description %>
+    </div>
+    <div class="field">
+      <%= f.label :image_urls %><br>
+      <%= f.text_field :image_urls %>
+    </div>
+    <div class="field">
+      <%= f.label :regular_price %><br>
+      <%= f.text_field :regular_price %>
+    </div>
+    <div class="field">
+      <%= f.label :delivery_method %><br>
+      <%= f.label "Deliver" %>
+      <%= f.check_box(:delivery_method,{:multiple => true}, "Deliver")%>
+      <%= f.label "Take out" %>
+      <%= f.check_box(:delivery_method,{:multiple => true}, "Take out",nil)%>
+      <%= f.label "Dine in" %>
+      <%= f.check_box(:delivery_method,{:multiple => true}, "Dine in",nil)%>
+    </div>
+    <div class="field">
+      <%= f.label :ordr %><br>
+      <%= f.text_field :ordr %>
+    </div>
+    <div class="field">
+      <%= f.label :discount_price %><br>
+      <%= f.text_field :discount_price %>
+    </div>
+    <div class="field">
+      <%= f.label :discount_start_time %><br>
+      <%= f.time_select :discount_start_time %>
+    </div>
+    <div class="field">
+      <%= f.label :discount_end_time %><br>
+      <%= f.time_select :discount_end_time %>
+    </div>
+    <div class="field">
+      <%= f.label :discount_inventory %><br>
+      <%= f.text_field :discount_inventory %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :categories %><br>
-    <%= f.text_field :categories %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :image_urls %><br>
-    <%= f.text_field :image_urls %>
-  </div>
-  <div class="field">
-    <%= f.label :regular_price %><br>
-    <%= f.text_field :regular_price %>
-  </div>
-  <div class="field">
-    <%= f.label :discount_price %><br>
-    <%= f.text_field :discount_price %>
-  </div>
-  <div class="field">
-    <%= f.label :discount_start_time %><br>
-    <%= f.time_select :discount_start_time %>
-  </div>
-  <div class="field">
-    <%= f.label :discount_end_time %><br>
-    <%= f.time_select :discount_end_time %>
-  </div>
-  <div class="field">
-    <%= f.label :discount_inventory %><br>
-    <%= f.text_field :discount_inventory %>
-  </div>
-  <div class="field">
-    <%= f.label :restaurant_id %><br>
-    <%= f.collection_select :restaurant_id, Restaurant.all, :id, :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<% else %>
+  <% if current_user.is_business %>
+    <p><%= link_to "Please create your restaurant first.", new_restaurant_path %></p>
+  <% else %>
+    <p>You can't create new product. Please sign in as business user.</p>
+  <% end %>
 <% end %>
 
 <%= link_to 'Back', products_path %>

@@ -1,25 +1,25 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
-  skip_before_filter :authorize
+  skip_before_filter :authorize, only: [:new]
   
   def index
-    orders = Order.all
+    @orders = Order.all
   end
 
   def show
   end
   
   def new
-    order = Order.new
+    @product = Product.find(params[:format])
+    @order = Order.new
   end
 
   def edit
   end
   
   def create
-    order = Order.new(order_params)
-
+    @order = current_user.orders.new(order_params)
+    
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }

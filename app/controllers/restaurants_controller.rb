@@ -1,7 +1,5 @@
 class RestaurantsController < ApplicationController
-
-  skip_before_filter :authorize
-  
+  skip_before_filter :authorize, only: [:index, :show]
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
   def index
     @restaurants = Restaurant.all
@@ -18,8 +16,7 @@ class RestaurantsController < ApplicationController
   end
   
   def create
-    @restaurant = Restaurant.new(restaurant_params)
-
+    @restaurant = current_user.restaurants.new(restaurant_params)
     respond_to do |format|
       if @restaurant.save
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.'} 
