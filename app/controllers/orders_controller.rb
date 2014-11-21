@@ -1,33 +1,62 @@
 class OrdersController < ApplicationController
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
+
+  skip_before_filter :authorize
+  
   def index
     orders = Order.all
-    render json: orders, status: 200
   end
 
+  def show
+  end
+  
   def new
     order = Order.new
-    # render json: order, status: 201
+  end
+
+  def edit
   end
   
   def create
-    order = Order.create(order_params)
-    render json: order, status: 201
+    order = Order.new(order_params)
+
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @order }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
-    order = Order.find(params[:id])
-    order.update_attributes(order_params)
-    render nothing: true, status: 204
+    respond_to do |format|
+      if @order.update(order_params)
+        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
-    order = Order.find(params[:id])
-    order.destroy
-    render nothing: true, status: 204
+    @order.destroy
+    respond_to do |format|
+      format.html { redirect_to orders_url }
+      format.json { head :no_content }
+    end
   end
 
   private
 
+  def set_order
+      @order = Order.find(params[:id])
+    end
+    
   def order_params
     params.require(:order).permit(:product_count, :processing_time, :payment_id, :detail_id, :delivery_id, :restaurant_id, :product_id)
   end

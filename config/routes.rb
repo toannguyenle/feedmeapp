@@ -1,6 +1,22 @@
 Feedmeapp::Application.routes.draw do
+  #added for Authentication
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
+  
+  resources :sessions
+
+
+  #removed to add above Authentication
+  # get "sessions"
+  
+
   # Root Routing
-  root 'restaurants#index'
+  # root 'restaurants#index'
+
+  # For Authentication
+  root 'users#index'
+
   # Rerouting everything else to index page
   # get '*path' => 'restaurants#index'
   # API ROUTES
@@ -49,5 +65,14 @@ Feedmeapp::Application.routes.draw do
   get 'orders/:id/edit' => 'orders#edit', as: :edit_order
   patch 'orders/:id' => 'orders#update'
   delete 'orders/:id' => 'orders#destroy'
+
+  # Payment Routes
+  get 'payments/' => 'payments#index'
+  get 'payments/new' => 'payments#new', as: :new_payment
+  get 'payments/:id' => 'payments#show', as: :payment
+  post 'payments/' => 'payments#create'
+  get 'payments/:id/edit' => 'payments#edit', as: :edit_payment
+  patch 'payments/:id' => 'payments#update'
+  delete 'payments/:id' => 'payments#destroy'
   
 end
