@@ -24,10 +24,9 @@
   <strong>Lng:</strong>
   <%= @user.lng %>
 </p>
-
 <p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
+  <strong>Business?</strong>
+  <%= @user.is_business %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

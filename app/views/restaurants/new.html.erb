@@ -39,15 +39,9 @@
     <%= f.label :categories %><br>
     <%= f.text_field :categories %>
   </div>
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.text_field :lat %>
-  </div>
-  <div class="field">
-  <%= f.label :lng %><br>
-  <%= f.text_field :lng %>
-  </div>
   <div class="actions">
+    <%= f.hidden_field :lat, :value => 34.0218628 %>
+    <%= f.hidden_field :lng, :value => -118.4804206 %>
     <%= f.submit %>
   </div>
 <% end %>

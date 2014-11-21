@@ -1,4 +1,8 @@
 <p id="notice"><%= notice %></p>
+<p>
+  <strong>Restaurant</strong>
+  <%= @product.restaurant.name %>
+</p>
 
 <p>
   <strong>Name:</strong>
@@ -16,8 +20,8 @@
 </p>
 
 <p>
-  <strong>Image urls:</strong>
-  <%= @product.image_urls %>
+  <strong>Image</strong>
+  <%= image_tag(@product.image_urls, width: "50px") %>
 </p>
 
 <p>
@@ -32,12 +36,12 @@
 
 <p>
   <strong>Discount start time:</strong>
-  <%= @product.discount_start_time %>
+  <%= @product.discount_start_time.strftime("%I:%M %p") %>
 </p>
 
 <p>
   <strong>Discount end time:</strong>
-  <%= @product.discount_end_time %>
+  <%= @product.discount_end_time.strftime("%I:%M %p") %>
 </p>
 
 <p>

@@ -15,7 +15,7 @@ Feedmeapp::Application.routes.draw do
   # root 'restaurants#index'
 
   # For Authentication
-  root 'users#index'
+  root 'products#index'
 
   # Rerouting everything else to index page
   # get '*path' => 'restaurants#index'
@@ -51,6 +51,7 @@ Feedmeapp::Application.routes.draw do
   # User Routes
   get 'users/' => 'users#index'
   get 'users/new' => 'users#new', as: :new_user
+  get 'users/new_business' => 'users#new_business', as: :new_business
   get 'users/:id' => 'users#show', as: :user
   post 'users/' => 'users#create'
   get 'users/:id/edit' => 'users#edit', as: :edit_user
