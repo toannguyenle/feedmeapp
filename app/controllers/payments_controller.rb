@@ -1,34 +1,60 @@
 class PaymentsController < ApplicationController
+  before_action :set_payment, only: [:show, :edit, :update, :destroy]
+
   def index
-    payments = Payment.all
-    render json: payments, status: 200
+    @payments = Payment.all
+  end
+
+  def show
   end
 
   def new
-    payment = Payment.new
-    # render json: restaurant, status: 201
+    @payment = Payment.new
   end
-  
+
+  def edit
+  end
+
   def create
-    payment = Payment.create(payment_params)
-    render json: restaurant, status: 201
+    @payment = Payment.new(payment_params)
+
+    respond_to do |format|
+      if @payment.save
+        format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @payment }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @payment.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
-    payment = Payment.find(params[:id])
-    payment.update_attributes(payment_params)
-    render nothing: true, status: 204
+    respond_to do |format|
+      if @payment.update(payment_params)
+        format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @payment.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
-    payment = Payment.find(params[:id])
-    payment.destroy
-    render nothing: true, status: 204
+    @payment.destroy
+    respond_to do |format|
+      format.html { redirect_to payments_url }
+      format.json { head :no_content }
+    end
   end
 
   private
+    def set_payment
+      @payment = Payment.find(params[:id])
+    end
 
-  def payment_params
-    params.require(:payment).permit(:payment_method, :amount, :status, :order_id)
-  end
+    def payment_params
+      params.require(:payment).permit(:payment_method, :amount, :status, :order_id)
+    end
 end
