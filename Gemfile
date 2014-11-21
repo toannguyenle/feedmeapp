@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 # Testing
+gem 'better_errors'
+gem 'binding_of_caller'
 # Add factory girl
 gem 'factory_girl_rails'
 group :development, :test do
