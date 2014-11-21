@@ -1,0 +1,16 @@
+<div>
+
+		<% deliveries.each do |d| %>
+
+			<p><%= d.status %></p>
+			<p><%= d.additional_info %></p> 
+			<p><%= d.order_id %></p>
+
+			<%= link_to , _path(d) %>
+			
+
+		<% end %>
+
+</div>
+
+<%= link_to ,  %>

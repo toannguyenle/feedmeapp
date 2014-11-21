@@ -16,13 +16,6 @@ ActiveRecord::Schema.define(version: 20141121014144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "auths", force: true do |t|
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "deliveries", force: true do |t|
     t.string   "delivery_method"
     t.string   "delivered_by"
