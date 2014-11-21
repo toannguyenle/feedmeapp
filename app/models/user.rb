@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	has_many :orders
+  has_many :products, through: :orders
 
 	include ActiveModel::SecurePassword
 
@@ -10,4 +11,5 @@ class User < ActiveRecord::Base
   validates_length_of :name, maximum: 50
   validates_length_of :email, maximum: 50
   validates_length_of :phone_number, maximum: 15
+  validates_length_of :password_digest, minimum: 6
 end

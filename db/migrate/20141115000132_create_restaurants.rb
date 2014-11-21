@@ -8,6 +8,8 @@ class CreateRestaurants < ActiveRecord::Migration
       t.string :yelp_id
       t.string :image_url
       t.string :categories
+      t.string :lat
+      t.string :lng
 
       t.timestamps
     end

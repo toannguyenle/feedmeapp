@@ -10,6 +10,8 @@ class CreateProducts < ActiveRecord::Migration
       t.time :discount_start_time
       t.time :discount_end_time
       t.integer :discount_inventory
+      t.string :ordr
+      t.string :delivery_method
 
       t.timestamps
     end
