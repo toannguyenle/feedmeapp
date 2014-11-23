@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authorize, only: [:new]
   
   def index
     @orders = Order.all
@@ -10,13 +9,31 @@ class OrdersController < ApplicationController
   end
   
   def new
-    @product = Product.find(params[:format])
-    @order = Order.new
+    if params[:format]
+      @product = Product.find(params[:format])
+      @order = Order.new
+    else
+      redirect_to products_path, notice: 'Please select your favorite food first!'
+    end
   end
 
   def edit
   end
   
+  # Add new product to Order (make a new order)
+  def add_to_current_order
+    if current_user.orders.where(status:'Open').first
+      current_order = current_user.orders.where(status:'Open').first
+      OrderProduct.create({product_id: params[:product],order_id: current_order.id})
+    else
+      current_order = current_user.orders.create(order_params)
+      # current_order.status = 'Open'
+      current_order.update(status: 'Open')
+      OrderProduct.create({product_id: params[:product],order_id: current_order.id})
+    end
+    redirect_to order_path(current_order)
+  end
+
   def create
     @order = current_user.orders.new(order_params)
     

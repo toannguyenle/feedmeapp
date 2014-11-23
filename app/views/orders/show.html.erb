@@ -1,38 +1,61 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Product Name</strong>
-    <strong>Name</strong>
-    <%#= raise @order.user.inspect %>
-    <%= @order.product.name %><br>
-    from <%= @order.product.restaurant.name %><br>
-    price: $<%= @order.product.regular_price %>
-    <strong>Ordered by </strong><%= @order.user.name %>
-    <strong>Product count:</strong>
+    <strong>Ordered by </strong><%= @order.user.name %><br>
+    <strong>Product count</strong>
     <%= @order.product_count %><br>
     <strong>Amount</strong>
-    <%= @order.amount %>
-    <strong>Processing time:</strong>
-    <%= @order.processing_time %>
+    <%= @order.amount %><br>
+    <strong>Processing time</strong>
+    <%= @order.processing_time %><br>
     <strong>Payment Type</strong>
     <%= @order.payment_type %><br>
     <strong>Processing Time</strong>
-    <%= @order.processing_time %>
+    <%= @order.processing_time %><br>
     <strong>Status</strong>
-    <%= @order.status %>
+    <%= @order.status %><br>
     <strong>Delivery Option</strong>
-    <%= @order.delivery_option %>
+    <%= @order.delivery_option %><br>
     <strong>Delivered By</strong>
-    <%= @order.delivered_by %>
+    <%= @order.delivered_by %><br>
     <strong>Additional Info</strong>
-    <%= @order.additional_info %>
+    <%= @order.additional_info %><br>
     <strong>Created at</strong>
-    <%= @order.created_at %>
+    <%= @order.created_at %><br>
     <strong>Last updated at</strong>
-    <%= @order.updated_at %>
+    <%= @order.updated_at %><br>
 </p>
 
-
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Categories</th>
+      <th>Descrip</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>Restaurant</th>
+      <th>Remove</th>
+      <th>Edit</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.categories %></td>
+        <td><%= product.description %></td>
+        <td><%= image_tag(product.image_urls, width: '100') %></td>
+        <td><%= number_to_currency(product.regular_price) %></td>
+        <td><%= product.restaurant.name %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
