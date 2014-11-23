@@ -8,7 +8,9 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app="feedmeApp" manifest="assets/javascripts/angular/app.js">
+
+  <a ui-sref="home">home</a>
 
   <div id="container">
     <div id="user_header">
@@ -21,16 +23,8 @@
         <p><%= notice %></p>
     </div>
   </div>
-<!-- ng-app="feedmeApp" manifest="assets/javascripts/ng-app/app.js" -->
-<!--   <a ui-sref="home">home</a>
-  <a ui-sref="options">options</a>
-  <a ui-sref="order">order</a>
-  <a ui-sref="newOrder">new order</a>
-  <a ui-sref="product">product</a>
-  <a ui-sref="newProduct">new product</a>
-  <a ui-sref="user">user</a>
-  <a ui-sref="restaurant">restaurant</a>
-  <a ui-sref="newRestaurant">new resto</a> -->
+  
+
   
 <%= yield %>
 

@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
-# Testing
-gem 'better_errors'
-gem 'binding_of_caller'
-# Add factory girl
-gem 'factory_girl_rails'
+
 group :development, :test do
+
+  # Testing
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  # Add factory girl
+  gem 'factory_girl_rails'
   # Gem for rspec
   gem 'rspec-rails', '~>3.0.0'
 
@@ -13,9 +15,9 @@ group :development, :test do
 end
 # Unicorn
 gem 'unicorn'
+
 # Rails Templates Helper
 gem 'angular-rails-templates'
-
 
 # Bower gem file
 gem 'bower-rails'

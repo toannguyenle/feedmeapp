@@ -6,29 +6,16 @@ Feedmeapp::Application.routes.draw do
   
   resources :sessions
 
-
-  #removed to add above Authentication
-  # get "sessions"
-  
-
-  # Root Routing
-  # root 'restaurants#index'
-
   # For Authentication
   root 'products#index'
 
   # Rerouting everything else to index page
-  # get '*path' => 'restaurants#index'
+  get '*path' => 'products#index'
+
   # API ROUTES
-  # scope 'api', defaults: {format: :json} do
-  #   resources :orders, only: [:index, :create, :update, :destroy]
-  #   resources :restaurants, only: [:index, :create, :update, :destroy]
-  #   resources :products, only: [:index, :create, :update, :destroy]
-  #   resources :users, only: [:index, :create, :update, :destroy]
-  #   resources :delivery, only: [:index, :create, :update, :destroy]
-  #   resources :detail, only: [:index, :create, :update, :destroy]
-  #   resources :payment, only: [:index, :create, :update, :destroy]
-  # end
+  scope 'api', defaults: {format: :json} do
+    get 'products/' => 'products#index'
+  end
 
   # Restaurants Routes
   get 'restaurants/' => 'restaurants#index'
