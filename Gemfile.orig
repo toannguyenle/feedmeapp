@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
+<<<<<<< HEAD
 gem 'ordrin'
 group :development, :test do
+
+  # Testing
+=======
+
+group :development, :test do
     # Testing
+>>>>>>> master
   gem 'better_errors'
   gem 'binding_of_caller'
   # Add factory girl
