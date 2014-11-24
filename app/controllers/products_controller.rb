@@ -4,6 +4,23 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    # ORDRIN TEST
+    require "ordrin"
+    ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
+    raise ordrin_params.inspect
+    args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
+    delivery_list = ordrin_api.delivery_list(args)
+    render json: delivery_list, status: 200
+  end
+
+  def ordrin_search
+    # ORDRIN TEST
+    require "ordrin"
+    ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
+    raise ordrin_params.inspect
+    args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
+    delivery_list = ordrin_api.delivery_list(args)
+    render json: delivery_list, status: 200
   end
 
   def show
@@ -15,6 +32,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+            raise ordrin_params.inspect
   end
 
   def create
@@ -54,8 +72,10 @@ class ProductsController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
-
+    def ordrin_params
+      params.require(:ordrin).permit(:ordrin_zip, :ordrin_route, :ordrin_city, :ordrin_budget)
+    end
     def product_params
-      params.require(:product).permit(:name, :categories, :description, :image_urls, :regular_price, :discount_price, :discount_start_time, :discount_end_time, :discount_inventory, :ordr, :delivery_method, :restaurant_id, order_ids: [])
+      params.require(:product).permit(:name, :categories, :description, :image_urls, :regular_price, :discount_price, :discount_start_time, :discount_end_time, :discount_inventory, :ordr, :delivery_method, :restaurant_id)
     end
 end
