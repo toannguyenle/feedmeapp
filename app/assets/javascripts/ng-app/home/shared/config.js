@@ -6,8 +6,18 @@ angular.module('feedmeApp')
   // Define state
   $stateProvider
     .state('home', {
-      url: '/home',
+      url: '/',
       templateUrl: 'home.html',
+      controller: 'HomeCtrl'
+    })
+    .state('products', {
+      url: '/products',
+      templateUrl: 'products.html',
+      controller: 'HomeCtrl'
+    })
+    .state('order', {
+      url: '/order',
+      templateUrl: 'order.html',
       controller: 'HomeCtrl'
     });
 }]);

@@ -1,0 +1,24 @@
+<button ng-click="getProduct()">Show Products</button>
+<h1>Product Page</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>From Restaurant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="r in products">
+      <td>{{r.id}}</td>
+      <td>{{r.name}}</td>
+      <td>{{r.description}}</td>
+      <td> <img ng-src="{{r.image_urls}}" width="100px"></td>
+      <td>{{r.price}}</td>
+      <td>{{r.restaurant_id}}</td>
+    </tr>
+  </tbody>
+</table>

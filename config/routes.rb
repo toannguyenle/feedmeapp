@@ -1,4 +1,10 @@
 Feedmeapp::Application.routes.draw do
+  # For Authentication
+  root 'application#index'
+
+  # Rerouting everything else to index page
+  # get '*path' => 'application#index'
+
   #added for Authentication
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
@@ -6,16 +12,10 @@ Feedmeapp::Application.routes.draw do
   
   resources :sessions
 
-  # For Authentication
-  root 'products#index'
-
-  # Rerouting everything else to index page
-  get '*path' => 'products#index'
-
   # API ROUTES
-  scope 'api', defaults: {format: :json} do
-    get 'products/' => 'products#index'
-  end
+  # scope 'api', defaults: {format: :json} do
+  #   get 'products/' => 'products#index'
+  # end
 
   # Restaurants Routes
   get 'restaurants/' => 'restaurants#index'

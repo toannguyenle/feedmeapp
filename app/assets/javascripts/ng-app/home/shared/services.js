@@ -23,7 +23,7 @@ angular.module('feedmeApp')
 
     // GET PRODUCT
     getProduct: function(){
-      var promise = $http.get('/api/products')
+      var promise = $http.get('./products.json')
       .then(function(response){
         return response;
       });

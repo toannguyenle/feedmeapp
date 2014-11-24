@@ -6,6 +6,10 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    respond_to do |format|
+      format.html { redirect_to @product }
+      format.json { render json: @products, status: 200 }
+    end
   end
 
   def show
