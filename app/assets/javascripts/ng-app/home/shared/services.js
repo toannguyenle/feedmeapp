@@ -13,7 +13,7 @@ angular.module('feedmeApp')
 
     // CREATE ORDER
     newOrder: function(planetName, planetImage){
-      $http.post('/api/orders', {name: planetName, image: planetImage});
+      $http.patch('/api/orders', {name: planetName, image: planetImage});
     },
 
     // EDIT ORDER
@@ -22,11 +22,13 @@ angular.module('feedmeApp')
     },
 
     // GET PRODUCT
-    getProduct: function(){
-      var promise = $http.get('./products.json')
+    getProduct: function(userAddress, budget){
+      console.log(userAddress, budget);
+      var promise = $http.get('/products/ordrin.json', {ordrin: {ordrin_zip: userAddress.postal_code, ordrin_city: userAddress.locality, ordrin_addr: (userAddress.street_number + ' ' + userAddress.route), ordrin_budget: budget}})
       .then(function(response){
         return response;
       });
+      console.log(promise);
       return promise;
     },
     // ADD PRODUCT

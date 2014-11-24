@@ -9,16 +9,18 @@
       <th>Image</th>
       <th>Price</th>
       <th>From Restaurant</th>
+      <th>Order</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="r in products">
-      <td>{{r.id}}</td>
-      <td>{{r.name}}</td>
-      <td>{{r.description}}</td>
-      <td> <img ng-src="{{r.image_urls}}" width="100px"></td>
-      <td>{{r.price}}</td>
-      <td>{{r.restaurant_id}}</td>
+    <tr ng-repeat="product in products">
+      <td>{{product.id}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.description}}</td>
+      <td> <img ng-src="{{product.image_urls}}" width="100px"></td>
+      <td>{{product.price}}</td>
+      <td>{{product.restaurant_id}}</td>
+      <td><button ng-click="orderProduct(product)">Order</button></td>
     </tr>
   </tbody>
 </table>
