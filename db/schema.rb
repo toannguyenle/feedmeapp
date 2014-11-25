@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121072532) do
+ActiveRecord::Schema.define(version: 20141123203652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "order_products", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "order_products", ["order_id"], name: "index_order_products_on_order_id", using: :btree
+  add_index "order_products", ["product_id"], name: "index_order_products_on_product_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.string   "product_count"
@@ -28,10 +38,8 @@ ActiveRecord::Schema.define(version: 20141121072532) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "product_id"
   end
 
-  add_index "orders", ["product_id"], name: "index_product_id", using: :btree
   add_index "orders", ["user_id"], name: "index_order_user_id", using: :btree
 
   create_table "products", force: true do |t|
@@ -57,7 +65,7 @@ ActiveRecord::Schema.define(version: 20141121072532) do
     t.string   "name"
     t.string   "website"
     t.string   "phone_number"
-    t.string   "address"
+    t.string   "street_address_1"
     t.string   "yelp_id"
     t.string   "image_url"
     t.string   "categories"
@@ -66,6 +74,11 @@ ActiveRecord::Schema.define(version: 20141121072532) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "street_address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "country"
   end
 
   add_index "restaurants", ["user_id"], name: "index_user_id", using: :btree
@@ -80,6 +93,12 @@ ActiveRecord::Schema.define(version: 20141121072532) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_business"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "country"
+    t.string   "street_address_1"
+    t.string   "street_address_2"
   end
 
 end

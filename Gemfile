@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
-# Testing
-gem 'better_errors'
-gem 'binding_of_caller'
-# Add factory girl
-gem 'factory_girl_rails'
+gem 'ordrin'
 group :development, :test do
+    # Testing
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  # Add factory girl
+  gem 'factory_girl_rails'
   # Gem for rspec
   gem 'rspec-rails', '~>3.0.0'
 
@@ -13,12 +14,13 @@ group :development, :test do
 end
 # Unicorn
 gem 'unicorn'
+
 # Rails Templates Helper
 gem 'angular-rails-templates'
 
-
 # Bower gem file
 gem 'bower-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
@@ -54,8 +56,6 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development

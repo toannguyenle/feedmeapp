@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
-	has_many :orders
+	include ActiveModel::SecurePassword
+  
+  has_many :orders
   has_many :products, through: :orders
   has_many :restaurants
-	include ActiveModel::SecurePassword
-
+  
 	has_secure_password
 	
   validates_uniqueness_of :email
@@ -11,5 +12,5 @@ class User < ActiveRecord::Base
   validates_length_of :name, maximum: 50
   validates_length_of :email, maximum: 50
   validates_length_of :phone_number, maximum: 15
-  validates_length_of :password_digest, minimum: 6
+  validates_length_of :password, minimum: 3
 end

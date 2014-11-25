@@ -5,33 +5,34 @@
   <%= stylesheet_link_tag    "application", media: "all"%>
   <%= javascript_include_tag "application"%>
   <%= csrf_meta_tags %>
+  <!--<script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxUZBj8AGgXyVRgcDsjZKZnbTKsGuWvaI">-->
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-</head>
-<body>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+ </head> 
+<body ng-app="feedmeApp" manifest="assets/javascripts/angular/app.js">
+
+  <a ui-sref="home">home</a>
+  <a ui-sref="products">products</a>
+  <a ui-sref="order">order</a>
+  <a ui-sref="maps">maps</a>
 
   <div id="container">
     <div id="user_header">
-        <% if current_user %>
-          Logged in as <%= link_to current_user.email, user_path(current_user) %>.
-          <%= link_to "Log Out", logout_path %>
-        <% else %>
-          <%=link_to 'Log in', login_path if !@is_login %>
-        <% end %>
+      <% if current_user %>
+        Logged in as <%= link_to current_user.email, user_path(current_user) %>.
+        <%= link_to "Log Out", logout_path %>
+      <% else %>
+        <%=link_to 'Log in', login_path if !@is_login %>
+      <% end %>
+      <p><%= notice %></p>
     </div>
   </div>
-<!-- ng-app="feedmeApp" manifest="assets/javascripts/ng-app/app.js" -->
-<!--   <a ui-sref="home">home</a>
-  <a ui-sref="options">options</a>
-  <a ui-sref="order">order</a>
-  <a ui-sref="newOrder">new order</a>
-  <a ui-sref="product">product</a>
-  <a ui-sref="newProduct">new product</a>
-  <a ui-sref="user">user</a>
-  <a ui-sref="restaurant">restaurant</a>
-  <a ui-sref="newRestaurant">new resto</a> -->
-  
-<%= yield %>
+
+  <%= yield %>
 
 </body>
 </html>

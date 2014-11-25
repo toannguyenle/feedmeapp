@@ -1,41 +1,29 @@
-<%= form_for(@order) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
-
-      <ul>
-      <% @order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@order, :url => {:action => :add_to_current_order, :controller => :orders, :product => @product}) do |f| %>
   <strong>Name</strong>
   <%= @product.name %><br>
   <strong>Price</strong>
-  <%= @product.regular_price %><br>
+  <%= number_to_currency(@product.regular_price) %><br>
   <strong>from</strong>
   <%= @product.restaurant.name %><br>
+  <strong>Ordered by</strong>
+  <%= current_user.name %><br>
   <div class="field">
     <%= f.label :product_count %><br>
-    <%= f.number_field :product_count %>
+    <%= f.select :product_count, [1,2,3,4,5]%>
+  </div>
+  <div class="field">
+    <%= f.label :delivery_option %><br>
+    <%= f.select :delivery_option, ['Deliver', 'Pick Up', 'Dine In'] %>
   </div>
   <div class="field">
     <%= f.label :payment_type %><br>
-    <%= f.text_field :payment_type %>
+    <%= f.select :payment_type, ['Credit Card','Cash'] %>
   </div>
   <div class="field">
     <%= f.label :additional_info %><br>
     <%= f.text_field :additional_info %>
   </div>
-  <div class="field">
-    <%= f.label :delivery_option %><br>
-    <%= f.text_field :delivery_option %>
-    <%#= raise @product.inspect %>
-    <%#= f.select :delivery_option, options_for_select(@product.delivery_method) %>
-  </div>
   <div class="actions">
-    <%= f.hidden_field :status, :value => "Processing" %>
     <%= f.submit %>
   </div>
 <% end %>

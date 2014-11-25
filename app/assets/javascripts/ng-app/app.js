@@ -1,3 +1,5 @@
-var app = angular.module('feedmeApp', ['ui.router', 'templates']);
+angular.module('feedmeApp', ['ui.router', 'templates']);
+
+
 
 

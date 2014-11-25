@@ -1,4 +1,10 @@
 Feedmeapp::Application.routes.draw do
+  # For Authentication
+  root 'application#index'
+
+  # Rerouting everything else to index page
+  # get '*path' => 'application#index'
+
   #added for Authentication
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
@@ -6,28 +12,9 @@ Feedmeapp::Application.routes.draw do
   
   resources :sessions
 
-
-  #removed to add above Authentication
-  # get "sessions"
-  
-
-  # Root Routing
-  # root 'restaurants#index'
-
-  # For Authentication
-  root 'products#index'
-
-  # Rerouting everything else to index page
-  # get '*path' => 'restaurants#index'
   # API ROUTES
   # scope 'api', defaults: {format: :json} do
-  #   resources :orders, only: [:index, :create, :update, :destroy]
-  #   resources :restaurants, only: [:index, :create, :update, :destroy]
-  #   resources :products, only: [:index, :create, :update, :destroy]
-  #   resources :users, only: [:index, :create, :update, :destroy]
-  #   resources :delivery, only: [:index, :create, :update, :destroy]
-  #   resources :detail, only: [:index, :create, :update, :destroy]
-  #   resources :payment, only: [:index, :create, :update, :destroy]
+  #   get 'products/' => 'products#index'
   # end
 
   # Restaurants Routes
@@ -41,6 +28,7 @@ Feedmeapp::Application.routes.draw do
   
   # Products Routes
   get 'products/' => 'products#index'
+  get 'products/:ordrin' => 'products#ordrin_search', as: 'ordrin_search'
   get 'products/new' => 'products#new', as: :new_product
   get 'products/:id' => 'products#show', as: :product
   post 'products/' => 'products#create'
@@ -61,6 +49,8 @@ Feedmeapp::Application.routes.draw do
   # Order Routes
   get 'orders/' => 'orders#index'
   get 'orders/new' => 'orders#new', as: :new_order
+  #Additional routes for creating new order
+  post 'orders/new' => 'orders#add_to_current_order', as: :add_to_current_order 
   get 'orders/:id' => 'orders#show', as: :order
   post 'orders/' => 'orders#create'
   get 'orders/:id/edit' => 'orders#edit', as: :edit_order

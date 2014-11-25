@@ -32,14 +32,17 @@
           <td><%= link_to 'Edit', edit_product_path(product) %></td>
           <td><%= link_to 'Delete', product, method: :delete %></td>
         <% else %>
-          <td><%= link_to 'Order', new_order_path(product), :data => {:controller => "orders", :action => "new"}%></td>
+          <td><%= link_to 'Order', add_to_current_order_path(product), :data => {:controller => "orders_controller", :action => "add_to_current_order(product)"}%></td>
         <% end %>
         <td><%= link_to 'Show', product %></td>
+      </tr>
+      <tr>
+        <!-- Show add new product option if user is a business account -->
+        <% if current_user && current_user.is_business %>
+          <%= link_to 'New item', new_product_path %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New item', new_product_path %>
