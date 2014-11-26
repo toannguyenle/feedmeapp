@@ -24,7 +24,7 @@ angular.module('feedmeApp')
     // GET PRODUCT
     getProduct: function(userAddress, budget){
       console.log(userAddress, budget);
-      var promise = $http.get('/products/', {ordrin: {ordrin_zip: userAddress.postal_code, ordrin_city: userAddress.locality, ordrin_addr: (userAddress.street_number + ' ' + userAddress.route), ordrin_budget: budget}})
+      var promise = $http.post('/products/', {ordrin: {ordrin_zip: userAddress.postal_code, ordrin_city: userAddress.locality, ordrin_addr: (userAddress.street_number + ' ' + userAddress.route), ordrin_budget: budget}})
       .then(function(response){
         return response;
       });

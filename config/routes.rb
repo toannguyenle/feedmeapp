@@ -1,6 +1,6 @@
 Feedmeapp::Application.routes.draw do
   # For Authentication
-  root 'products#index'
+  root 'home#index'
 
   # Rerouting everything else to index page
   # get '*path' => 'application#index'

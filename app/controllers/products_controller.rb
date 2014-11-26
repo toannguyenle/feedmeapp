@@ -13,15 +13,15 @@ class ProductsController < ApplicationController
     # render json: delivery_list, status: 200
   end
 
-  # def ordrin_search
-  #   # ORDRIN TEST
-  #   require "ordrin"
-  #   ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
-  #   raise params[:ordrin].inspect
-  #   args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
-  #   delivery_list = ordrin_api.delivery_list(args)
-  #   render json: delivery_list, status: 200
-  # end
+  def ordrin_search
+    # ORDRIN TEST
+    require "ordrin"
+    ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
+    raise params[:ordrin].inspect
+    args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
+    delivery_list = ordrin_api.delivery_list(args)
+    render json: delivery_list, status: 200
+  end
 
   def show
   end
@@ -35,6 +35,7 @@ class ProductsController < ApplicationController
   end
 
   def create
+    puts '*****EWDFSGDFGDFG'
     @product = current_user.restaurants.first.products.new(product_params)
     respond_to do |format|
       if @product.save
