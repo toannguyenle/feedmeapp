@@ -61,7 +61,7 @@ You will have access to our lists of products offerings from our partner busines
 Well at last this is what y'all waiting for
 
 ```
-\api\wdi\[YOUR API KEY]
+/api/wdi/[YOUR API KEY]
 ```
 Alternatively, if you are hitting this endpoint from your site it would be 
 
