@@ -3,7 +3,9 @@ require 'shoulda/matchers'
 
 describe Restaurant do
 
-	it "has a name" do
+	restaurant = FactoryGirl.build_stubbed(:a_restaurant)
+
+	it "has a name" do	
 		expect(restaurant.name).to_not be_nil
 	end
 
