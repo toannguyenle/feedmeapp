@@ -14,7 +14,7 @@ Feedmeapp::Application.routes.draw do
 
   # API ROUTES
   scope 'api', defaults: {format: :json} do
-    get 'products/:ordrin' => 'products#ordrin_search', as: 'ordrin_search'
+    post 'products/' => 'products#ordrin_search'
   end
 
   # Restaurants Routes
@@ -28,7 +28,7 @@ Feedmeapp::Application.routes.draw do
   
   # Products Routes
   get 'products/' => 'products#index'
-  # get 'products/:ordrin' => 'products#ordrin_search', as: 'ordrin_search'
+  # post 'products/' => 'products#ordrin_search', as: 'ordrin_search'
   get 'products/new' => 'products#new', as: :new_product
   get 'products/:id' => 'products#show', as: :product
   post 'products/' => 'products#create'

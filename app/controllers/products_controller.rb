@@ -1,27 +1,39 @@
 class ProductsController < ApplicationController
   skip_before_filter :authorize, only: [:index, :show, :ordrin_search]
+  skip_before_filter  :verify_authenticity_token, only: [:ordrin_search]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.all
-    # ORDRIN TEST
-    require "ordrin"
-    ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
-    raise params[:ordrin_zip].inspect
-    args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
-    delivery_list = ordrin_api.delivery_list(args)
     render json: delivery_list, status: 200
   end
 
   def ordrin_search
-    # ORDRIN TEST
+    puts '***************ORDRN TEST CONTROLLER********************'
     require "ordrin"
     ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
-    raise params[:ordrin].inspect
-    raise ordrin_params.inspect
-    args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
-    delivery_list = ordrin_api.delivery_list(args)
-    render json: delivery_list, status: 200
+    args = {:datetime => 'ASAP', :zip => params[:ordrin_zip], :city => params[:ordrin_city], :addr => params[:ordrin_addr]}
+  
+    # Get back list of local restaurant with delivery options
+    restaurant_list = ordrin_api.delivery_list(args)  
+    puts restaurant_list
+    puts '***************ORDRN TEST CONTROLLER********************'
+    delivery_list = []
+    # For each restaurant search their menu
+    # Only search menu for restaurant within 1 mile radius so quick food
+    restaurant_list.select{|t| t['distance_miles'] <= 1.0 }.first(10).each do |r|
+      puts '***************ORDRN TEST CONTROLLER********************'
+      puts r['na']
+      puts r['id']
+      puts r['distance_miles']
+      rest_args = {:rid => r['id'].to_s}
+      # API call to ORDRIN to get menu items for each restaurant
+      menu_items = ordrin_api.restaurant_details(rest_args)
+      delivery_list.push(menu_items)
+    end
+
+    # Get menu items for each restaurant
+    render json: [delivery_list, restaurant_list], status: 200
   end
 
   def show
@@ -33,7 +45,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-            raise ordrin_params.inspect
   end
 
   def create
@@ -73,9 +84,6 @@ class ProductsController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
-    # def ordrin_params
-    #   params.require(:ordrin).permit(:ordrin_zip, :ordrin_route, :ordrin_city, :ordrin_budget)
-    # end
     def product_params
       params.require(:product).permit(:name, :categories, :description, :image_urls, :regular_price, :discount_price, :discount_start_time, :discount_end_time, :discount_inventory, :ordr, :delivery_method, :restaurant_id)
     end

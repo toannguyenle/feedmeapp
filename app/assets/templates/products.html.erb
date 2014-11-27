@@ -1,26 +1,28 @@
-<button ng-click="getProduct()">Show Products</button>
-<h1>Product Page</h1>
-<table class="table">
+<!-- r.addr, r.cs_contact_phone, r.latitude, r.longitude, r.menu (each do item as i, i.descrip, i.id, i.is_orderable, i.name, i.price, r.restaurant_id, r.name, r.services -->
+<h1>Menu Items</h1>
+<table class="table table-condensed">
   <thead>
     <tr>
+      <th>Restaurant ID</th>
+      <th>Restaurant Name</th>
       <th>Id</th>
       <th>Name</th>
-      <th>Description</th>
-      <th>Image</th>
       <th>Price</th>
-      <th>From Restaurant</th>
-      <th>Order</th>
+      <th>Is Orderable</th>
+      <th>Descrip</th>
+      <th>Ingredients</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="product in products">
-      <td>{{product.id}}</td>
-      <td>{{product.name}}</td>
-      <td>{{product.description}}</td>
-      <td> <img ng-src="{{product.image_urls}}" width="100px"></td>
-      <td>{{product.price}}</td>
-      <td>{{product.restaurant_id}}</td>
-      <td><button ng-click="orderProduct(product)">Order</button></td>
+    <tr ng-repeat="item in products track by $index">
+      <td>{{item.restaurant_id}}</td>
+      <td>{{item.restaurant_name}}</td>
+      <td>{{item.ordrn_id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.price}}</td>
+      <td>{{item.is_orderable}}</td>
+      <td>{{item.descrip}}</td>
+      <td>{{item.ingredients}}</td>
     </tr>
   </tbody>
 </table>

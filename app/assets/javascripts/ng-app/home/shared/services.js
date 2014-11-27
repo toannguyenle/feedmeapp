@@ -23,27 +23,18 @@ angular.module('feedmeApp')
 
     // GET PRODUCT
     getProduct: function(userAddress, budget){
-      console.log(userAddress);
+      // console.log(userAddress);
       var ordrin_params = {
         ordrin_zip: userAddress.postal_code,
         ordrin_city: userAddress.locality,
         ordrin_addr: (userAddress.street_number + ' ' + userAddress.route),
-        ordrin_budget: budget}
-
-    //         street_number: '',
-    // route: '',
-    // locality: '',
-    // administrative_area_level_1: '',
-    // postal_code: '',
-    // country: 
+        ordrin_budget: budget};
     
-      console.log(JSON.stringify(ordrin_params));
       console.log(ordrin_params);
-      var promise = $http.get('api/products/' + JSON.stringify(ordrin_params))
+      var promise = $http.post('/api/products/', ordrin_params)
       .then(function(response){
         return response;
       });
-      console.log(promise);
       return promise;
     },
     // ADD PRODUCT
