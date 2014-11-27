@@ -5,21 +5,35 @@
   <%= stylesheet_link_tag    "application", media: "all"%>
   <%= javascript_include_tag "application"%>
   <%= csrf_meta_tags %>
+<<<<<<< HEAD
   <!-- <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxUZBj8AGgXyVRgcDsjZKZnbTKsGuWvaI">
   </script> -->
+=======
+  </script>
+>>>>>>> master
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
- </head> 
-<body ng-app="feedmeApp" manifest="assets/javascripts/angular/app.js">
+</head> 
+<body >
 
+<<<<<<< HEAD
 <!--   <a ui-sref="home">home</a>
   <a ui-sref="products">products</a>
   <a ui-sref="order">order</a> -->
 
 <!--   <div id="container">
+=======
+<!--   
+  ng-app="feedmeApp" manifest="assets/javascripts/angular/app.js"
+  <a ui-sref="home">home</a>
+  <a ui-sref="products">products</a>
+  <a ui-sref="order">order</a>
+  <a ui-sref="maps">maps</a> -->
+  <div id="container">
+>>>>>>> master
     <div id="user_header">
       <%# if current_user %>
         Logged in as <%#= link_to current_user.email, user_path(current_user) %>.

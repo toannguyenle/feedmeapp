@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+<<<<<<< HEAD
     render json: delivery_list, status: 200
   end
 
@@ -35,6 +36,26 @@ class ProductsController < ApplicationController
     # Get menu items for each restaurant
     render json: [delivery_list, restaurant_list], status: 200
   end
+=======
+    # ORDRIN TEST
+    # require "ordrin"
+    # ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
+    # raise params[:ordrin].inspect
+    # args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
+    # delivery_list = ordrin_api.delivery_list(args)
+    # render json: delivery_list, status: 200
+  end
+
+  # def ordrin_search
+  #   # ORDRIN TEST
+  #   require "ordrin"
+  #   ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
+  #   raise params[:ordrin].inspect
+  #   args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
+  #   delivery_list = ordrin_api.delivery_list(args)
+  #   render json: delivery_list, status: 200
+  # end
+>>>>>>> master
 
   def show
   end
@@ -84,6 +105,12 @@ class ProductsController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
+<<<<<<< HEAD
+=======
+    # def ordrin_params
+    #   params.require(:ordrin).permit(:ordrin_zip, :ordrin_route, :ordrin_city, :ordrin_budget)
+    # end
+>>>>>>> master
     def product_params
       params.require(:product).permit(:ordrin, :name, :categories, :description, :image_urls, :regular_price, :discount_price, :discount_start_time, :discount_end_time, :discount_inventory, :ordr, :delivery_method, :restaurant_id)
     end
