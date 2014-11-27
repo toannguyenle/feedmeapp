@@ -25,11 +25,11 @@
 
     <!-- FOOD OPTIONS HERE EACH AT A TIME -->
     <div class="food-item row" ng-repeat="item in products track by $index" ng-if="$index < 100">
-      <div class="dislike-item col-xs-2 col-sm-2 col-md-2">
+      <div class="dislike-item col-xs-2 col-sm-2 col-md-2" ng-click="removeItem(item)">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </div>
 
-      <div class="col-xs-8 col-sm-8 col-md-8 text-center">
+      <div class="col-xs-8 col-sm-8 col-md-8 text-center" ng-click="showRestaurantInfo(item)">
         {{item.restaurant_id}}
         {{item.restaurant_name}}
         {{item.ordrn_id}}
@@ -40,7 +40,7 @@
         {{item.ingredients}}
       </div>
 
-      <div class="like-item col-xs-2 col-sm-2 col-md-2">
+      <div class="like-item col-xs-2 col-sm-2 col-md-2" ng-click="addItemToCard(item)">
         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
       </div>
     </div>
