@@ -1,11 +1,31 @@
 class ProductsController < ApplicationController
-  skip_before_filter :authorize, only: [:index, :show, :ordrin_search]
+  skip_before_filter :authorize, only: [:index, :show, :ordrin_search, :wdi]
   skip_before_filter  :verify_authenticity_token, only: [:ordrin_search]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.all
-    render json: delivery_list, status: 200
+    render json: @products, status: 200
+  end
+
+  def wdi
+    if (params[:api_key] == "l3tsd0WD1")
+      @products = Product.all
+      render json: @products, status: 200
+    else
+      render json: {message: 'Hey Wrong Key!'}, status: 400
+    end
+  end
+
+  def yelp
+    require 'yelp'
+    client = Yelp::Client.new(
+      { consumer_key: ENV["YP_CONSUMER_KEY"],
+        consumer_secret: ENV["YP_CONSUMER_SECRET"],
+        token: ENV["YP_TOKEN"],
+        token_secret: ENV["YP_TOKEN_SECRET"]
+      })
+
   end
 
   def ordrin_search
