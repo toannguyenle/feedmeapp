@@ -121,7 +121,8 @@ angular.module('feedmeApp')
       }
       // Turn modal off
       document.getElementsByTagName("div")[document.getElementsByTagName("div").length - 1].setAttribute("class", "");
-      
+      document.body.className = document.body.className.replace("modal-open","");
+
       // Take me to the products page to show all my options
       $location.path('/products');
       })
