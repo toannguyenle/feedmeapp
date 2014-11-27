@@ -5,7 +5,7 @@ FactoryGirl.define do
 		name "McDonalds"
 		phone_number "123-456-7890"
 		street_address_1 "1520 2nd st"
-		categories "Japanese, American"
+		categories "Italian"
 		lat "90"
 		lng "180"
 		user_id "1"

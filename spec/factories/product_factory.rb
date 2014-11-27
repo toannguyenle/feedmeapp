@@ -3,7 +3,7 @@ FactoryGirl.define do
 	factory :a_product, class: Product do
 
 		name "pepperoni pizza"
-		categories "italian"
+		categories "pizza"
 		description "delicious"
 		image_urls "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQahg4PepBSDY4vJXOdGtS2Mfb5N-TnV83-Wy23kIoasjj5iywYww"
 		regular_price "15"
