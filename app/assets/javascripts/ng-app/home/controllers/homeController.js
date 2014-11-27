@@ -119,10 +119,12 @@ angular.module('feedmeApp')
         }
         // Push the item into scope
       }
-
-      })
+      // Turn modal off
+      document.getElementsByTagName("div")[document.getElementsByTagName("div").length - 1].setAttribute("class", "");
+      
       // Take me to the products page to show all my options
       $location.path('/products');
+      })
     };
   //Get all the products to display
   $scope.getProduct = function(){
