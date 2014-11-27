@@ -107,11 +107,8 @@ angular.module('feedmeApp')
                 item.is_orderable = restaurant[i].menu[j].children[k].is_orderable;
                 
                 // Get the ingredients only if the item has it
-                if (restaurant[i].menu[j].children[k].children){
-                  item.ingredients = [];
-                  for (h=0; h < restaurant[i].menu[j].children[k].children.length ; h++) {
-                    item.ingredients.push(restaurant[i].menu[j].children[k].children[h].name);
-                  }
+                if (restaurant[i].menu[j].children[0].children){
+                  item.ingredients = restaurant[i].menu[j].children[0].children[0].name;
                 }
 
                 // Add item to list
