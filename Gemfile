@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 gem 'ordrin'
+gem 'yelp', require: 'yelp'
 group :development, :test do
     # Testing
   gem 'better_errors'

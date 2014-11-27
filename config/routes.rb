@@ -15,6 +15,7 @@ Feedmeapp::Application.routes.draw do
   # API ROUTES
   scope 'api', defaults: {format: :json} do
     post 'products/' => 'products#ordrin_search'
+    get 'wdi/:api_key' => 'products#wdi'
   end
 
   # Restaurants Routes
