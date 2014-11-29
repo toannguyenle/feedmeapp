@@ -93,13 +93,19 @@ angular.module('feedmeApp')
         item.latitude = restaurant[i].latitude;
         item.longitude = restaurant[i].longitude;
         item.restaurant_name = restaurant[i].name;
+        item.delivery_time = restaurant[i].del;
+        item.minimum_amount = restaurant[i].mino;
+        item.cusine = restaurant[i].cu;
         
         // Get the menu item
         for (j=0; j < restaurant[i].menu.length; j++) {
             // Item id is id for the whole group
             item.ordrn_id = restaurant[i].menu[j].id;
+            item.ordrn_type = estaurant[i].menu[j].name;
+
             // Descrip of parent menu item
             item.descrip = restaurant[i].menu[j].descrip;
+            
             for (k=0; k < restaurant[i].menu[j].children.length; k++) {
               // Only show orderable items
               if (restaurant[i].menu[j].children[k].is_orderable == "1"){

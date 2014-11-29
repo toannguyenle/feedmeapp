@@ -3,6 +3,13 @@ angular.module('feedmeApp')
 .service('api',['$http', function($http){
   return {
 
+    // New User
+    newUser: function(){
+
+    },
+
+
+
     getOrder: function(){
       var promise = $http.get('/api/orders')
       .then(function(response){
