@@ -32,8 +32,15 @@ class ProductsController < ApplicationController
     puts '***************ORDRN TEST CONTROLLER********************'
     require "ordrin"
     ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
-    args = {:datetime => 'ASAP', :zip => params[:ordrin_zip], :city => params[:ordrin_city], :addr => params[:ordrin_addr]}
-  
+
+    # Checking the user's location input format
+    # If address is given
+    if params[:lat]=='NA'
+      args = {:datetime => 'ASAP', :zip => params[:ordrin_zip], :city => params[:ordrin_city], :addr => params[:ordrin_addr]}
+    else
+      userAddress = Geocoder.search("33.8748618,-118.37729730000001").first.data['address_components']
+      args = {:datetime => 'ASAP', :zip => userAddress[7]['long_name'], :city => userAddress[3]['long_name'], :addr => (userAddress[0]['long_name'] + ' ' + userAddress[1]['long_name'])}
+    end
     # Get back list of local restaurant with delivery options
     restaurant_list = ordrin_api.delivery_list(args)  
     puts restaurant_list

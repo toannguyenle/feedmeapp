@@ -5,13 +5,15 @@ angular.module('feedmeApp')
   // GOOGLE MAPS AUTO COMPLETE AND PLACES LOOKUP
   // Auto Complete
   var placeSearch, autocomplete;
-  var userAddress = {
+  var userLocation = {
     street_number: 'short_name',
     route: 'long_name',
     locality: 'long_name',
     administrative_area_level_1: 'short_name',
     postal_code: 'short_name',
-    country: 'long_name'
+    country: 'long_name',
+    lat: 'NA',
+    lng: 'NA'
   };
 
 
@@ -23,9 +25,9 @@ angular.module('feedmeApp')
     // and fill the corresponding field on the form.
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
-      if (userAddress[addressType]) {
-        var val = place.address_components[i][userAddress[addressType]];
-        userAddress[addressType] = val;
+      if (userLocation[addressType]) {
+        var val = place.address_components[i][userLocation[addressType]];
+        userLocation[addressType] = val;
       }
     }
   }
@@ -55,6 +57,8 @@ angular.module('feedmeApp')
       // Convert Geocode into physical adddress for OrdrIn search
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
+      userLocation.lat = lat;
+      userLocation.lng = lng;
       geocoder = new google.maps.Geocoder();
       var latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode({'latLng': latlng}, function(results, status) {
@@ -77,9 +81,8 @@ angular.module('feedmeApp')
   $scope.searchFood = function(price){
     // Reset the search result
     products = [];
-
     // Make an api call back to server to call ORDRIN for data
-    api.getProduct(userAddress, price)
+    api.getProduct(userLocation, price)
     .then(function(data){
       // Data Manipulation with results from API call
       restaurant = data.data[0];
