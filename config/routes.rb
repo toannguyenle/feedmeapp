@@ -7,9 +7,9 @@ Feedmeapp::Application.routes.draw do
 
   #added for Authentication
   get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
+  get 'login', to: 'sessions#new'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  
+  get 'developers', to: 'developers#index'
   resources :sessions
 
   # API ROUTES

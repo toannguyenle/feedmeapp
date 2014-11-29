@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
     <div class="input-group">
-      <input ng-model="userLocation" class="form-control input-lg" type="text" placeholder="i am at ..." id="userLocation">
+      <input class="form-control input-lg" type="text" placeholder="i am at ..." id="userLocation">
       <span class="input-group-addon" ng-click="getLocation()">
         <i class="glyphicon glyphicon-map-marker"></i>
       </span>
@@ -10,7 +10,6 @@
     <button id="transparent-button" data-toggle="modal" data-target="#myModal" ng-click="searchFood(userBudget)" class="btn btn-default btn-lg btn-block">SHOW</button>
   </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

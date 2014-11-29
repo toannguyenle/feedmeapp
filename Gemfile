@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'ordrin'
 gem 'yelp', require: 'yelp'
+gem "geocoder"
 group :development, :test do
     # Testing
   gem 'better_errors'

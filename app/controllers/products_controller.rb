@@ -32,8 +32,16 @@ class ProductsController < ApplicationController
     puts '***************ORDRN TEST CONTROLLER********************'
     require "ordrin"
     ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
-    args = {:datetime => 'ASAP', :zip => params[:ordrin_zip], :city => params[:ordrin_city], :addr => params[:ordrin_addr]}
-  
+
+    # Checking the user's location input format
+    # If address is given
+    if params[:ordrin_lat]=='NA'
+      args = {:datetime => 'ASAP', :zip => params[:ordrin_zip], :city => params[:ordrin_city], :addr => params[:ordrin_addr]}
+    else
+    # If not than use GEOCODER gem to reverse lookup the address
+      userAddress = Geocoder.search(params[:ordrin_lat].to_s+','+params[:ordrin_lng].to_s).first.data['address_components']
+      args = {:datetime => 'ASAP', :zip => userAddress[7]['long_name'], :city => userAddress[3]['long_name'], :addr => (userAddress[0]['long_name'] + ' ' + userAddress[1]['long_name'])}
+    end
     # Get back list of local restaurant with delivery options
     restaurant_list = ordrin_api.delivery_list(args)  
     puts restaurant_list
@@ -46,6 +54,11 @@ class ProductsController < ApplicationController
       puts r['na']
       puts r['id']
       puts r['distance_miles']
+      puts r['del']
+      puts r['mino']
+      puts r['cu']
+
+      # Assign restaurant ID from Ordrin
       rest_args = {:rid => r['id'].to_s}
       # API call to ORDRIN to get menu items for each restaurant
       menu_items = ordrin_api.restaurant_details(rest_args)

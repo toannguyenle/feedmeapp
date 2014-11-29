@@ -3,6 +3,13 @@ angular.module('feedmeApp')
 .service('api',['$http', function($http){
   return {
 
+    // New User
+    newUser: function(){
+
+    },
+
+
+
     getOrder: function(){
       var promise = $http.get('/api/orders')
       .then(function(response){
@@ -28,9 +35,12 @@ angular.module('feedmeApp')
         ordrin_zip: userAddress.postal_code,
         ordrin_city: userAddress.locality,
         ordrin_addr: (userAddress.street_number + ' ' + userAddress.route),
-        ordrin_budget: budget};
-    
-      console.log(ordrin_params);
+        ordrin_budget: budget,
+        ordrin_lat: userAddress.lat,
+        ordrin_lng: userAddress.lng };
+
+        console.log(ordrin_params);
+        
       var promise = $http.post('/api/products/', ordrin_params)
       .then(function(response){
         return response;
