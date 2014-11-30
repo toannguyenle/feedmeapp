@@ -1,26 +1,48 @@
-<button ng-click="getProduct()">Show Products</button>
-<h1>Product Page</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Image</th>
-      <th>Price</th>
-      <th>From Restaurant</th>
-      <th>Order</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="product in products">
-      <td>{{product.id}}</td>
-      <td>{{product.name}}</td>
-      <td>{{product.description}}</td>
-      <td> <img ng-src="{{product.image_urls}}" width="100px"></td>
-      <td>{{product.price}}</td>
-      <td>{{product.restaurant_id}}</td>
-      <td><button ng-click="orderProduct(product)">Order</button></td>
-    </tr>
-  </tbody>
-</table>
+<!-- r.addr, r.cs_contact_phone, r.latitude, r.longitude, r.menu (each do item as i, i.descrip, i.id, i.is_orderable, i.name, i.price, r.restaurant_id, r.name, r.services -->
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+    <!-- TEST TO BE DELETE-->
+    <div class="food-item row">
+      <div class="dislike-item col-xs-2 col-sm-2 col-md-2">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </div>
+
+      <div class="col-xs-8 col-sm-8 col-md-8 text-center">
+        item.restaurant_id
+        item.restaurant_name
+        item.ordrn_id
+        item.name
+        item.price
+        item.is_orderable
+        item.descrip
+        item.ingredients
+      </div>
+
+      <div class="like-item col-xs-2 col-sm-2 col-md-2">
+        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <!-- FOOD OPTIONS HERE EACH AT A TIME -->
+    <div class="food-item row" ng-repeat="item in products track by $index" ng-if="$index < 100">
+      <div class="dislike-item col-xs-2 col-sm-2 col-md-2" ng-click="removeItem(item)">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </div>
+
+      <div class="col-xs-8 col-sm-8 col-md-8 text-center" ng-click="showRestaurantInfo(item)">
+        {{item.restaurant_id}}
+        {{item.restaurant_name}}
+        {{item.ordrn_id}}
+        {{item.name}}
+        {{item.price}}
+        {{item.is_orderable}}
+        {{item.descrip}}
+        {{item.ingredients}}
+      </div>
+
+      <div class="like-item col-xs-2 col-sm-2 col-md-2" ng-click="addItemToCard(item)">
+        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,21 +1,22 @@
 Feedmeapp::Application.routes.draw do
   # For Authentication
-  root 'products#index'
+  root 'application#index'
 
   # Rerouting everything else to index page
   # get '*path' => 'application#index'
 
   #added for Authentication
   get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
+  get 'login', to: 'sessions#new'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  
+  get 'developers', to: 'developers#index'
   resources :sessions
 
   # API ROUTES
-  # scope 'api', defaults: {format: :json} do
-  #   get 'products/' => 'products#index'
-  # end
+  scope 'api', defaults: {format: :json} do
+    post 'products/' => 'products#ordrin_search'
+    get 'wdi/:api_key' => 'products#wdi'
+  end
 
   # Restaurants Routes
   get 'restaurants/' => 'restaurants#index'
@@ -28,7 +29,7 @@ Feedmeapp::Application.routes.draw do
   
   # Products Routes
   get 'products/' => 'products#index'
-  # get 'products/:ordrin' => 'products#ordrin_search', as: 'ordrin_search'
+  # post 'products/' => 'products#ordrin_search', as: 'ordrin_search'
   get 'products/new' => 'products#new', as: :new_product
   get 'products/:id' => 'products#show', as: :product
   post 'products/' => 'products#create'

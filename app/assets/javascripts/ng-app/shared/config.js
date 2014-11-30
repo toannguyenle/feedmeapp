@@ -15,9 +15,9 @@ angular.module('feedmeApp')
       templateUrl: 'products.html',
       controller: 'HomeCtrl'
     })
-    .state('maps', {
-      url: '/maps',
-      templateUrl: 'maps.html',
+    .state('signin', {
+      url: '/signin',
+      templateUrl: 'signin.html',
       controller: 'HomeCtrl'
     })
     .state('order', {

@@ -1,15 +1,21 @@
+var products = [];
 angular.module('feedmeApp')
 .controller('HomeCtrl',['$location','$scope','api', function($location, $scope, api){
+  $scope.products = products;
+  // GOOGLE MAPS AUTO COMPLETE AND PLACES LOOKUP
   // Auto Complete
   var placeSearch, autocomplete;
-  var userAddress = {
+  var userLocation = {
     street_number: 'short_name',
     route: 'long_name',
     locality: 'long_name',
     administrative_area_level_1: 'short_name',
     postal_code: 'short_name',
-    country: 'long_name'
+    country: 'long_name',
+    lat: 'NA',
+    lng: 'NA'
   };
+
 
   function fillInAddress() {
     // Get the place details from the autocomplete object.
@@ -18,22 +24,24 @@ angular.module('feedmeApp')
     // Get each component of the address from the place details
     // and fill the corresponding field on the form.
     for (var i = 0; i < place.address_components.length; i++) {
-      var addressType = place.address_components[i].types[0];
-      if (userAddress[addressType]) {
-        var val = place.address_components[i][userAddress[addressType]];
-        userAddress[addressType] = val;
+        var addressType = place.address_components[i].types[0];
+      if (userLocation[addressType]) {
+        var val = place.address_components[i][userLocation[addressType]];
+        userLocation[addressType] = val;
       }
     }
   }
   // Create the autocomplete object, restricting the search
   // to geographical location types.
-  autocomplete = new google.maps.places.Autocomplete((document.getElementById('userLocation')),
-      { types: ['geocode'] });
-  // When the user selects an address from the dropdown,
-  // populate the address fields in the form.
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    fillInAddress();
-  });
+  if (document.getElementById('userLocation')) {
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById('userLocation')),
+        { types: ['geocode'] });
+    // When the user selects an address from the dropdown,
+    // populate the address fields in the form.
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      fillInAddress();
+    });
+  }
 
 
   // Get user's coordinates
@@ -49,6 +57,8 @@ angular.module('feedmeApp')
       // Convert Geocode into physical adddress for OrdrIn search
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
+      userLocation.lat = lat;
+      userLocation.lng = lng;
       geocoder = new google.maps.Geocoder();
       var latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode({'latLng': latlng}, function(results, status) {
@@ -64,15 +74,68 @@ angular.module('feedmeApp')
 
   };
 
+// r.addr, r.cs_contact_phone, r.latitude, r.longitude, r.menu (each do item as i, i.descrip, i.id,
+ // i.is_orderable, i.name, i.price, r.restaurant_id, r.name, r.services
 
   // Send parameter back
   $scope.searchFood = function(price){
-    api.getProduct(userAddress, price)
+    // Reset the search result
+    products = [];
+    // Make an api call back to server to call ORDRIN for data
+    api.getProduct(userLocation, price)
     .then(function(data){
-      $scope.products = data.data;
-    })
-  };
+      // Data Manipulation with results from API call
+      restaurant = data.data[0];
+      for (i=0; i < data.data[0].length; ++i){
+        var item = {};
+        item.restaurant_id = restaurant[i].restaurant_id;
+        item.cs_contact_phone = restaurant[i].cs_contact_phone;
+        item.latitude = restaurant[i].latitude;
+        item.longitude = restaurant[i].longitude;
+        item.restaurant_name = restaurant[i].name;
+        item.delivery_time = restaurant[i].del;
+        item.minimum_amount = restaurant[i].mino;
+        item.cusine = restaurant[i].cu;
+        
+        // Get the menu item
+        for (j=0; j < restaurant[i].menu.length; j++) {
+            // Item id is id for the whole group
+            item.ordrn_id = restaurant[i].menu[j].id;
+            item.ordrn_type = estaurant[i].menu[j].name;
 
+            // Descrip of parent menu item
+            item.descrip = restaurant[i].menu[j].descrip;
+            
+            for (k=0; k < restaurant[i].menu[j].children.length; k++) {
+              // Only show orderable items
+              if (restaurant[i].menu[j].children[k].is_orderable == "1"){
+                // Add more detailed description
+                item.descrip = item.descrip + ' / ' + restaurant[i].menu[j].children[k].descrip;
+                item.name = restaurant[i].menu[j].children[k].name;
+                item.price = restaurant[i].menu[j].children[k].price;
+                item.is_orderable = restaurant[i].menu[j].children[k].is_orderable;
+                
+                // Get the ingredients only if the item has it
+                if (restaurant[i].menu[j].children[0].children){
+                  item.ingredients = restaurant[i].menu[j].children[0].children[0].name;
+                }
+
+                // Add item to list
+                products.push(item);
+              }
+            }
+            // }
+        }
+        // Push the item into scope
+      }
+      // Turn modal off
+      document.getElementsByTagName("div")[document.getElementsByTagName("div").length - 1].setAttribute("class", "");
+      document.body.className = document.body.className.replace("modal-open","");
+
+      // Take me to the products page to show all my options
+      $location.path('/products');
+      })
+    };
   //Get all the products to display
   $scope.getProduct = function(){
     api.getProduct()

@@ -1,27 +1,73 @@
 class ProductsController < ApplicationController
-  skip_before_filter :authorize, only: [:index, :show]
+  skip_before_filter :authorize, only: [:index, :show, :ordrin_search, :wdi]
+  skip_before_filter  :verify_authenticity_token, only: [:ordrin_search]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.all
-    # ORDRIN TEST
-    # require "ordrin"
-    # ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
-    # raise params[:ordrin].inspect
-    # args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
-    # delivery_list = ordrin_api.delivery_list(args)
-    # render json: delivery_list, status: 200
+    render json: @products, status: 200
   end
 
-  # def ordrin_search
-  #   # ORDRIN TEST
-  #   require "ordrin"
-  #   ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
-  #   raise params[:ordrin].inspect
-  #   args = {:datetime => 'ASAP', :zip => '90401', :city => 'Santa Monica',:addr => '1520 2nd St'}
-  #   delivery_list = ordrin_api.delivery_list(args)
-  #   render json: delivery_list, status: 200
-  # end
+  def wdi
+    if (params[:api_key] == "l3tsd0WD1")
+      @products = Product.all
+      render json: @products, status: 200
+    else
+      render json: {message: 'Hey Wrong Key!'}, status: 400
+    end
+  end
+
+  def yelp
+    require 'yelp'
+    client = Yelp::Client.new(
+      { consumer_key: ENV["YP_CONSUMER_KEY"],
+        consumer_secret: ENV["YP_CONSUMER_SECRET"],
+        token: ENV["YP_TOKEN"],
+        token_secret: ENV["YP_TOKEN_SECRET"]
+      })
+
+  end
+
+  def ordrin_search
+    puts '***************ORDRN TEST CONTROLLER********************'
+    require "ordrin"
+    ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
+
+    # Checking the user's location input format
+    # If address is given
+    if params[:ordrin_lat]=='NA'
+      args = {:datetime => 'ASAP', :zip => params[:ordrin_zip], :city => params[:ordrin_city], :addr => params[:ordrin_addr]}
+    else
+    # If not than use GEOCODER gem to reverse lookup the address
+      userAddress = Geocoder.search(params[:ordrin_lat].to_s+','+params[:ordrin_lng].to_s).first.data['address_components']
+      args = {:datetime => 'ASAP', :zip => userAddress[7]['long_name'], :city => userAddress[3]['long_name'], :addr => (userAddress[0]['long_name'] + ' ' + userAddress[1]['long_name'])}
+    end
+    # Get back list of local restaurant with delivery options
+    restaurant_list = ordrin_api.delivery_list(args)  
+    puts restaurant_list
+    puts '***************ORDRN TEST CONTROLLER********************'
+    delivery_list = []
+    # For each restaurant search their menu
+    # Only search menu for restaurant within 1 mile radius so quick food
+    restaurant_list.select{|t| t['distance_miles'] <= 1.0 }.first(10).each do |r|
+      puts '***************ORDRN TEST CONTROLLER********************'
+      puts r['na']
+      puts r['id']
+      puts r['distance_miles']
+      puts r['del']
+      puts r['mino']
+      puts r['cu']
+
+      # Assign restaurant ID from Ordrin
+      rest_args = {:rid => r['id'].to_s}
+      # API call to ORDRIN to get menu items for each restaurant
+      menu_items = ordrin_api.restaurant_details(rest_args)
+      delivery_list.push(menu_items)
+    end
+
+    # Get menu items for each restaurant
+    render json: [delivery_list, restaurant_list], status: 200
+  end
 
   def show
   end
@@ -71,9 +117,6 @@ class ProductsController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
-    # def ordrin_params
-    #   params.require(:ordrin).permit(:ordrin_zip, :ordrin_route, :ordrin_city, :ordrin_budget)
-    # end
     def product_params
       params.require(:product).permit(:ordrin, :name, :categories, :description, :image_urls, :regular_price, :discount_price, :discount_start_time, :discount_end_time, :discount_inventory, :ordr, :delivery_method, :restaurant_id)
     end
