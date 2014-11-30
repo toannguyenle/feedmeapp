@@ -48,5 +48,9 @@ describe Restaurant do
 	it "has country" do
 		expect(restaurant.country).to_not be_nil
 	end
+
+	it { should have_many(:products) }
+	it { should have_many(:orders) }
+	it { should belong_to(:user) }
   
 end

@@ -52,5 +52,9 @@ describe Product do
 	it "has restaurant_id" do
 		expect(product.restaurant_id).to_not be_nil
 	end
+
+	it { should have_many(:order_products) }
+	it { should have_many(:orders) }
+	it { should belong_to(:restaurant) }
     
 end
