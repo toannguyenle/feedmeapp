@@ -7,6 +7,12 @@
   <%= @product.restaurant.name %><br>
   <strong>Ordered by</strong>
   <%= current_user.name %><br>
+<<<<<<< HEAD
+<!--   <div class="field">
+    <%#= f.label :product_count %><br>
+    <%#= f.select :product_count, [1,2,3,4,5]%>
+  </div> -->
+=======
   <div class="field">
     <%= f.fields_for :orderproduct do |op| %>
       <%= op.label :quantity %><br>
@@ -14,6 +20,7 @@
       <%= op.hidden_field :price, :value => @product.regular_price %>
     <% end %>
   </div>
+>>>>>>> master
   <div class="field">
     <%= f.label :delivery_option %><br>
     <%= f.select :delivery_option, ['Deliver', 'Pick Up', 'Dine In'] %>

@@ -24,6 +24,9 @@
   </div>
   <div class="field">
     <%= f.label :street_address_1 %><br>
+<<<<<<< HEAD
+    <%= f.text_field :address %>
+=======
     <%= f.text_field :street_address_1 %>
   </div>
     <div class="field">
@@ -45,6 +48,7 @@
     <div class="field">
     <%= f.label :country %><br>
     <%= f.text_field :country %>
+>>>>>>> master
   </div>
   <div class="field">
     <%= f.label :yelp_id %><br>
