@@ -12,7 +12,11 @@ Feedmeapp::Application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   
   resources :sessions
-
+  # Order Product Path
+  get 'orderproducts/:id' => 'orderproducts#show', as: :orderproduct
+  get 'orderproducts/:id/edit' => 'orderproducts#edit', as: :edit_orderproduct
+  patch 'orderproducts/:id' => 'orderproducts#update'
+  delete 'orderproducts/:id' => 'orderproducts#destroy', as: :orderproducts
   # API ROUTES
   # scope 'api', defaults: {format: :json} do
   #   get 'products/' => 'products#index'
