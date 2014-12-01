@@ -19,11 +19,17 @@
   <a ui-sref="products">products</a>
   <a ui-sref="order">order</a>
   <a ui-sref="maps">maps</a> -->
+
+
 <div id="container">
   <div id="user_header">
   <% if current_user %>
     Logged in as <%= link_to current_user.email, user_path(current_user) %>.
+
+<div>
     <%= link_to "Log Out", logout_path %>
+</div>
+
   <% else %>
     <%=link_to 'Log in', login_path if !@is_login %>
     <%=link_to 'Sign Up', signup_path%>
@@ -32,6 +38,8 @@
   <p><%= notice %></p>
   </div>
 </div>
+
+
 
 <%= yield %>
 

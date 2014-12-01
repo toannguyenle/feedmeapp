@@ -1,0 +1,24 @@
+<h1>Restaurant</h1>
+owned by <strong><%= @restaurant.user.name %></strong><br>
+<strong>Name</strong>  <%= @restaurant.name %><br>
+<strong>Website</strong> <%= @restaurant.website %><br>
+<strong>Phone</strong> <%= @restaurant.phone_number %><br>
+<<<<<<< HEAD
+<strong>Address</strong> <%= @restaurant.street_address_1 %><br>
+=======
+<strong>Street Address Line 1</strong> <%= @restaurant.street_address_1 %><br>
+<strong>Street Address Line 2</strong> <%= @restaurant.street_address_2 %><br>
+<strong>City</strong> <%= @restaurant.city %><br>
+<strong>State</strong> <%= @restaurant.state %><br>
+<strong>Zip Code</strong> <%= @restaurant.zipcode %><br>
+<strong>Country</strong> <%= @restaurant.country %><br>
+>>>>>>> master
+<strong>Yelp ID</strong> <%= @restaurant.yelp_id %><br>
+<strong>Image</strong> <%= image_tag(@restaurant.image_url, width: "50px") %><br>
+<strong>Categories</strong> <%= @restaurant.categories %><br>
+<strong>Lat</strong> <%= @restaurant.lat %><br>
+<strong>Long</strong> <%= @restaurant.lng %><br>
+
+<%= link_to 'Add menu items', new_product_path %><br>
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %><br>
+<%= link_to 'Delete', @restaurant, method: :delete%><br>
