@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   
   def index
-    @orders = Order.all
+    @orders = current_user.orders.all
   end
 
   def show
@@ -22,9 +22,13 @@ class OrdersController < ApplicationController
   
   # Add new product to Order (make a new order)
   def add_to_current_order
+    
+    # get the first open order that the user has
     if current_user.orders.where(status:'Open').first
       current_order = current_user.orders.where(status:'Open').first
       OrderProduct.create({product_id: params[:product],order_id: current_order.id})
+
+    # If not open and create a new order for the current user
     else
       current_order = current_user.orders.create(order_params)
       # current_order.status = 'Open'
@@ -36,37 +40,24 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.new(order_params)
-    
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @order }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.save
+      redirect_to @order, notice: 'Order was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.update(order_params)
+      redirect_to @order, notice: 'Order was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
     @order.destroy
-    
-    respond_to do |format|
-      format.html { redirect_to orders_url }
-      format.json { head :no_content }
-    end
+    redirect_to orders_url
   end
 
   private
