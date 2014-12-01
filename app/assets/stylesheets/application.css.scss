@@ -12,139 +12,69 @@
  *= require_tree .
  */
 @import 'bootstrap';
-// Import google fonts
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400);
-// LOGO FONT
-@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,300);
-
-$maincolor: rgba(255, 255, 0,0.5);
-$mainfont: 'Source Sans Pro', sans-serif;
-$basewidth: 600px;
-#logo {
-  font-family: 'Titillium Web', sans-serif;
-  font-size: 4em;
-  color: white;
-}
 div.input-group {
-  margin: 5px 0;
-}
-
-div.food-item.row{
-  background-color: rgba(255, 202, 44, 0.8);
-  height: 100px;
-  font-family: $mainfont;
-  font-size: 1.2em;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.5);
-  // margin: 0 0 2px 0;
-}
-
-div.dislike-item{
-  padding-top: 0.4em;
-  font-size: 3em;
-  height: 100%;
-  background-color: rgba(255, 0, 44, 0.5);
-}
-div.like-item{
-  padding-top: 0.4em;
-  height: 100%;
-  font-size: 3em;
-  background-color: rgba(0, 202, 44, 0.5);
+ margin: 5px 0;
 }
 input.form-control.input-lg {
-  border-radius: 0;
-  height: 100px;
-  font-family: $mainfont;
-  font-size: 3em;
-}
-#transparent-button {
-  background-color: rgba(0,0,0,0.5);
-  border: 2px solid lightgrey;
-  border-radius: 1px;
-  color: white;
+ border-radius: 0;
 }
 button.btn{
-  height: 100px;
-  margin: 5px 0 0 0;
-  border-radius: 0;
-  font-family: $mainfont;
-  font-size: 3em;
+ margin: 5px 0 0 0;
+ border-radius: 0;
 }
 i.glyphicon {
-  font-size: 2em;
+ font-size: 2em;
 }
 
-#map-canvas{
-  height: 500px;
-}
-
-body  {
-  background-image: url(background1.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
-}
-
-// MODAL
-div.modal-dialog{
-  width: 500px;
-  border-radius: 0;
-  background-color: rgba(0,0,0,0.5);
-  font-family: $mainfont;
-  font-size: 3em;
-}
-div.modal-body{
-  padding: 0;
-  border-radius: 0;
-}
-div.p.modal-header{
-  padding: 0;
-}
 // Google Maps Style
+html, body, #map-canvas {
+ height: 100%;
+ margin: 0px;
+ padding: 0px
+}
 .controls {
-  margin-top: 16px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: 32px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+ margin-top: 16px;
+ border: 1px solid transparent;
+ border-radius: 2px 0 0 2px;
+ box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ height: 32px;
+ outline: none;
+ box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 #pac-input {
-  background-color: #fff;
-  padding: 0 11px 0 13px;
-  width: 400px;
-  font-family: $mainfont;
-  font-size: 3em;
-  font-weight: 300;
-  text-overflow: ellipsis;
+ background-color: #fff;
+ padding: 0 11px 0 13px;
+ width: 400px;
+ font-family: Roboto;
+ font-size: 15px;
+ font-weight: 300;
+ text-overflow: ellipsis;
 }
 
 #pac-input:focus {
-  border-color: #4d90fe;
-  margin-left: -1px;
-  padding-left: 14px;  /* Regular padding-left + 1. */
-  width: 401px;
+ border-color: #4d90fe ;
+ margin-left: -1px;
+ padding-left: 14px;  /* Regular padding-left + 1. */
+ width: 401px;
 }
 
 .pac-container {
-  font-family: $mainfont;
-  font-size: 3em;
+ font-family: Roboto;
 }
 
 #type-selector {
-  color: #fff;
-  background-color: #4d90fe;
-  padding: 5px 11px 0px 11px;
+ color: #fff;
+ background-color: #4d90fe ;
+ padding: 5px 11px 0px 11px;
 }
 
 #type-selector label {
-  font-family: Roboto;
-  font-size: 13px;
-  font-weight: 300;
+ font-family: Roboto;
+ font-size: 13px;
+ font-weight: 300;
 }
 #target {
-  width: 345px;
+ width: 345px;
 }
