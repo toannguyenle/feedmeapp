@@ -40,6 +40,13 @@ class OrdersController < ApplicationController
     redirect_to order_path(current_order)
   end
 
+  # Complete order
+  def complete_order
+    # @order.status = 'Placed'
+    # @order.update
+    # redi
+  end
+
   def create
     @order = current_user.orders.new(order_params)
     if @order.save
