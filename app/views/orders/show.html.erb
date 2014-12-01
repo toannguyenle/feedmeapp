@@ -20,10 +20,9 @@
     <%= @order.updated_at %><br>
 </p>
 <% if !current_user.is_business %>
-  <%= link_to 'COMPLETE ORDER', orders_path(@order), method: :delete%>
-  <button>COMPLETE ORDER</button>
+  <%= link_to 'COMPLETE ORDER', complete_order_path(@order), action: :complete_order%>
 <% else %>
-  <button>UPDATE ORDER STATUS</button>
+  <%= link_to 'UPDATE STATUS', complete_order_path(@order), action: :update_order_status%>
 <% end %>
 <table class="table">
   <thead>

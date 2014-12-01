@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:confirmation, :complete_order, :show, :edit, :update, :destroy]
   
   def index
     @orders = current_user.orders.all
@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
 
   def edit
   end
-  
+
   # Add new product to Order (make a new order)
   def add_to_current_order
     
@@ -42,9 +42,11 @@ class OrdersController < ApplicationController
 
   # Complete order
   def complete_order
-    # @order.status = 'Placed'
-    # @order.update
-    # redi
+    @order.update(status: 'Placed')
+    redirect_to order_confirmation_path(@order)
+  end
+
+  def confirmation
   end
 
   def create
