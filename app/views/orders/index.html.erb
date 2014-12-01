@@ -47,7 +47,8 @@
     </tr>
   </thead>
   <tbody>
-    <% @restaurants.each do |restaurant| %>
+  <% if current_user.restaurants %> 
+    <% current_user.restaurants.each do |restaurant| %>
       <tr>
         <td><%= restaurant.name %></td>
         <td><%= restaurant.website %></td>
@@ -63,6 +64,7 @@
         <td><%= link_to 'Destroy', restaurant, method: :delete%></td>
       </tr>
     <% end %>
+  <% end %>
   </tbody>
 </table>
 
