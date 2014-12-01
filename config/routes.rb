@@ -54,6 +54,9 @@ Feedmeapp::Application.routes.draw do
   # Order Routes
   get 'orders/' => 'orders#index'
   get 'orders/new' => 'orders#new', as: :new_order
+  # Custom routes
+  get 'orders/confirmation/:id' => 'orders#confirmation', as: :order_confirmation
+  get 'orders/:id' => 'orders#complete_order', as: :complete_order 
   #Additional routes for creating new order
   post 'orders/new' => 'orders#add_to_current_order', as: :add_to_current_order 
   get 'orders/:id' => 'orders#show', as: :order
