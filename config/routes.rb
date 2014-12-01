@@ -1,6 +1,10 @@
 Feedmeapp::Application.routes.draw do
   # For Authentication
+<<<<<<< HEAD
   root 'application#index'
+=======
+  root 'home#index'
+>>>>>>> 61518af2413fc1ff257267631a347033d7dbc475
 
   # Rerouting everything else to index page
   # get '*path' => 'application#index'
