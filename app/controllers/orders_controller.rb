@@ -36,37 +36,23 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.new(order_params)
-    
-    respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @order }
+        redirect_to @order, notice: 'Order was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
-  end
 
   def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.update(order_params)
+      redirect_to @order, notice: 'Order was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
     @order.destroy
-    
-    respond_to do |format|
-      format.html { redirect_to orders_url }
-      format.json { head :no_content }
-    end
+    redirect_to orders_url
   end
 
   private
