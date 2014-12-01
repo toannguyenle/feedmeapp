@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       # Redirect business user to a diffent page
       if user.is_business
-        redirect_to user_path(user)
+        redirect_to orders_path
       else
         redirect_to products_path, notice: "Logged in!"
       end
