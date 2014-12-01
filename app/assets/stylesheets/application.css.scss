@@ -34,7 +34,8 @@ div.food-item.row{
   height: 100px;
   font-family: $mainfont;
   font-size: 1.2em;
-  margin: 0 0 2px 0;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.5);
+  // margin: 0 0 2px 0;
 }
 
 div.dislike-item{
@@ -71,6 +72,11 @@ button.btn{
 i.glyphicon {
   font-size: 2em;
 }
+
+#map-canvas{
+  height: 500px;
+}
+
 body  {
   background-image: url(background1.jpg);
   background-repeat: no-repeat;

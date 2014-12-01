@@ -1,7 +1,7 @@
-var products = [];
+var productsData = [];
+var userLatLng = "";
 angular.module('feedmeApp')
 .controller('HomeCtrl',['$location','$scope','api', function($location, $scope, api){
-  $scope.products = products;
   // GOOGLE MAPS AUTO COMPLETE AND PLACES LOOKUP
   // Auto Complete
   var placeSearch, autocomplete;
@@ -59,6 +59,10 @@ angular.module('feedmeApp')
       var lng = position.coords.longitude;
       userLocation.lat = lat;
       userLocation.lng = lng;
+      // Store to display in map
+      userLatLng.lat = lat;
+      userLatLng.lng = lng;
+      
       geocoder = new google.maps.Geocoder();
       var latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode({'latLng': latlng}, function(results, status) {
@@ -80,51 +84,60 @@ angular.module('feedmeApp')
   // Send parameter back
   $scope.searchFood = function(price){
     // Reset the search result
-    products = [];
+    productsData = [];
     // Make an api call back to server to call ORDRIN for data
     api.getProduct(userLocation, price)
     .then(function(data){
       // Data Manipulation with results from API call
-      restaurant = data.data[0];
-      for (i=0; i < data.data[0].length; ++i){
+      restaurant = data.data;
+      for (i=0; i < data.data.length; ++i){
         var item = {};
-        item.restaurant_id = restaurant[i].restaurant_id;
-        item.cs_contact_phone = restaurant[i].cs_contact_phone;
+        // Ordr.in restaurant ID
+        item.restaurantId = restaurant[i].restaurant_id;
+        item.csContactPhone = restaurant[i].cs_contact_phone;
         item.latitude = restaurant[i].latitude;
         item.longitude = restaurant[i].longitude;
-        item.restaurant_name = restaurant[i].name;
-        item.delivery_time = restaurant[i].del;
-        item.minimum_amount = restaurant[i].mino;
-        item.cusine = restaurant[i].cu;
+        item.restaurantName = restaurant[i].restaurant_name;
+        // Delivery time
+        item.deliveryTime = restaurant[i].del;
+        // Minimum order amount
+        item.minimumAmount = restaurant[i].mino;
+        // Type of cuisine
+        item.cuisine = restaurant[i].cu;
         
         // Get the menu item
         for (j=0; j < restaurant[i].menu.length; j++) {
-            // Item id is id for the whole group
-            item.ordrn_id = restaurant[i].menu[j].id;
-            item.ordrn_type = estaurant[i].menu[j].name;
 
-            // Descrip of parent menu item
-            item.descrip = restaurant[i].menu[j].descrip;
-            
+          // Item categories
+          item.categories = restaurant[i].menu[j].name;
+
+          if (restaurant[i].menu[j].children != null ){
             for (k=0; k < restaurant[i].menu[j].children.length; k++) {
-              // Only show orderable items
-              if (restaurant[i].menu[j].children[k].is_orderable == "1"){
-                // Add more detailed description
-                item.descrip = item.descrip + ' / ' + restaurant[i].menu[j].children[k].descrip;
-                item.name = restaurant[i].menu[j].children[k].name;
-                item.price = restaurant[i].menu[j].children[k].price;
-                item.is_orderable = restaurant[i].menu[j].children[k].is_orderable;
-                
-                // Get the ingredients only if the item has it
-                if (restaurant[i].menu[j].children[0].children){
-                  item.ingredients = restaurant[i].menu[j].children[0].children[0].name;
+              // Add more detailed description
+              item.descrip = restaurant[i].menu[j].children[k].descrip;
+              item.name = restaurant[i].menu[j].children[k].name;
+              item.price = restaurant[i].menu[j].children[k].price;
+              item.isOrderable = restaurant[i].menu[j].children[k].is_orderable;
+              // Item id is id for the whole group
+              item.ordrnId = restaurant[i].menu[j].children[k].id;
+              // Get the extra options only if the item has it
+              if (restaurant[i].menu[j].children[k].children != null ){
+                var orderOptions = [];
+                for (h=0; h < restaurant[i].menu[j].children[k].children[0].children.length; h++) {
+                  var option = {};
+                  option.name = restaurant[i].menu[j].children[k].children[0].children[h].name;
+                  option.id = restaurant[i].menu[j].children[k].children[0].children[h].id;
+                  option.price = restaurant[i].menu[j].children[k].children[0].children[h].price;
+                  option.descrip = restaurant[i].menu[j].children[k].children[0].children[h].descrip;
+                  orderOptions.push(option);
                 }
-
-                // Add item to list
-                products.push(item);
+                item.orderOptions = orderOptions;
               }
+
+              // Add item to list
+              productsData.push(item);
             }
-            // }
+          }
         }
         // Push the item into scope
       }

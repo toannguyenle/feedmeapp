@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  skip_before_filter :authorize, only: [:index, :show, :ordrin_search, :wdi]
+  skip_before_filter :authorize, only: [:index, :show, :ordrin_search, :wdi, :ordrin_test]
   skip_before_filter  :verify_authenticity_token, only: [:ordrin_search]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
       @products = Product.all
       render json: @products, status: 200
     else
-      render json: {message: 'Hey Wrong Key!'}, status: 400
+      render json: {message: 'Hey Wrong Key!'}, status: 401
     end
   end
 
@@ -28,8 +28,16 @@ class ProductsController < ApplicationController
 
   end
 
+  def ordrin_test
+    require "ordrin"
+    ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
+    rest_args = {:rid => '49442'}
+    menu_items = ordrin_api.restaurant_details(rest_args)
+    render json: menu_items, status: 200
+  end
+
   def ordrin_search
-    puts '***************ORDRN TEST CONTROLLER********************'
+    puts '***************ORDRN SEARCH CONTROLLER********************'
     require "ordrin"
     ordrin_api = Ordrin::APIs.new(ENV["OD_SECRET"], :test)
 
@@ -44,30 +52,33 @@ class ProductsController < ApplicationController
     end
     # Get back list of local restaurant with delivery options
     restaurant_list = ordrin_api.delivery_list(args)  
-    puts restaurant_list
-    puts '***************ORDRN TEST CONTROLLER********************'
     delivery_list = []
+
     # For each restaurant search their menu
     # Only search menu for restaurant within 1 mile radius so quick food
-    restaurant_list.select{|t| t['distance_miles'] <= 1.0 }.first(10).each do |r|
-      puts '***************ORDRN TEST CONTROLLER********************'
-      puts r['na']
-      puts r['id']
-      puts r['distance_miles']
-      puts r['del']
-      puts r['mino']
-      puts r['cu']
-
+    # restaurant_list.select{|t| t['distance_miles'] <= 2.0 }.first(10).each do |r|
+    restaurant_list.sort_by{ |t| t[:distance_miles] }.first(10).each do |r|
       # Assign restaurant ID from Ordrin
       rest_args = {:rid => r['id'].to_s}
       # API call to ORDRIN to get menu items for each restaurant
       menu_items = ordrin_api.restaurant_details(rest_args)
+
+      # Assign restaurant info to menu items
+      menu_items['restaurant_name'] = r['na']
+      menu_items['restaurant_id ']= r['id']
+      menu_items['distance_miles'] = r['distance_miles']
+      menu_items['del'] = r['del']
+      menu_items['mino'] = r['mino']
+      menu_items['cu'] = r['cu']
+
+      # Push result to list to send back to client
       delivery_list.push(menu_items)
     end
 
     # Get menu items for each restaurant
-    render json: [delivery_list, restaurant_list], status: 200
+    render json: delivery_list, status: 200
   end
+
 
   def show
   end
