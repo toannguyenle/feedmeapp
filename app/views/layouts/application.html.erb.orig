@@ -15,6 +15,8 @@
 
 <!--   
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
  ng-app="feedmeApp" manifest="assets/javascripts/angular/app.js"
  <a ui-sref="home">home</a>
  <a ui-sref="products">products</a>
@@ -31,6 +33,7 @@
      <p><%= notice %></p>
    </div>
 =======
+>>>>>>> master
   ng-app="feedmeApp" manifest="assets/javascripts/angular/app.js"
   <a ui-sref="home">home</a>
   <a ui-sref="products">products</a>
@@ -49,9 +52,40 @@
   <p><%= notice %></p>
   </div>
 </div>
+<<<<<<< HEAD
+
+<%= yield %>
+=======
+ ng-app="feedmeApp" manifest="assets/javascripts/angular/app.js"
+ <a ui-sref="home">home</a>
+ <a ui-sref="products">products</a>
+ <a ui-sref="order">order</a>
+ <a ui-sref="maps">maps</a> -->
+ <div id="container">
+   <div id="user_header">
+     <% if current_user %>
+       Logged in as <%= link_to current_user.email, user_path(current_user) %>.
+       <% link_to "Log Out", logout_path %>
+     <% else %>
+       <%link_to 'Log in', login_path if !@is_login %>
+     <% end %>
+     <p><%= notice %></p>
+   </div>
+
+   <div>
+     <%= link_to 'Home', root_path %> |
+     <%= link_to 'Log In', login_path %> |
+     <%= link_to 'Sign Up', signup_path %>
+   </div>
+ </div>
+
+ <%= yield %>
+>>>>>>> master
+=======
 >>>>>>> master
 
 <%= yield %>
+>>>>>>> master
 
 </body>
 </html>
