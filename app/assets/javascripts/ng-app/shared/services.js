@@ -3,13 +3,6 @@ angular.module('feedmeApp')
 .service('api',['$http', function($http){
   return {
 
-    // New User
-    newUser: function(){
-
-    },
-
-
-
     getOrder: function(){
       var promise = $http.get('/api/orders')
       .then(function(response){
@@ -30,23 +23,12 @@ angular.module('feedmeApp')
 
     // GET PRODUCT
     getProduct: function(userAddress, budget){
-      // console.log(userAddress);
-      var ordrin_params = {
-        ordrin_zip: userAddress.postal_code,
-        ordrin_city: userAddress.locality,
-        ordrin_addr: (userAddress.street_number + ' ' + userAddress.route),
-        ordrin_budget: budget,
-        ordrin_lat: userAddress.lat,
-        ordrin_lng: userAddress.lng };
-
-        console.log(ordrin_params);
-        
-      var promise = $http.post('/api/products/', ordrin_params)
       console.log(userAddress, budget);
       var promise = $http.post('/products/', {ordrin: {ordrin_zip: userAddress.postal_code, ordrin_city: userAddress.locality, ordrin_addr: (userAddress.street_number + ' ' + userAddress.route), ordrin_budget: budget}})
       .then(function(response){
         return response;
       });
+      console.log(promise);
       return promise;
     },
     // ADD PRODUCT
