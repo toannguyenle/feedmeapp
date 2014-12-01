@@ -79,8 +79,6 @@ class ProductsController < ApplicationController
     render json: delivery_list, status: 200
   end
 
-<<<<<<< HEAD
-=======
   def ordrin_search
     # ORDRIN TEST
     require "ordrin"
@@ -90,7 +88,6 @@ class ProductsController < ApplicationController
     delivery_list = ordrin_api.delivery_list(args)
     render json: delivery_list, status: 200
   end
->>>>>>> 61518af2413fc1ff257267631a347033d7dbc475
 
   def show
   end
