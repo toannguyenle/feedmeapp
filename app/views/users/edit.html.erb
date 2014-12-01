@@ -13,34 +13,35 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :class => "form-control" %>
   </div>
   <div class="field">
     <%= f.label :email %><br>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :class => "form-control" %>
   </div>
   <div class="field">
     <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number %>
+    <%= f.text_field :phone_number, :class => "form-control" %>
   </div>
   <div class="field">
     <%= f.label :lat %><br>
-    <%= f.text_field :lat %>
+    <%= f.text_field :lat, :class => "form-control" %>
   </div>
   <div class="field">
     <%= f.label :lng %><br>
-    <%= f.text_field :lng %>
+    <%= f.text_field :lng, :class => "form-control" %>
   </div>
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, :class => "form-control" %>
   </div>
   <div class="field">
     <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, :class => "form-control" %>
   </div>
+  <div class="spacer25"></div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update", :class => "btn btn-default", :id => "transparent-button" %>
   </div>
 <% end %>
 
