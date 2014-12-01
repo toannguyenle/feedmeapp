@@ -23,15 +23,16 @@
    <div id="user_header">
      <% if current_user %>
        Logged in as <%= link_to current_user.email, user_path(current_user) %>.
-       <%= link_to "Log Out", logout_path %>
+       <% link_to "Log Out", logout_path %>
      <% else %>
-       <%=link_to 'Log in', login_path if !@is_login %>
+       <%link_to 'Log in', login_path if !@is_login %>
      <% end %>
      <p><%= notice %></p>
    </div>
 
    <div>
-     <% link_to 'Business' %>
+     <%= link_to 'Home', root_path %> |
+     <%= link_to 'Log In', login_path %> |
      <%= link_to 'Sign Up', signup_path %>
    </div>
  </div>
