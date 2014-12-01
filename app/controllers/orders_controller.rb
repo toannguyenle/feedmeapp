@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   
   def index
-    @orders = Order.all
+    @orders = current_user.orders.all
   end
 
   def show
@@ -22,9 +22,13 @@ class OrdersController < ApplicationController
   
   # Add new product to Order (make a new order)
   def add_to_current_order
+    
+    # get the first open order that the user has
     if current_user.orders.where(status:'Open').first
       current_order = current_user.orders.where(status:'Open').first
       OrderProduct.create({product_id: params[:product],order_id: current_order.id})
+
+    # If not open and create a new order for the current user
     else
       current_order = current_user.orders.create(order_params)
       # current_order.status = 'Open'
@@ -36,11 +40,12 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.new(order_params)
-      if @order.save
-        redirect_to @order, notice: 'Order was successfully created.'
-      else
-        render action: 'new'
-      end
+    if @order.save
+      redirect_to @order, notice: 'Order was successfully created.'
+    else
+      render action: 'new'
+    end
+  end
 
   def update
     if @order.update(order_params)
