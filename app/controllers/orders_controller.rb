@@ -6,6 +6,8 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order_products = OrderProduct.where(order_id: current_user.orders.where(status:'Open').first.id)
+    # current_user.orders.where(status:'Open').first.order
   end
   
   def new
@@ -26,7 +28,11 @@ class OrdersController < ApplicationController
     # get the first open order that the user has
     if current_user.orders.where(status:'Open').first
       current_order = current_user.orders.where(status:'Open').first
+<<<<<<< HEAD
       OrderProduct.create({product_id: params[:product],order_id: current_order.id})
+=======
+      OrderProduct.create({product_id: params[:product],order_id: current_order.id, quantity: params[:order][:orderproduct][:quantity], price: params[:order][:orderproduct][:price],additional_info: params[:order][:orderproduct][:additional_info] })
+>>>>>>> master
 
     # If not open and create a new order for the current user
     else
