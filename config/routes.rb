@@ -18,10 +18,10 @@ Feedmeapp::Application.routes.draw do
   patch 'orderproducts/:id' => 'orderproducts#update'
   delete 'orderproducts/:id' => 'orderproducts#destroy', as: :orderproducts
   # API ROUTES
-  # scope 'api', defaults: {format: :json} do
-  #   get 'products/' => 'products#index'
-  # end
-
+  scope 'api', defaults: {format: :json} do
+    post 'products/' => 'products#ordrin_search'
+    get 'wdi/:api_key' => 'products#wdi'
+  end
   # Restaurants Routes
   get 'restaurants/' => 'restaurants#index'
   get 'restaurants/new' => 'restaurants#new', as: :new_restaurant
