@@ -6,6 +6,7 @@ class RestaurantsController < ApplicationController
   end
   
   def show
+    @yelp_result = Yelp.client.business(@restaurant.yelp_id)
   end
 
   def new
@@ -57,11 +58,24 @@ class RestaurantsController < ApplicationController
   end
   def claim_business
     @restaurant = Restaurant.find(params[:format])
+    # Get more info on the business
+    yelp_result = Yelp.client.business(params[:id])
+
     @restaurant.yelp_id = params[:id]
+    @restaurant.image_url = yelp_result.image_url 
+    @restaurant.website = yelp_result.url 
+    @restaurant.categories = yelp_result.categories.join(", ")
+    @restaurant.phone_number = yelp_result.phone 
+    @restaurant.street_address_1 = yelp_result.location.address[0] 
+    @restaurant.city = yelp_result.location.city 
+    @restaurant.state = yelp_result.location.state_code 
+    @restaurant.zipcode = yelp_result.location.postal_code
+    @restaurant.lat = yelp_result.location.coordinate.latitude
+    @restaurant.lng = yelp_result.location.coordinate.longitude
     @restaurant.save
+
     redirect_to @restaurant
   end
-
   private
   
   def set_restaurant

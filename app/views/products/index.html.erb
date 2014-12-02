@@ -1,12 +1,17 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
-
+      <!-- Show add new product option if user is a business account -->
+    <% if current_user && current_user.is_business %>
+      <div class="food-item row">
+        <%= link_to 'NEW ITEM', new_product_path %>
+      </div>
+    <% end %>
     <!-- FOOD OPTIONS HERE EACH AT A TIME -->
     <% @products.each do |product| %>
       <div class="food-item row">
 
         <div class="dislike-item col-xs-2 col-sm-2 col-md-2">
-          <%= image_tag(product.image_urls, width: "50px") %>
+          <%= image_tag(product.image_urls, height: "100px", width:"100%") %>
         </div>
 
         <div class="col-xs-8 col-sm-8 col-md-8">
@@ -22,13 +27,11 @@
 
         <div class="like-item col-xs-2 col-sm-2 col-md-2">
             <% if current_user == product.restaurant.user %>
-              <%= link_to 'Edit', edit_product_path(product) %>
-              <%= link_to 'Delete', product, method: :delete %>
+              <%= link_to 'SHOW', product %>
+              <%= link_to 'EDIT', edit_product_path(product) %>
+              <%= link_to 'DELETE', product, method: :delete %>
             <% else %>
-              <%= link_to 'Order', add_to_current_order_path(product), :data => {:controller => "orders_controller", :action => "add_to_current_order(product)"}, :class => "glyphicon glyphicon-shopping-cart"%>
-            <% end %>
-            <% if current_user && current_user.is_business %>
-              <%= link_to 'Show', product %>
+              <%= link_to 'ORDER', add_to_current_order_path(product), :data => {:controller => "orders_controller", :action => "add_to_current_order(product)"}, :class => "glyphicon glyphicon-shopping-cart"%>
             <% end %>
         </div>
       </div>
@@ -36,8 +39,5 @@
     <% end %>
   </div>
 </div>
-<!-- Show add new product option if user is a business account -->
-<% if current_user && current_user.is_business %>
-  <%= link_to 'New item', new_product_path %>
-<% end %>
+
 

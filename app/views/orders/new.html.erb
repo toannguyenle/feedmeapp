@@ -1,38 +1,45 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+  <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+    <div class="row">
+      <div class="col-xs-4 col-sm-4 col-md-5">
+        <%= image_tag(@product.image_urls, height:"200px") %>
+      </div>
+      <div class="col-xs-8 col-sm-8 col-md-7">
+        <h2><%= @product.name %></h2>
+        <h3><%= number_to_currency(@product.regular_price) %></h3>
+        <small>from</small>
+        <%= @product.restaurant.name %>
 
-    <%= form_for(@order, :url => {:action => :add_to_current_order, :controller => :orders, :product => @product}) do |f| %>
-      <%= @product.name %><br>
-      <%= number_to_currency(@product.regular_price) %><br>
-      <small>from</small>
-      <%= @product.restaurant.name %><br>
-      <div class="field">
-        <%= f.fields_for :orderproduct do |op| %>
-          <%= op.label :quantity %><br>
-          <%= op.select :quantity, [1,2,3,4,5]%>
-          <%= op.hidden_field :price, :value => @product.regular_price %>
+        <%= form_for(@order, :url => {:action => :add_to_current_order, :controller => :orders, :product => @product}) do |f| %>
+          <div class="field">
+            <%= f.fields_for :orderproduct do |op| %>
+              <%= op.label :quantity, 'QUANTITY' %>
+              <%= op.select :quantity, [1,2,3,4,5]%>
+              <%= op.hidden_field :price, :value => @product.regular_price %>
+            <% end %>
+          </div>
+          <div class="field">
+            <%= f.label :delivery_option, 'DELIVERY OPTION' %>
+            <%= f.select :delivery_option, ['Deliver', 'Pick Up', 'Dine In'] %>
+          </div>
+          <div class="field">
+            <%= f.label :payment_type, 'PAYMENT TYPE' %>
+            <%= f.select :payment_type, ['Credit Card','Cash'] %>
+          </div>
+          <div class="field">
+            <%= f.fields_for :orderproduct do |op| %>
+              <%= op.label :additional_info, 'ADDITIONAL INFO' %>
+              <%= op.text_field :additional_info, :class => "form-control input-lg" %>
+            <% end %>
+          </div>
+          <div class="spacer25"></div>
+          <div class="actions">
+            <%= f.submit "CREATE", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
+            <br>
+          </div>
         <% end %>
+        <%= link_to 'Back', orders_path %>
       </div>
-      <div class="field">
-        <%= f.label :delivery_option %><br>
-        <%= f.select :delivery_option, ['Deliver', 'Pick Up', 'Dine In'] %>
-      </div>
-      <div class="field">
-        <%= f.label :payment_type %><br>
-        <%= f.select :payment_type, ['Credit Card','Cash'] %>
-      </div>
-      <div class="field">
-        <%= f.fields_for :orderproduct do |op| %>
-          <%= op.label :additional_info %><br>
-          <%= op.text_field :additional_info, :class => "form-control" %>
-        <% end %>
-      </div>
-      <div class="spacer25"></div>
-      <div class="actions">
-        <%= f.submit "Create", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
-    <div class="spacer25"></div>
-    <%= link_to 'Back', orders_path %>

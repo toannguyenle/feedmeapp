@@ -4,38 +4,57 @@
       <!-- Default panel contents -->
       <div class="panel-heading">
         <strong><h2><%= @restaurant.name %></h2></strong><br>
-        <small>owned by</small> <%= @restaurant.user.name %>
+        <small><%= @restaurant.street_address_1%> <% if @restaurant.city %>
+        <%= @restaurant.city if @restaurant.city+ ', ' + @restaurant.state if @restaurant.state + ' ' + @restaurant.zipcode if @restaurant.zipcode %></li>
+        <% end %></small><br>
+        <small>owned by</small><br>
+        <%= @restaurant.user.name %>
       </div>
       <div class="panel-body">
         <div class="thumbnail">
         <%= image_tag(@restaurant.image_url, width: "100%", height: "200px", overflow: "hidden") %>
         </div>
       </div>
-
-      <!-- List group -->
-      <ul class="list-group">
-        <li class="list-group-item"><strong>Categories: </strong><%= @restaurant.categories %></li>
-        <li class="list-group-item"><%= @restaurant.website %></li>
-        <li class="list-group-item"><%= number_to_phone(@restaurant.phone_number) %></li>
-        <% if @restaurant.street_address_1 %>
-          <li class="list-group-item"><%= @restaurant.street_address_1%></li>
-          <% if @restaurant.street_address_2 %>
-            <li class="list-group-item">Ste: <%= @restaurant.street_address_2 %></li>
-          <% end %>
-        <% end %>
-        <% if @restaurant.city %>
-          <li class="list-group-item"><%= @restaurant.city if @restaurant.city+ ', ' + @restaurant.state if @restaurant.state + ' ' + @restaurant.zipcode if @restaurant.zipcode %></li>
-        <% end %>
-        <li class="list-group-item"><strong>Yelp Id: </strong><%= @restaurant.yelp_id %></li>
-      </ul>
-      <!-- <ul>
-        <li><%#= b.name %></li>
-        <li><%#= b.is_claimed %></li>
-        <li><%#= image_tag(b.rating_img_url) %></li>
-        <li><%#= b.review_count %></li>
-        <li><%#= b.location.display_address[0] %></li>
-      </ul> -->
-      <%= link_to 'Validate on Yelp', yelp_path(@restaurant) %> |
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              What people says about your business
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item"><%= number_to_human(@yelp_result.review_count) %> reviews  <%= image_tag(@yelp_result.rating_img_url) %></li>
+              <li class="list-group-item">
+                <div class="media">
+                  <a class="media-left media-middle" href="">
+                    <%= image_tag(@yelp_result.snippet_image_url, :class => "img-circle") %>
+                  </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">Words on the street</h4>
+                      <%= @yelp_result.snippet_text %>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item"><%= @yelp_result.location.display_address[0] %></li>
+              <li class="list-group-item"><%= image_tag("http://s3-media1.fl.yelpcdn.com/assets/2/www/img/1589098a542f/developers/Powered_By_Yelp_White.png") %></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              Info
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Categories: </strong><%= @restaurant.categories %></li>
+              <li class="list-group-item"><strong>Website: </strong><%= @restaurant.website %></li>
+              <li class="list-group-item"><%= @restaurant.website %></li>
+              <li class="list-group-item"><%= number_to_phone(@restaurant.phone_number) %></li>
+              <li class="list-group-item"><strong>Yelp Id: </strong><%= @restaurant.yelp_id %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      Validate on <%= link_to image_tag("http://s3-media1.fl.yelpcdn.com/assets/2/www/img/14f29ad24935/map/miniMapLogo.png"), yelp_path(@restaurant) %> |
       <%= link_to 'Add menu items', new_product_path %> |
       <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
       <%= link_to 'Delete', @restaurant, method: :delete%> |
