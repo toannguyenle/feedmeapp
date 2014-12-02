@@ -26,23 +26,20 @@ class RestaurantsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @restaurant.update(restaurant_params)
-        format.html { redirect_to @restaurant, notice: 'Restaurant Info Updated Successfully.'} 
-        format.json { head :no_content}
-      else
-        format.html { render action: 'edit' } 
-        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
-      end
+    if @restaurant.update(restaurant_params)
+      redirect_to @restaurant, notice: 'Restaurant Info Updated Successfully.' 
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
     @restaurant.destroy
-    respond_to do |format|
-      format.html { redirect_to restaurants_url} 
-      format.json { render nothing: true, status: 204}
-    end
+    redirect_to restaurants_url
+  end
+
+  def business_yelp
+    @result = Yelp.client.search('San Francisco', { term: 'food' })
   end
 
   private
