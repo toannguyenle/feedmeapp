@@ -39,7 +39,18 @@ class RestaurantsController < ApplicationController
   end
 
   def business_yelp
-    @result = Yelp.client.search('San Francisco', { term: 'food' })
+    # Get address from restaurant address
+    restaurant_address = @restaurant.street_address_1 + ', ' + @restaurant.city + ', ' + @restaurant.state
+
+    geocode = Geocoder.search(restaurant_address)[0].geometry['location']
+    # Set coordinates for yelp search
+    coordinates = { latitude: geocode['lat'], longitude: geocode['lng'] }
+    params = {
+      term: 'food',
+      limit: 5
+      }
+    @result = Yelp.client.search_by_coordinates(coordinates, params)
+    puts @result.inspect
   end
 
   private
