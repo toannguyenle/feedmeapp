@@ -6,13 +6,13 @@
 <h1>LOG IN</h1>
 
 <%= form_tag sessions_path do %>
-    <%= label_tag :email %><br />
+    <%= label_tag :email, 'EMAIL' %><br />
     <%= text_field_tag :email, params[:email], :class => "form-control input-lg" %>
-    <%= label_tag :password %><br />
+    <%= label_tag :password, 'PASSWORD' %><br />
     <%= password_field_tag :password, params[:password], :class => "form-control input-lg" %>
 
   <div class="spacer25"></div> 
-  <div class="actions"><%= submit_tag "Log In", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %></div><br>
+  <div class="actions"><%= submit_tag "LOG IN", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %></div><br>
 <% end %>
 
 </div>
