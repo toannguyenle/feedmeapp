@@ -1,15 +1,27 @@
 <div class="row">
   <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
-    <div class="row">
+    <div class="row text-left">
       <div class="col-xs-4 col-sm-4 col-md-5">
-        <%= image_tag(@product.image_urls, height:"200px") %>
+        <%= image_tag(@product.image_urls, width: "100%",height:"200px") %>
+        <!-- API CALL FOR MORE OPTIONS -->
+        SUGGESTED PAIRINGS
+        <div class="row text-center">
+        <% @livingroom.each do |movie| %>
+            <%= image_tag(movie['image_url'], width:"22%", height:"90px") %>
+        <% end %>
+        </div>
+        <p class="text-right"><small>Powered by: livingroom</small></p>
       </div>
       <div class="col-xs-8 col-sm-8 col-md-7">
         <h2><%= @product.name %></h2>
         <h3><%= number_to_currency(@product.regular_price) %></h3>
         <small>from</small>
         <%= @product.restaurant.name %>
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <%= form_for(@order, :url => {:action => :add_to_current_order, :controller => :orders, :product => @product}) do |f| %>
           <div class="field">
             <%= f.fields_for :orderproduct do |op| %>
@@ -34,7 +46,7 @@
           </div>
           <div class="spacer25"></div>
           <div class="actions">
-            <%= f.submit "CREATE", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
+            <%= f.submit "ADD TO CART", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
             <br>
           </div>
         <% end %>
