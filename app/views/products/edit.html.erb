@@ -50,11 +50,11 @@
   <div class="field">
     <%= f.label :restaurant_id %><br>
     <%= f.collection_select :restaurant_id, Restaurant.all, :id, :name %>
-  </div>
+  </div><br>
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>
+<% end %><br>
 
 <%= link_to 'Show', @product %> |
 <%= link_to 'Back', products_path %>
