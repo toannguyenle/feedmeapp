@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
     <div class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading">
@@ -32,8 +32,10 @@
           <li class="list-group-item"><%= @user.city if @user.city+ ', ' + @user.state if @user.state + ' ' + @user.zipcode if @user.zipcode %></li>
         <% end %>
       </ul>
+      <div class="text-center">
+        <%= link_to 'Edit', edit_user_path(@user) %> |
+        <%= link_to 'Back', users_path %>
+      </div>
     </div>
-    <%= link_to 'Edit', edit_user_path(@user) %> |
-    <%= link_to 'Back', users_path %>
   </div>
 </div>

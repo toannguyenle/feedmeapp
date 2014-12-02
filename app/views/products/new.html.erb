@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+  <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
 
 <% if current_user.restaurants.first %>
   <div> New menu item for <%= current_user.restaurants.first.name %></div>
@@ -16,27 +16,27 @@
       </div>
     <% end %>
     <div class="field">
-      <%= f.label :name %><br>
+      <%= f.label :name, 'NAME' %><br>
       <%= f.text_field :name, :class => "form-control" %>
     </div>
     <div class="field">
-      <%= f.label :categories %><br>
+      <%= f.label :categories, 'CATEGORIES' %><br>
       <%= f.text_field :categories, :class => "form-control" %>
     </div>
     <div class="field">
-      <%= f.label :description %><br>
+      <%= f.label :description, 'DESCRIPTION' %><br>
       <%= f.text_field :description, :class => "form-control" %>
     </div>
     <div class="field">
-      <%= f.label :image_urls %><br>
+      <%= f.label :image_urls, 'IMAGE URLS' %><br>
       <%= f.text_field :image_urls, :class => "form-control" %>
     </div>
     <div class="field">
-      <%= f.label :regular_price %><br>
+      <%= f.label :regular_price, 'REGULAR PRICE' %><br>
       <%= f.text_field :regular_price, :class => "form-control" %>
     </div>
     <div class="field">
-      <%= f.label :delivery_method %><br>
+      <%= f.label :delivery_method, 'DELIVERY METHOD' %><br>
       <%= f.label "Deliver" %>
       <%= f.check_box(:delivery_method,{:multiple => true}, "Deliver")%>
       <%= f.label "Take out" %>
@@ -45,28 +45,28 @@
       <%= f.check_box(:delivery_method,{:multiple => true}, "Dine in",nil)%>
     </div>
     <div class="field">
-      <%= f.label :ordr %><br>
+      <%= f.label :ordr, 'ORDR ID' %><br>
       <%= f.text_field :ordr, :class => "form-control" %>
     </div>
     <div class="field">
-      <%= f.label :discount_price %><br>
+      <%= f.label :discount_price, 'DISCOUNTED PRICE' %><br>
       <%= f.text_field :discount_price, :class => "form-control" %>
     </div>
     <div class="field">
-      <%= f.label :discount_start_time %><br>
+      <%= f.label :discount_start_time, 'START TIME' %><br>
       <%= f.time_select :discount_start_time %>
     </div>
     <div class="field">
-      <%= f.label :discount_end_time %><br>
+      <%= f.label :discount_end_time, 'END TIME' %><br>
       <%= f.time_select :discount_end_time %>
     </div>
     <div class="field">
-      <%= f.label :discount_inventory %><br>
+      <%= f.label :discount_inventory, 'DISCOUNT INVENTORY' %><br>
       <%= f.text_field :discount_inventory, :class => "form-control" %>
     </div><br>
     
     <div class="actions">
-      <%= f.submit "Create", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
+      <%= f.submit "ADD ITEM TO MENU", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
     </div>
   <% end %>
 <% else %>

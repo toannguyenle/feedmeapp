@@ -1,2 +1,18 @@
-This is order confirmation page after user has completed their order.
-<%= @order.inspect %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading"><h1>YOUR FOOD IS ON ITS WAY.</h1></div>
+      <div class="panel-body">
+        <p><strong>STATUS: </strong><%= @order.status %></p>
+      </div>
+
+      <!-- List group -->
+      <ul class="list-group">
+        <li class="list-group-item"><strong>PAYMENT TYPE </strong><%= @order.payment_type %></li>
+        <li class="list-group-item"><strong>WAIT TIME </strong><%= @order.processing_time %> minutes</li>
+        <li class="list-group-item"><strong>DELIVER BY </strong><%= @order.delivered_by %></li>
+      </ul>
+    </div>
+  </div>
+</div>
