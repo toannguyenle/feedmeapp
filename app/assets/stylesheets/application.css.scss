@@ -12,6 +12,11 @@
  *= require_tree .
  */
 @import 'bootstrap';
+
+body {
+	background-color: rgb(255, 253, 202);
+}
+
 div.input-group {
  margin: 5px 0;
 }

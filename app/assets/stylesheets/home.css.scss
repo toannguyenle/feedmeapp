@@ -1,21 +1,22 @@
-.home {
-	border: 1px solid black;
-}
-
 .home2 {
 	height: 386px;
-	width: 390px;
+	width: 450px;
 	float: left;
-	border: 1px solid red;
 	background-image: url("imgres.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
 }
 
+.home3 {
+	height: 386px;
+	margin-left: -1000px;
+
+}
+
 #feedme {
 	font-family: 'Lato';
 	font-size: 250px;
 	text-align: center;
-	margin-right: -40px;
+
 }
