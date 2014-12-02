@@ -12,35 +12,83 @@
  *= require_tree .
  */
 @import 'bootstrap';
-@import url(http://fonts.googleapis.com/css?family=Gochi+Hand);
-
-
-body  {
- 
+// Import google fonts
+@import url('http://fonts.googleapis.com/css?family=Gochi+Hand');
+@import url(http://fonts.googleapis.com/css?family=Lato:300);
+// LOGO FONT
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,300);
+$maincolor: rgba(255, 255, 0,0.5);
+$mainfont: 'Lato', sans-serif;
+$basewidth: 600px;
+label {
+  font-family: $mainfont;
+  font-size: 1.2em;
+  margin: 10px 0 0 0;
 }
-
-
+#logo {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 4em;
+  color: white;
+}
 body {
- background-color: rgb(255, 253, 202);
+  padding-top: 70px; 
+  background-image: url(background1.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
 }
-
+div.wrapper {
+  background-color: rgba(255, 255, 255,0.8);
+  border-radius: 3px;
+}
 div.input-group {
  margin: 5px 0;
 }
+div.dislike-item{
+  padding-top: 0.4em;
+  font-size: 3em;
+  height: 100%;
+  background-color: rgba(255, 0, 44, 0.5);
+}
+div.like-item{
+  padding-top: 0.4em;
+  height: 100%;
+  font-size: 3em;
+  background-color: rgba(0, 202, 44, 0.5);
+}
 input.form-control.input-lg {
- border-radius: 0;
+  border-radius: 0;
+  // height: 100px;
+  font-family: $mainfont;
+  // font-size: 3em;
+}
+div.food-item.row{
+  background-color: rgba(255, 202, 44, 0.8);
+  height: 100px;
+  font-family: $mainfont;
+  font-size: 1.2em;
+  margin: 0 0 2px 0;
+}
+#transparent-button {
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 1px;
+  color: white;
 }
 button.btn{
- margin: 5px 0 0 0;
- border-radius: 0;
+  // height: 100px;
+  margin: 5px 0 0 0;
+  border-radius: 0;
+  font-family: $mainfont;
+  // font-size: 3em;
 }
 i.glyphicon {
  font-size: 2em;
 }
 
 // Google Maps Style
-html, body, #map-canvas {
- height: 100%;
+#map-canvas {
+ height: 500px;
  margin: 0px;
  padding: 0px
 }
@@ -93,18 +141,60 @@ html, body, #map-canvas {
 
 .spacer25 { height: 25px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
 
-// .table, td, th {
-//     border: 1px solid black;
-// }
+/* Red */
+$bgDefault      : rgba(0, 0, 0,0.2);
+$bgHighlight    : rgba(0, 0, 0,0);
+$colDefault     : #ecf0f1;
+$colHover       : #ffbbbc; 
 
-// .table {
-//     width: 100%;
-// }
 
-// #th {
-//     height: 50px;
-// }
-
+/* --- NAV BAR Style --- */
+.navbar-default {
+    background-color: $bgDefault;
+    border-color: $bgHighlight;
+    .navbar-brand {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover; }}
+    .navbar-nav {
+        > li {
+            > a {
+                color: $colDefault;
+                &:hover, &:focus {
+                    color: $colHover;   }}}
+        .active {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight; }}
+        .open {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight;
+                .caret {
+                    border-top-color: $colHover;
+                    border-bottom-color: $colHover; }}}
+        > .dropdown {
+            > a {
+                .caret {
+                    border-top-color: $colDefault;
+                    border-bottom-color: $colDefault; }
+                &:hover, &:focus {
+                    .caret {
+                        border-top-color: $colHover;
+                        border-bottom-color: $colHover; }}}}}
+    .navbar-toggle {
+        border-color: $bgHighlight;
+        &:hover, &:focus {
+            background-color: $bgHighlight; }
+        .icon-bar {
+            background-color: $colDefault; }}}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover;
+            background-color: $bgHighlight; }}
+}
 
 
 

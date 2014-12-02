@@ -1,37 +1,55 @@
-<h1>Listing users</h1>
+<div class="row">
+  <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+    <h1>Listing users</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone number</th>
-      <th>Lat</th>
-      <th>Lng</th>
-      <th>Business</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone number</th>
+          <th></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.phone_number %></td>
-        <td><%= user.lat %></td>
-        <td><%= user.lng %></td>
-        <td><%= user.is_business %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= number_to_phone(user.phone_number) %></td>
+            <td>
+              <% if user == current_user %>
+                <%= link_to 'Show', user %> |
+                <%= link_to 'Edit', edit_user_path(user) %> |
+                <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<br>
+    <br>
+    <div id="map-canvas"></div>
+  </div>
+</div>
 
-<%= link_to 'New User', new_user_path %>
+<script>
+  var data = <%= @users.to_json.html_safe %>
+  var myLatlng = new google.maps.LatLng(data[0].lat,data[0].lng);
+  var mapOptions = {
+    zoom: 15,
+    mapTypeId: google.maps.MapTypeId.TERRAIN,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  for (i=0; i<data.length; i++){
+      var thisLatlng = new google.maps.LatLng(data[i].lat,data[i].lng);
+      var marker = new google.maps.Marker({
+        position: thisLatlng,
+        map: map,
+        title: data[i].name
+      });
+  }
+</script>

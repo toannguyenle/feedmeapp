@@ -1,41 +1,38 @@
-
-<p id="notice"><%= notice %></p>
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
-    <p>
-      <strong>Name:</strong>
-      <%= @user.name %>
-    </p>
-
-    <p>
-      <strong>Email:</strong>
-      <%= @user.email %>
-    </p>
-
-    <p>
-      <strong>Phone number:</strong>
-      <%= @user.phone_number %>
-    </p>
-
-    <p>
-      <strong>Lat:</strong>
-      <%= @user.lat %>
-    </p>
-
-    <p>
-      <strong>Lng:</strong>
-      <%= @user.lng %>
-    </p>
-    <p>
-      <strong>Business?</strong>
-      <%= @user.is_business %>
-    </p>
-    <strong>Restaurants owned: </strong>
-    <% if @user.restaurants %>
-      <% @user.restaurants.each do |r| %>
-        <strong><%=link_to r.name, r %></strong><br>
-      <% end %>
-    <% end %>
+  <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">
+        <h2><%= @user.name %></h2>
+      </div>
+        <div class="panel-body">
+          <p>
+            <% if @user.restaurants.count > 0 %>
+              <strong>Restaurants owned: </strong>
+              <% @user.restaurants.each do |r| %>
+                <strong><%=link_to r.name, r %></strong><br>
+              <% end %>
+            <% else %>
+              You haven't created any restaurant yet.
+              <%= link_to 'Add new Restaurant', new_restaurant_path %>
+            <% end %>
+          </p>
+        </div>
+      <!-- List group -->
+      <ul class="list-group">
+        <li class="list-group-item"><%= @user.email %></li>
+        <li class="list-group-item"><%= number_to_phone(@user.phone_number) %></li>
+        <% if @user.street_address_1 %>
+          <li class="list-group-item"><%= @user.street_address_1%></li>
+          <% if @user.street_address_2 %>
+            <li class="list-group-item"><%= @user.street_address_2 %></li>
+          <% end %>
+        <% end %>
+        <% if @user.city %>
+          <li class="list-group-item"><%= @user.city if @user.city+ ', ' + @user.state if @user.state + ' ' + @user.zipcode if @user.zipcode %></li>
+        <% end %>
+      </ul>
+    </div>
     <%= link_to 'Edit', edit_user_path(@user) %> |
     <%= link_to 'Back', users_path %>
   </div>
