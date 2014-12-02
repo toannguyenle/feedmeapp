@@ -3,14 +3,24 @@ class OrdersController < ApplicationController
   
   def index
     if current_user.is_business
-      # @orders = current_user.restaurants.first.products
+
+      @orders = Order.find_by_sql("
+        SELECT o.id, o.status, o.payment_type, o.processing_time, o.delivery_option, o.delivered_by, o.user_id , o.created_at
+        FROM users as u 
+        INNER JOIN restaurants as r ON u.id = r.user_id 
+        INNER JOIN products as p ON r.id = p.restaurant_id 
+        INNER JOIN order_products as op ON p.id = op.product_id 
+        INNER JOIN orders as o ON o.id = op.order_id
+        WHERE u.id = "+current_user.id.to_s+";")
+
     else
       @orders = current_user.orders.all
     end
   end
 
   def show
-    @order_products = OrderProduct.where(order_id: current_user.orders.where(status:'Open').first.id)
+    @order_products = @order.order_products.all;
+    # @order_products = OrderProduct.where(order_id: current_user.orders.where(status:'Open').first.id)
     # current_user.orders.where(status:'Open').first.order
   end
   
@@ -30,6 +40,7 @@ class OrdersController < ApplicationController
 
   # Add new product to Order (make a new order)
   def add_to_current_order
+
     # get the first open order that the user has
     if current_user.orders.where(status:'Open').first
       current_order = current_user.orders.where(status:'Open').first
@@ -46,7 +57,6 @@ class OrdersController < ApplicationController
 
   # Complete order
   def complete_order
-    raise 'asdf'
     @order.update(status: 'Placed')
     redirect_to order_confirmation_path(@order)
   end
