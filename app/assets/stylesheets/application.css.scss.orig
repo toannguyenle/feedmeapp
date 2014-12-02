@@ -12,18 +12,14 @@
  *= require_tree .
  */
 @import 'bootstrap';
-@import url(http://fonts.googleapis.com/css?family=Gochi+Hand);
 
-
-body  {
- background-color: white;
-}
-
-
+<<<<<<< HEAD
 body {
  background-color: rgb(255, 253, 202);
 }
 
+=======
+>>>>>>> 5e5693028e7ae7b057cf25e13b651c8cf838a1be
 div.input-group {
  margin: 5px 0;
 }
