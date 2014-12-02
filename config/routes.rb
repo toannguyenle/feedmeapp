@@ -10,16 +10,23 @@ Feedmeapp::Application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  
+
   resources :sessions
-
+  # Order Product Path
+  get 'orderproducts/:id' => 'orderproducts#show', as: :orderproduct
+  get 'orderproducts/:id/edit' => 'orderproducts#edit', as: :edit_orderproduct
+  patch 'orderproducts/:id' => 'orderproducts#update'
+  delete 'orderproducts/:id' => 'orderproducts#destroy', as: :orderproducts
   # API ROUTES
-  # scope 'api', defaults: {format: :json} do
-  #   get 'products/' => 'products#index'
-  # end
-
+  scope 'api', defaults: {format: :json} do
+    post 'products/' => 'products#ordrin_search'
+    get 'wdi/:api_key' => 'products#wdi'
+  end
   # Restaurants Routes
   get 'restaurants/' => 'restaurants#index'
+
+  get 'restaurants/:id/business_yelp' => 'restaurants#business_yelp', as: :yelp
+
   get 'restaurants/new' => 'restaurants#new', as: :new_restaurant
   get 'restaurants/:id' => 'restaurants#show', as: :restaurant
   post 'restaurants/' => 'restaurants#create'
@@ -50,6 +57,9 @@ Feedmeapp::Application.routes.draw do
   # Order Routes
   get 'orders/' => 'orders#index'
   get 'orders/new' => 'orders#new', as: :new_order
+  # Custom routes
+  get 'orders/confirmation/:id' => 'orders#confirmation', as: :order_confirmation
+  get 'orders/:id' => 'orders#complete_order', as: :complete_order 
   #Additional routes for creating new order
   post 'orders/new' => 'orders#add_to_current_order', as: :add_to_current_order 
   get 'orders/:id' => 'orders#show', as: :order
