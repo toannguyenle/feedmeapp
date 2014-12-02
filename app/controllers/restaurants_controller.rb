@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   skip_before_filter :authorize, only: [:index, :show]
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :business_yelp]
   def index
     @restaurants = Restaurant.all
   end
@@ -39,18 +39,26 @@ class RestaurantsController < ApplicationController
   end
 
   def business_yelp
-    # Get address from restaurant address
-    restaurant_address = @restaurant.street_address_1 + ', ' + @restaurant.city + ', ' + @restaurant.state
-
-    geocode = Geocoder.search(restaurant_address)[0].geometry['location']
+    if @restaurant.lat == nil
+      # Get address from restaurant address
+      restaurant_address = @restaurant.street_address_1 + ', ' + @restaurant.city + ', ' + @restaurant.state
+      geocode = Geocoder.search(restaurant_address)[0].geometry['location']
+      coordinates = { latitude: geocode['lat'], longitude: geocode['lng'] }
+    else
+      coordinates = { latitude: @restaurant.lat, longitude: @restaurant.lng }
+    end
     # Set coordinates for yelp search
-    coordinates = { latitude: geocode['lat'], longitude: geocode['lng'] }
     params = {
-      term: 'food',
+      term: 'restaurant',
       limit: 5
       }
     @result = Yelp.client.search_by_coordinates(coordinates, params)
-    puts @result.inspect
+  end
+  def claim_business
+    @restaurant = Restaurant.find(params[:format])
+    @restaurant.yelp_id = params[:id]
+    @restaurant.save
+    redirect_to @restaurant
   end
 
   private

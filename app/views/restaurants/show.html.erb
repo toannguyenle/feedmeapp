@@ -10,6 +10,13 @@ owned by <strong><%= @restaurant.user.name %></strong><br>
 <strong>Zip Code</strong> <%= @restaurant.zipcode %><br>
 <strong>Country</strong> <%= @restaurant.country %><br>
 <strong>Yelp ID</strong> <%= @restaurant.yelp_id %><br>
+<!-- <ul>
+  <li><%#= b.name %></li>
+  <li><%#= b.is_claimed %></li>
+  <li><%#= image_tag(b.rating_img_url) %></li>
+  <li><%#= b.review_count %></li>
+  <li><%#= b.location.display_address[0] %></li>
+</ul> -->
 <strong>Image</strong> <%= image_tag(@restaurant.image_url, width: "50px") %><br>
 <strong>Categories</strong> <%= @restaurant.categories %><br>
 <strong>Lat</strong> <%= @restaurant.lat %><br>
