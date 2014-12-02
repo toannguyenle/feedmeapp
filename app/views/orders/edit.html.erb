@@ -1,3 +1,6 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3"> 
+
 <%= form_for(@order) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
@@ -13,16 +16,20 @@
 
   <div class="field">
     <%= f.label :product_count %><br>
-    <%= f.text_field :product_count %>
+    <%= f.text_field :product_count, :class => "form-control input-lg" %>
   </div>
   <div class="field">
     <%= f.label :processing_time %><br>
-    <%= f.text_field :processing_time %>
+    <%= f.text_field :processing_time, :class => "form-control input-lg" %>
   </div>
+  <div class="spacer25"></div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
   </div>
 <% end %>
+  <div class="spacer25"></div>
+  </div>
+</div>
 
 <%= link_to 'Show', @order %> |
 <%= link_to 'Back', orders_path %>
