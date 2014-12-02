@@ -24,3 +24,23 @@ Showing <strong><%= @result.businesses.count %></strong> businesses matched your
     <% end %>
   </tbody>
 </table>
+<div id="map-canvas"></div>
+
+<script>
+  var data = <%= @result.businesses.to_json.html_safe %>
+  var myLatlng = new google.maps.LatLng(data[0].hash.location.coordinate.latitude,data[0].hash.location.coordinate.longitude);
+  var mapOptions = {
+    zoom: 13,
+    mapTypeId: google.maps.MapTypeId.TERRAIN,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  for (i=0; i<data.length; i++){
+    var thisLatlng = new google.maps.LatLng(data[i].hash.location.coordinate.latitude,data[i].hash.location.coordinate.longitude);
+    var marker = new google.maps.Marker({
+      position: thisLatlng,
+      map: map,
+      title: data[i].hash.name
+    });
+  }
+</script>

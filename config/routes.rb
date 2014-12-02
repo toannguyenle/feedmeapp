@@ -19,7 +19,6 @@ Feedmeapp::Application.routes.draw do
   delete 'orderproducts/:id' => 'orderproducts#destroy', as: :orderproducts
   # API ROUTES
   scope 'api', defaults: {format: :json} do
-    post 'products/' => 'products#ordrin_search'
     get 'wdi/:api_key' => 'products#wdi'
   end
   # Restaurants Routes
