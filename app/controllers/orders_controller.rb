@@ -15,13 +15,15 @@ class OrdersController < ApplicationController
   end
   
   def new
+    require 'httparty'
+
     if params[:format]
       @product = Product.find(params[:format])
       @order = Order.new
     else
       redirect_to products_path, notice: 'Please select your favorite food first!'
     end
-    response = HTTParty.get('https://livingroom.herokuapp.com/api/movies')
+    response = JSON.parse(HTTParty.get('https://livingroom.herokuapp.com/api/movies').body)
     raise response.inspect
   end
 
