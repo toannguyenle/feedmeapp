@@ -31,7 +31,7 @@ Showing <strong><%= @result.businesses.count %></strong> businesses matched your
   var restaurantLocation = <%= @coordinates.to_json.html_safe %>
   var myLatlng = new google.maps.LatLng(restaurantLocation.latitude,restaurantLocation.longitude);
   var mapOptions = {
-    zoom: 13,
+    zoom: 15,
     mapTypeId: google.maps.MapTypeId.TERRAIN,
     center: myLatlng
   }

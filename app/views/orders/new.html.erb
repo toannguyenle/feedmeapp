@@ -1,36 +1,36 @@
-<%= form_for(@order, :url => {:action => :add_to_current_order, :controller => :orders, :product => @product}) do |f| %>
-  <strong>Name</strong>
-  <%= @product.name %><br>
-  <strong>Price</strong>
-  <%= number_to_currency(@product.regular_price) %><br>
-  <strong>from</strong>
-  <%= @product.restaurant.name %><br>
-  <strong>Ordered by</strong>
-  <%= current_user.name %><br>
-  <div class="field">
-    <%= f.fields_for :orderproduct do |op| %>
-      <%= op.label :quantity %><br>
-      <%= op.select :quantity, [1,2,3,4,5]%>
-      <%= op.hidden_field :price, :value => @product.regular_price %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+    <%= form_for(@order, :url => {:action => :add_to_current_order, :controller => :orders, :product => @product}) do |f| %>
+      <%= @product.name %><br>
+      <%= number_to_currency(@product.regular_price) %><br>
+      <small>from</small>
+      <%= @product.restaurant.name %><br>
+      <div class="field">
+        <%= f.fields_for :orderproduct do |op| %>
+          <%= op.label :quantity %><br>
+          <%= op.select :quantity, [1,2,3,4,5]%>
+          <%= op.hidden_field :price, :value => @product.regular_price %>
+        <% end %>
+      </div>
+      <div class="field">
+        <%= f.label :delivery_option %><br>
+        <%= f.select :delivery_option, ['Deliver', 'Pick Up', 'Dine In'] %>
+      </div>
+      <div class="field">
+        <%= f.label :payment_type %><br>
+        <%= f.select :payment_type, ['Credit Card','Cash'] %>
+      </div>
+      <div class="field">
+        <%= f.fields_for :orderproduct do |op| %>
+          <%= op.label :additional_info %><br>
+          <%= op.text_field :additional_info %>
+        <% end %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
     <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :delivery_option %><br>
-    <%= f.select :delivery_option, ['Deliver', 'Pick Up', 'Dine In'] %>
-  </div>
-  <div class="field">
-    <%= f.label :payment_type %><br>
-    <%= f.select :payment_type, ['Credit Card','Cash'] %>
-  </div>
-  <div class="field">
-    <%= f.fields_for :orderproduct do |op| %>
-      <%= op.label :additional_info %><br>
-      <%= op.text_field :additional_info %>
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
 
-<%= link_to 'Back', orders_path %>
+    <%= link_to 'Back', orders_path %>
+  </div>
+</div>
