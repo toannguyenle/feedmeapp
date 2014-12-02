@@ -12,9 +12,9 @@
         <%= @order.delivery_option %><br>
     </p>
     <% if !current_user.is_business %>
-      <%= link_to 'COMPLETE ORDER', complete_order_path(@order), action: :complete_order%>
+      <%= link_to 'COMPLETE ORDER', complete_order_path(@order), action: :complete_order, method: :post,:class => "btn btn-info btn-lg"%>
     <% else %>
-      <%= link_to 'UPDATE STATUS', edit_order_path(@order), action: :edit %>
+      <%= link_to 'UPDATE STATUS', edit_order_path(@order), action: :edit,:class => "btn btn-info btn-lg" %>
     <% end %>
     <table class="table">
       <thead>
