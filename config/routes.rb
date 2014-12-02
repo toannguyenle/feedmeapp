@@ -26,6 +26,7 @@ Feedmeapp::Application.routes.draw do
   get 'restaurants/' => 'restaurants#index'
 
   get 'restaurants/:id/business_yelp' => 'restaurants#business_yelp', as: :yelp
+  post 'restaurants/:id' => 'restaurants#claim_business', as: :claim_business
 
   get 'restaurants/new' => 'restaurants#new', as: :new_restaurant
   get 'restaurants/:id' => 'restaurants#show', as: :restaurant

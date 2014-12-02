@@ -1,0 +1,26 @@
+Showing <strong><%= @result.businesses.count %></strong> businesses matched your info in your area.
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Is Claimed?</th>
+      <th>Ratings</th>
+      <th>No of Reviews</th>
+      <th>Address</th>
+      <th>Claim</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @result.businesses.each do |b| %>
+      <tr>
+        <td><%= b.name %></td>
+        <td><%= b.is_claimed %></td>
+        <td><%= image_tag(b.rating_img_url) %></td>
+        <td><%= b.review_count %></td>
+        <td><%= b.location.display_address[0] %></td>
+        <td><%= link_to 'CLAIM', claim_business_path(b.id, @restaurant), method: :post %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

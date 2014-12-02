@@ -28,6 +28,11 @@
   <strong>Business?</strong>
   <%= @user.is_business %>
 </p>
-
+<strong>Restaurants owned: </strong>
+<% if @user.restaurants %>
+  <% @user.restaurants.each do |r| %>
+    <strong><%=link_to r.name, r %></strong><br>
+  <% end %>
+<% end %>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
