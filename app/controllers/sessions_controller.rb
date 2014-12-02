@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   def new
     @user = User.new
     @is_login = true
+    @is_signup = false
   end
 
   def create

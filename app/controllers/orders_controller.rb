@@ -33,7 +33,6 @@ class OrdersController < ApplicationController
     # If not open and create a new order for the current user
     else
       current_order = current_user.orders.create(order_params)
-      # current_order.status = 'Open'
       current_order.update(status: 'Open')
       OrderProduct.create({product_id: params[:product],order_id: current_order.id})
     end

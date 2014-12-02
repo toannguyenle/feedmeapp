@@ -1,46 +1,41 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Categories</th>
-      <th>Description</th>
-      <th>Image urls</th>
-      <th>Regular price</th>
-      <th>Discount price</th>
-      <th>Discount start time</th>
-      <th>Discount end time</th>
-      <th>Discount inventory</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
 
-  <tbody>
+    <!-- FOOD OPTIONS HERE EACH AT A TIME -->
     <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.categories %></td>
-        <td><%= product.description %></td>
-        <td><%= image_tag(product.image_urls, width: "50px") %></td>
-        <td><%= product.regular_price %></td>
-        <td><%= product.discount_price %></td>
-        <td><%= product.discount_start_time.strftime("%I:%M %p") %></td>
-        <td><%= product.discount_end_time.strftime("%I:%M %p") %></td>
-        <td><%= product.discount_inventory %></td>
-        <% if current_user == product.restaurant.user %>
-          <td><%= link_to 'Edit', edit_product_path(product) %></td>
-          <td><%= link_to 'Delete', product, method: :delete %></td>
-        <% else %>
-          <td><%= link_to 'Order', add_to_current_order_path(product), :data => {:controller => "orders_controller", :action => "add_to_current_order(product)"}%></td>
-        <% end %>
-        <td><%= link_to 'Show', product %></td>
-      </tr>
-      <tr>
-      </tr>
+      <div class="food-item row">
+
+        <div class="dislike-item col-xs-2 col-sm-2 col-md-2">
+          <%= image_tag(product.image_urls, width: "50px") %>
+        </div>
+
+        <div class="col-xs-8 col-sm-8 col-md-8">
+        <tr>
+          <%= product.name %>
+          <%= product.categories %>
+          <%= product.description %>
+          <%= number_to_currency(product.regular_price) %>
+        </tr>
+        <tr>
+        </tr>
+        </div>
+
+        <div class="like-item col-xs-2 col-sm-2 col-md-2">
+            <% if current_user == product.restaurant.user %>
+              <%= link_to 'Edit', edit_product_path(product) %>
+              <%= link_to 'Delete', product, method: :delete %>
+            <% else %>
+              <%= link_to 'Order', add_to_current_order_path(product), :data => {:controller => "orders_controller", :action => "add_to_current_order(product)"}, :class => "glyphicon glyphicon-shopping-cart"%>
+            <% end %>
+            <% if current_user && current_user.is_business %>
+              <%= link_to 'Show', product %>
+            <% end %>
+        </div>
+      </div>
+    
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 <!-- Show add new product option if user is a business account -->
 <% if current_user && current_user.is_business %>
   <%= link_to 'New item', new_product_path %>
