@@ -13,31 +13,38 @@
 </head> 
 
 <body>
-  <div id="container">
-    <div id="user_header">
-    <% if current_user %>
-      Logged in as <%= link_to current_user.email, user_path(current_user) %>.
-      <%= link_to "Log Out", logout_path %>
-    <% else %>
-    <ul class="nav nav-pills">
-      <li role="presentation">
-        <%=link_to 'feedme', root_path %>
-      </li>
-      <li role="presentation">
-        <%=link_to 'Log in', login_path if !@is_login %> 
-      </li>
-      <li role="presentation">
-        <%=link_to 'Sign Up', signup_path if !@is_signup%>
-      </li>
-      <li role="presentation">
-        <%=link_to 'Business Sign Up', new_business_path if !@is_signup%>
-      </li>
-    <% end %>
-    </div>
-  </div>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <!-- LOGO -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          feed<strong>me</strong>
+        </a>
+      </div>
+      <!-- USER Dropdown -->
+      <ul class="nav navbar-nav navbar-right">
+        <% if !current_user %>
+          <li><%=link_to 'Log in', login_path if !@is_login %></li>
+          <li><%=link_to 'Sign Up', signup_path if !@is_signup%></li>
+          <li><%=link_to 'Business', new_business_path if !@is_signup%></li>
+        <% else %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hi, <%= current_user.name %><span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <% if current_user.is_business %>
+                <li><%= link_to "Orders", orders_path %></li>
+              <% end %>
+              <li><%= link_to "Log Out", logout_path %></li>
+              <li><%= link_to "Profile", user_path(current_user) %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
 
+    </div>
+  </nav>
   <% if notice %>
-    <div class="alert alert-warning alert-dismissible" role="alert">
+    <div class="alert alert-warning alert-dismissible text-center" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
       <%= notice %>
     </div>
