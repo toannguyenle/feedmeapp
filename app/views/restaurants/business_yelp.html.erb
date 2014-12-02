@@ -1,6 +1,6 @@
 Showing <strong><%= @result.businesses.count %></strong> businesses matched your info in your area.
 
-<table class="table">
+<table class="table table-condensed">
   <thead>
     <tr>
       <th>Name</th>
@@ -19,7 +19,7 @@ Showing <strong><%= @result.businesses.count %></strong> businesses matched your
         <td><%= image_tag(b.rating_img_url) %></td>
         <td><%= b.review_count %></td>
         <td><%= b.location.display_address[0] %></td>
-        <td><%= link_to 'CLAIM', claim_business_path(b.id, @restaurant), method: :post %></td>
+        <td><%= button_to 'THIS IS MY RESTAURANT', claim_business_path(b.id, @restaurant), method: :post, :class => "btn btn-info"%></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,7 +28,8 @@ Showing <strong><%= @result.businesses.count %></strong> businesses matched your
 
 <script>
   var data = <%= @result.businesses.to_json.html_safe %>
-  var myLatlng = new google.maps.LatLng(data[0].hash.location.coordinate.latitude,data[0].hash.location.coordinate.longitude);
+  var restaurantLocation = <%= @coordinates.to_json.html_safe %>
+  var myLatlng = new google.maps.LatLng(restaurantLocation.latitude,restaurantLocation.longitude);
   var mapOptions = {
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.TERRAIN,

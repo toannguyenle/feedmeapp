@@ -43,16 +43,16 @@ class RestaurantsController < ApplicationController
       # Get address from restaurant address
       restaurant_address = @restaurant.street_address_1 + ', ' + @restaurant.city + ', ' + @restaurant.state
       geocode = Geocoder.search(restaurant_address)[0].geometry['location']
-      coordinates = { latitude: geocode['lat'], longitude: geocode['lng'] }
+      @coordinates = { latitude: geocode['lat'], longitude: geocode['lng'] }
     else
-      coordinates = { latitude: @restaurant.lat, longitude: @restaurant.lng }
+      @coordinates = { latitude: @restaurant.lat, longitude: @restaurant.lng }
     end
     # Set coordinates for yelp search
     params = {
       term: 'restaurant',
       limit: 5
       }
-    @result = Yelp.client.search_by_coordinates(coordinates, params)
+    @result = Yelp.client.search_by_coordinates(@coordinates, params)
   end
   def claim_business
     @restaurant = Restaurant.find(params[:format])
