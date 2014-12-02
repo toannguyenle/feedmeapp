@@ -65,6 +65,7 @@ class RestaurantsController < ApplicationController
 
     @restaurant.yelp_id = params[:id]
     @restaurant.image_url = yelp_result.image_url 
+    @restaurant.name = yelp_result.name 
     @restaurant.website = yelp_result.url 
     @restaurant.categories = yelp_result.categories.join(", ")
     @restaurant.phone_number = yelp_result.phone 

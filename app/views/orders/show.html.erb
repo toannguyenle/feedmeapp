@@ -14,7 +14,7 @@
     <% if !current_user.is_business %>
       <%= link_to 'COMPLETE ORDER', complete_order_path(@order), action: :complete_order%>
     <% else %>
-      <%= link_to 'UPDATE STATUS', complete_order_path(@order), action: :update_order_status%>
+      <%= link_to 'UPDATE STATUS', edit_order_path(@order), action: :edit %>
     <% end %>
     <table class="table">
       <thead>

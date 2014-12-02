@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 gem 'ordrin'
 gem 'yelp', require: 'yelp'
 gem "geocoder"
+gem 'httparty'
 group :development, :test do
     # Testing
   gem 'better_errors'

@@ -21,6 +21,8 @@ class OrdersController < ApplicationController
     else
       redirect_to products_path, notice: 'Please select your favorite food first!'
     end
+    response = HTTParty.get('https://livingroom.herokuapp.com/api/movies')
+    raise response.inspect
   end
 
   def edit
@@ -44,6 +46,7 @@ class OrdersController < ApplicationController
 
   # Complete order
   def complete_order
+    raise 'asdf'
     @order.update(status: 'Placed')
     redirect_to order_confirmation_path(@order)
   end
