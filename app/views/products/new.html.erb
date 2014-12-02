@@ -61,7 +61,7 @@
     <div class="field">
       <%= f.label :discount_inventory %><br>
       <%= f.text_field :discount_inventory %>
-    </div>
+    </div><br>
     <div class="actions">
       <%= f.submit %>
     </div>
@@ -72,6 +72,6 @@
   <% else %>
     <p>You can't create new product. Please sign in as business user.</p>
   <% end %>
-<% end %>
+<% end %><br>
 
 <%= link_to 'Back', products_path %>

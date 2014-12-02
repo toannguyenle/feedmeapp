@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @is_signup = true
+    @is_login = false
   end
 
   def new_business

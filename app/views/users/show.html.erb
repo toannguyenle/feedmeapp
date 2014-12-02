@@ -1,38 +1,42 @@
+
 <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+    <p>
+      <strong>Name:</strong>
+      <%= @user.name %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+    <p>
+      <strong>Email:</strong>
+      <%= @user.email %>
+    </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+    <p>
+      <strong>Phone number:</strong>
+      <%= @user.phone_number %>
+    </p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @user.phone_number %>
-</p>
+    <p>
+      <strong>Lat:</strong>
+      <%= @user.lat %>
+    </p>
 
-<p>
-  <strong>Lat:</strong>
-  <%= @user.lat %>
-</p>
-
-<p>
-  <strong>Lng:</strong>
-  <%= @user.lng %>
-</p>
-<p>
-  <strong>Business?</strong>
-  <%= @user.is_business %>
-</p>
-<strong>Restaurants owned: </strong>
-<% if @user.restaurants %>
-  <% @user.restaurants.each do |r| %>
-    <strong><%=link_to r.name, r %></strong><br>
-  <% end %>
-<% end %>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+    <p>
+      <strong>Lng:</strong>
+      <%= @user.lng %>
+    </p>
+    <p>
+      <strong>Business?</strong>
+      <%= @user.is_business %>
+    </p>
+    <strong>Restaurants owned: </strong>
+    <% if @user.restaurants %>
+      <% @user.restaurants.each do |r| %>
+        <strong><%=link_to r.name, r %></strong><br>
+      <% end %>
+    <% end %>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Back', users_path %>
+  </div>
+</div>
