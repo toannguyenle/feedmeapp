@@ -1,6 +1,6 @@
 Showing <strong><%= @result.businesses.count %></strong> businesses matched your info in your area.
 
-<table class="table">
+<table class="table table-condensed">
   <thead>
     <tr>
       <th>Name</th>
@@ -19,8 +19,29 @@ Showing <strong><%= @result.businesses.count %></strong> businesses matched your
         <td><%= image_tag(b.rating_img_url) %></td>
         <td><%= b.review_count %></td>
         <td><%= b.location.display_address[0] %></td>
-        <td><%= link_to 'CLAIM', claim_business_path(b.id, @restaurant), method: :post %></td>
+        <td><%= button_to 'THIS IS MY RESTAURANT', claim_business_path(b.id, @restaurant), method: :post, :class => "btn btn-info"%></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<div id="map-canvas"></div>
+
+<script>
+  var data = <%= @result.businesses.to_json.html_safe %>
+  var restaurantLocation = <%= @coordinates.to_json.html_safe %>
+  var myLatlng = new google.maps.LatLng(restaurantLocation.latitude,restaurantLocation.longitude);
+  var mapOptions = {
+    zoom: 13,
+    mapTypeId: google.maps.MapTypeId.TERRAIN,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  for (i=0; i<data.length; i++){
+    var thisLatlng = new google.maps.LatLng(data[i].hash.location.coordinate.latitude,data[i].hash.location.coordinate.longitude);
+    var marker = new google.maps.Marker({
+      position: thisLatlng,
+      map: map,
+      title: data[i].hash.name
+    });
+  }
+</script>

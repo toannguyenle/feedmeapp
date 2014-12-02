@@ -1,6 +1,3 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
-
 <%= form_for(@restaurant) do |f| %>
   <% if @restaurant.errors.any? %>
     <div id="error_explanation">
@@ -15,64 +12,61 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name, :class => "form-control input-lg" %>
+    <%= f.text_field :name %>
   </div>
   <div class="field">
     <%= f.label :website %><br>
-    <%= f.text_field :website, :class => "form-control input-lg" %>
+    <%= f.text_field :website %>
   </div>
   <div class="field">
     <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number, :class => "form-control input-lg" %>
+    <%= f.text_field :phone_number %>
   </div>
   <div class="field">
     <%= f.label :street_address_1 %><br>
-    <%= f.text_field :street_address_1, :class => "form-control input-lg" %>
+    <%= f.text_field :street_address_1 %>
   </div>
     <div class="field">
     <%= f.label :street_address_2 %><br>
-    <%= f.text_field :street_address_2, :class => "form-control input-lg" %>
+    <%= f.text_field :street_address_2 %>
   </div>
     <div class="field">
     <%= f.label :city %><br>
-    <%= f.text_field :city, :class => "form-control input-lg" %>
+    <%= f.text_field :city %>
   </div>
     <div class="field">
     <%= f.label :state %><br>
-    <%= f.text_field :state, :class => "form-control input-lg" %>
+    <%= f.text_field :state %>
   </div>
     <div class="field">
     <%= f.label :zipcode %><br>
-    <%= f.text_field :zipcode, :class => "form-control input-lg" %>
+    <%= f.text_field :zipcode %>
   </div>
     <div class="field">
     <%= f.label :country %><br>
-    <%= f.text_field :country, :class => "form-control input-lg" %>
+    <%= f.text_field :country %>
   </div>
   <div class="field">
     <%= f.label :yelp_id %><br>
-    <%= f.text_field :yelp_id, :class => "form-control input-lg" %>
+    <%= f.text_field :yelp_id %>
   </div>
   <div class="field">
     <%= f.label :image_url %><br>
-    <%= f.text_field :image_url, :class => "form-control input-lg" %>
+    <%= f.text_field :image_url %>
   </div>
   <div class="field">
     <%= f.label :categories %><br>
-    <%= f.text_field :categories, :class => "form-control input-lg" %>
+    <%= f.text_field :categories %>
   </div>
   <div class="field">
     <%= f.label :lat %><br>
-    <%= f.text_field :lat, :class => "form-control input-lg" %>
+    <%= f.text_field :lat %>
   </div>
   <div class="field">
   <%= f.label :lng %><br>
-  <%= f.text_field :lng, :class => "form-control input-lg" %>
+  <%= f.text_field :lng %>
   </div>
   <div class="actions">
-    <%= f.submit, :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
+    <%= f.submit %>
   </div>
 <% end %>
-
-</div>
-</div>
