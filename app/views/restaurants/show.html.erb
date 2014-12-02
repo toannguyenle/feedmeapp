@@ -1,31 +1,27 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
-    <h1>Restaurant</h1>
-    owned by <strong><%= link_to @restaurant.user.name, @restaurant.user %></strong><br>
-    <strong>Name</strong>  <%= @restaurant.name %><br>
-    <strong>Website</strong> <%= @restaurant.website %><br>
-    <strong>Phone</strong> <%= @restaurant.phone_number %><br>
-    <strong>Street Address Line 1</strong> <%= @restaurant.street_address_1 %><br>
-    <strong>Street Address Line 2</strong> <%= @restaurant.street_address_2 %><br>
-    <strong>City</strong> <%= @restaurant.city %><br>
-    <strong>State</strong> <%= @restaurant.state %><br>
-    <strong>Zip Code</strong> <%= @restaurant.zipcode %><br>
-    <strong>Country</strong> <%= @restaurant.country %><br>
-    <strong>Yelp ID</strong> <%= @restaurant.yelp_id %><br>
-    <!-- <ul>
-      <li><%#= b.name %></li>
-      <li><%#= b.is_claimed %></li>
-      <li><%#= image_tag(b.rating_img_url) %></li>
-      <li><%#= b.review_count %></li>
-      <li><%#= b.location.display_address[0] %></li>
-    </ul> -->
-    <strong>Image</strong> <%= image_tag(@restaurant.image_url, width: "50px") %><br>
-    <strong>Categories</strong> <%= @restaurant.categories %><br>
-    <strong>Lat</strong> <%= @restaurant.lat %><br>
-    <strong>Long</strong> <%= @restaurant.lng %><br>
-    <%= link_to 'Validate on Yelp', yelp_path(@restaurant) %><br>
-    <%= link_to 'Add menu items', new_product_path %><br>
-    <%= link_to 'Edit', edit_restaurant_path(@restaurant) %><br>
-    <%= link_to 'Delete', @restaurant, method: :delete%><br>
-  </div>
-</div>
+<h1>Restaurant</h1>
+owned by <strong><%= @restaurant.user.name %></strong><br>
+<strong>Name</strong>  <%= @restaurant.name %><br>
+<strong>Website</strong> <%= @restaurant.website %><br>
+<strong>Phone</strong> <%= @restaurant.phone_number %><br>
+<strong>Address 1</strong> <%= @restaurant.street_address_1 %><br>
+<strong>Address 2</strong> <%= @restaurant.street_address_2 %><br>
+<strong>City</strong> <%= @restaurant.city %><br>
+<strong>State</strong> <%= @restaurant.state %><br>
+<strong>Zip Code</strong> <%= @restaurant.zipcode %><br>
+<strong>Country</strong> <%= @restaurant.country %><br>
+<strong>Yelp ID</strong> <%= @restaurant.yelp_id %><br>
+<!-- <ul>
+  <li><%#= b.name %></li>
+  <li><%#= b.is_claimed %></li>
+  <li><%#= image_tag(b.rating_img_url) %></li>
+  <li><%#= b.review_count %></li>
+  <li><%#= b.location.display_address[0] %></li>
+</ul> -->
+<strong>Image</strong> <%= image_tag(@restaurant.image_url, width: "50px") %><br>
+<strong>Categories</strong> <%= @restaurant.categories %><br>
+<strong>Lat</strong> <%= @restaurant.lat %><br>
+<strong>Long</strong> <%= @restaurant.lng %><br><br>
+<%= link_to 'Validate on Yelp', yelp_path(@restaurant) %><br>
+<%= link_to 'Add menu items', new_product_path %><br>
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %><br>
+<%= link_to 'Delete', @restaurant, method: :delete%><br>

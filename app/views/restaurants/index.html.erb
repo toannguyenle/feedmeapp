@@ -1,22 +1,21 @@
 <h1>Listing restaurants</h1>
-
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Website</th>
       <th>Phone number</th>
-      <th>Street Address Line 1</th>
-      <th>Street Address Line 2</th>
+      <th>Address 1</th>
+      <th>Address 2</th>
       <th>City</th>
       <th>State</th>
       <th>Zip Code</th>
       <th>Country</th>
-      <th>Yelp_id</th>
+<!--  <th>Yelp_id</th>
       <th>Image Url</th>
       <th>Categories</th>
       <th>Lat</th>
-      <th>Lng</th>
+      <th>Lng</th> -->
     </tr>
   </thead>
   <tbody>
@@ -25,17 +24,17 @@
         <td><%= restaurant.name %></td>
         <td><%= restaurant.website %></td>
         <td><%= restaurant.phone_number %></td>
-        <td><%= restaurant.street_address_1 %><td>
-        <td><%= restaurant.street_address_2 %><td>
-        <td><%= restaurant.city %><td>
-        <td><%= restaurant.state %><td>
-        <td><%= restaurant.zipcode %><td>
-        <td><%= restaurant.country %><td>
-        <td><%= restaurant.yelp_id %></td>
-        <td><%= image_tag(restaurant.image_url, width: "50px") %></td>
-        <td><%= restaurant.categories %></td>
-        <td><%= restaurant.lat %></td>
-        <td><%= restaurant.lng %></td>
+        <td><%= restaurant.street_address_1 %></td>
+        <td><%= restaurant.street_address_2 %></td>
+        <td><%= restaurant.city %></td>
+        <td><%= restaurant.state %></td>
+        <td><%= restaurant.zipcode %></td>
+        <td><%= restaurant.country %></td>
+<!--    <td><%#= restaurant.yelp_id %></td>
+        <td><%#= image_tag(restaurant.image_url, width: "50px") %></td>
+        <td><%#= restaurant.categories %></td>
+        <td><%#= restaurant.lat %></td>
+        <td><%#= restaurant.lng %></td> -->
         <td><%= link_to 'Show', restaurant_path(restaurant) %></td>
         <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
         <td><%= link_to 'Destroy', restaurant, method: :delete%></td>
