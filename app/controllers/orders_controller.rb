@@ -2,7 +2,11 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:confirmation, :complete_order, :show, :edit, :update, :destroy]
   
   def index
-    @orders = current_user.orders.all
+    if current_user.is_business
+      # @orders = current_user.restaurants.first.products
+    else
+      @orders = current_user.orders.all
+    end
   end
 
   def show
@@ -24,7 +28,6 @@ class OrdersController < ApplicationController
 
   # Add new product to Order (make a new order)
   def add_to_current_order
-    
     # get the first open order that the user has
     if current_user.orders.where(status:'Open').first
       current_order = current_user.orders.where(status:'Open').first
@@ -34,7 +37,7 @@ class OrdersController < ApplicationController
     else
       current_order = current_user.orders.create(order_params)
       current_order.update(status: 'Open')
-      OrderProduct.create({product_id: params[:product],order_id: current_order.id})
+      OrderProduct.create({product_id: params[:product],order_id: current_order.id, quantity: params[:order][:orderproduct][:quantity], price: params[:order][:orderproduct][:price],additional_info: params[:order][:orderproduct][:additional_info]})
     end
     redirect_to order_path(current_order)
   end

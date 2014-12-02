@@ -1,60 +1,51 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Product Name</strong>
-    <strong>Ordered by </strong><%= @order.user.name %><br>
-    <strong>Processing time</strong>
-    <%= @order.processing_time %><br>
-    <strong>Payment Type</strong>
-    <%= @order.payment_type %><br>
-    <strong>Processing Time</strong>
-    <%= @order.processing_time %><br>
-    <strong>Status</strong>
-    <%= @order.status %><br>
-    <strong>Delivery Option</strong>
-    <%= @order.delivery_option %><br>
-    <strong>Delivered By</strong>
-    <%= @order.delivered_by %><br>
-    <strong>Created at</strong>
-    <%= @order.created_at %><br>
-    <strong>Last updated at</strong>
-    <%= @order.updated_at %><br>
-</p>
-<% if !current_user.is_business %>
-  <%= link_to 'COMPLETE ORDER', complete_order_path(@order), action: :complete_order%>
-<% else %>
-  <%= link_to 'UPDATE STATUS', complete_order_path(@order), action: :update_order_status%>
-<% end %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Categories</th>
-      <th>Descrip</th>
-      <th>Image</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Additional Info</th>
-      <th>Restaurant</th>
-      <th>Remove</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order_products.each do |line_item| %>
-      <tr>
-        <td><%= line_item.product.name %></td>
-        <td><%= line_item.product.categories %></td>
-        <td><%= line_item.product.description %></td>
-        <td><%= image_tag(line_item.product.image_urls, width: '100') %></td>
-        <td><%= number_to_currency(line_item.price) %></td>
-        <td><%= line_item.quantity %></td>
-        <td><%= line_item.additional_info %></td>
-        <td><%= line_item.product.restaurant.name %></td>
-        <td><%= link_to 'Remove', orderproducts_path(line_item), method: :delete%></td>
-      </tr>
+<div class="row">
+  <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+    <h1><%= current_user.name %>'S ORDER SUMMARY</h1>
+        <small>Created at
+        <%= @order.created_at %></small>
+    <p>
+        <strong>Payment Type</strong>
+        <%= @order.payment_type %><br>
+        <strong>Status</strong>
+        <%= @order.status %><br>
+        <strong>Delivery Option</strong>
+        <%= @order.delivery_option %><br>
+    </p>
+    <% if !current_user.is_business %>
+      <%= link_to 'COMPLETE ORDER', complete_order_path(@order), action: :complete_order%>
+    <% else %>
+      <%= link_to 'UPDATE STATUS', complete_order_path(@order), action: :update_order_status%>
     <% end %>
-  </tbody>
-</table>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Descrip</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Additional Info</th>
+          <th>From</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order_products.each do |line_item| %>
+          <tr>
+            <td><%= image_tag(line_item.product.image_urls, width: '100') %></td>
+            <td><%= line_item.product.name %></td>
+            <td><%= line_item.product.description %></td>
+            <td><%= number_to_currency(line_item.price) %></td>
+            <td><%= line_item.quantity %></td>
+            <td><%= line_item.additional_info %></td>
+            <td><%= line_item.product.restaurant.name %></td>
+            <td><%= link_to 'Remove', orderproducts_path(line_item), method: :delete%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+    <%= link_to 'Edit', edit_order_path(@order) %> |
+    <%= link_to 'Back', orders_path %>
+  </div>
+</div>
