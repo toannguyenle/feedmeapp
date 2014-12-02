@@ -10,7 +10,7 @@ Feedmeapp::Application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  
+
   resources :sessions
   # Order Product Path
   get 'orderproducts/:id' => 'orderproducts#show', as: :orderproduct
@@ -24,6 +24,9 @@ Feedmeapp::Application.routes.draw do
   end
   # Restaurants Routes
   get 'restaurants/' => 'restaurants#index'
+
+  get 'restaurants/:id/business_yelp' => 'restaurants#business_yelp', as: :yelp
+
   get 'restaurants/new' => 'restaurants#new', as: :new_restaurant
   get 'restaurants/:id' => 'restaurants#show', as: :restaurant
   post 'restaurants/' => 'restaurants#create'
