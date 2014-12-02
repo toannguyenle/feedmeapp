@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3 text-center">
+    <h1><%= @restaurant.name %></h1>
     <div class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading">
-        <strong><h2><%= @restaurant.name %></h2></strong><br>
         <small><%= @restaurant.street_address_1%> <% if @restaurant.city %>
         <%= @restaurant.city if @restaurant.city+ ', ' + @restaurant.state if @restaurant.state + ' ' + @restaurant.zipcode if @restaurant.zipcode %></li>
         <% end %></small><br>
@@ -21,22 +21,26 @@
             <div class="panel-heading">
               What people says about your business
             </div>
-            <ul class="list-group">
-              <li class="list-group-item"><%= number_to_human(@yelp_result.review_count) %> reviews  <%= image_tag(@yelp_result.rating_img_url) %></li>
-              <li class="list-group-item">
-                <div class="media">
-                  <a class="media-left media-middle" href="">
-                    <%= image_tag(@yelp_result.snippet_image_url, :class => "img-circle") %>
-                  </a>
-                  <div class="media-body">
-                    <h4 class="media-heading">Words on the street</h4>
-                      <%= @yelp_result.snippet_text %>
+            <% if @yelp_result %>
+              <ul class="list-group">
+                <li class="list-group-item"><%= number_to_human(@yelp_result.review_count) %> reviews  <%= image_tag(@yelp_result.rating_img_url) %></li>
+                <li class="list-group-item">
+                  <div class="media">
+                    <a class="media-left media-middle" href="">
+                      <%= image_tag(@yelp_result.snippet_image_url, :class => "img-circle") %>
+                    </a>
+                    <div class="media-body">
+                      <h4 class="media-heading">Words on the street</h4>
+                        <%= @yelp_result.snippet_text %>
+                    </div>
                   </div>
-                </div>
-              </li>
-              <li class="list-group-item"><%= @yelp_result.location.display_address[0] %></li>
-              <li class="list-group-item"><%= image_tag("http://s3-media1.fl.yelpcdn.com/assets/2/www/img/1589098a542f/developers/Powered_By_Yelp_White.png") %></li>
-            </ul>
+                </li>
+                <li class="list-group-item"><%= @yelp_result.location.display_address[0] %></li>
+                <li class="list-group-item"><%= image_tag("http://s3-media1.fl.yelpcdn.com/assets/2/www/img/1589098a542f/developers/Powered_By_Yelp_White.png") %></li>
+              </ul>
+            <% else %>
+              Nothing yet. Please <%= link_to 'validate', yelp_path(@restaurant) %>  your restaurant with Yelp! service.
+            <% end %>
           </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6">

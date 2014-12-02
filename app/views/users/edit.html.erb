@@ -1,55 +1,91 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3"> 
+  <div class="wrapper col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4"> 
+    <h1>UPDATE PROFILE</h1>
+    <%= form_for(@user) do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+
+      <div class="field">
+        <%= f.label :name, 'NAME' %><br>
+        <%= f.text_field :name, :class => "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :email, 'EMAIL' %><br>
+        <%= f.text_field :email, :class => "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :phone_number, 'PHONE NUMBER' %><br>
+        <%= f.text_field :phone_number, :class => "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :lat, 'LATITUDE' %><br>
+        <%= f.text_field :lat, :class => "form-control", :id => "lat-form" %>
+      </div>
+      <div class="field">
+        <%= f.label :lng,'LONGITUDE' %><br>
+        <%= f.text_field :lng, :class => "form-control",:id => "lng-form" %>
+      </div>
+      <div class="field">
+        <%= f.label :password, 'PASSWORD' %><br>
+        <%= f.password_field :password, :class => "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation,'PASSWORD CONFIRMATION' %><br>
+        <%= f.password_field :password_confirmation, :class => "form-control" %>
+      </div>
+      <div class="spacer25"></div>
+      <div class="actions">
+        <%= f.submit "UPDATE", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
+      </div>
+    <% end %>
+    <button class="btn btn-default btn-lg btn-block" onclick="getLocation()">MY LOCATION</button>
+    <br>
+    <div class="text-center">
+    <%= link_to 'Show', @user %> |
+    <%= link_to 'Back', users_path %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email, :class => "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number, :class => "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.text_field :lat, :class => "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :lng %><br>
-    <%= f.text_field :lng, :class => "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password, :class => "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation, :class => "form-control" %>
-  </div>
-  <div class="spacer25"></div>
-  <div class="actions">
-    <%= f.submit "Update", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
-  </div>
-<% end %><br>
-
 </div>
-</div>
+<script>
+  // Get user's coordinates
+  var x = document.getElementById("lat-form");
+  var y = document.getElementById("lng-form");
+  getLocation = function(){
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.value = "Geolocation is not supported by this browser.";
+      y.value = "Geolocation is not supported by this browser.";
+    }
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+    function showPosition(position) {
+      // Convert Geocode into physical adddress for OrdrIn search
+      x.value = position.coords.latitude;
+      y.value = position.coords.longitude;
+
+
+      // geocoder = new google.maps.Geocoder();
+      // var latlng = new google.maps.LatLng(lat, lng);
+      // geocoder.geocode({'latLng': latlng}, function(results, status) {
+      //   if (status == google.maps.GeocoderStatus.OK) {
+      //     if (results[1]) {
+      //       console.log(results[1]);
+      //       x.value = results[1].formatted_address;
+      //     }
+      //   } else {
+      //     alert("Address lookup failed due to: " + status);
+      //   }
+      // });
+    }
+  }
+
+</script>

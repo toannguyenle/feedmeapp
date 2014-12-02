@@ -6,7 +6,9 @@ class RestaurantsController < ApplicationController
   end
   
   def show
-    @yelp_result = Yelp.client.business(@restaurant.yelp_id)
+    if (@restaurant.yelp_id != "")
+      @yelp_result = Yelp.client.business(@restaurant.yelp_id)
+    end
   end
 
   def new
@@ -20,9 +22,9 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.restaurants.new(restaurant_params)
     if current_user.is_business 
       @restaurant.save
-      redirect_to @restaurant
+      redirect_to @restaurant, notice: 'Restaurant created successfully. Now build your menu!'
     else
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user), notice: 'Only Business User Can Create Restaurant'
     end
   end
 

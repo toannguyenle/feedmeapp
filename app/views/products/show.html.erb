@@ -1,53 +1,35 @@
-<p id="notice"><%= notice %></p>
-<p>
-  <strong>Restaurant</strong>
-  <%= @product.restaurant.name %>
-</p>
+<div class="row">
+  <div class="wrapper col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4"> 
+      <h1><%= @product.restaurant.name %></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+      <strong>Name:</strong>
+      <%= @product.name %><br>
 
-<p>
-  <strong>Categories:</strong>
-  <%= @product.categories %>
-</p>
+      <strong>Categories:</strong>
+      <%= @product.categories %><br>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+      <strong>Description:</strong>
+      <%= @product.description %><br>
 
-<p>
-  <strong>Image</strong>
-  <%= image_tag(@product.image_urls, width: "50px") %>
-</p>
+      <strong>Image</strong>
+      <%= image_tag(@product.image_urls, width: "50px") %><br>
 
-<p>
-  <strong>Regular price:</strong>
-  <%= @product.regular_price %>
-</p>
+      <strong>Regular price:</strong>
+      <%= @product.regular_price %><br>
 
-<p>
-  <strong>Discount price:</strong>
-  <%= @product.discount_price %>
-</p>
+      <strong>Discount price:</strong>
+      <%= @product.discount_price %><br>
 
-<p>
-  <strong>Discount start time:</strong>
-  <%= @product.discount_start_time.strftime("%I:%M %p") %>
-</p>
+      <strong>Discount start time:</strong>
+      <%= @product.discount_start_time.strftime("%I:%M %p") %><br>
 
-<p>
-  <strong>Discount end time:</strong>
-  <%= @product.discount_end_time.strftime("%I:%M %p") %>
-</p>
+      <strong>Discount end time:</strong>
+      <%= @product.discount_end_time.strftime("%I:%M %p") %><br>
 
-<p>
-  <strong>Discount inventory:</strong>
-  <%= @product.discount_inventory %>
-</p>
+      <strong>Discount inventory:</strong>
+      <%= @product.discount_inventory %><br>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+    <%= link_to 'Edit', edit_product_path(@product) %> |
+    <%= link_to 'Back', products_path %>
+  </div>
+</div>

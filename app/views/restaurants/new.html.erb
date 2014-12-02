@@ -1,74 +1,90 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+  <div class="wrapper col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+    <h1>NEW RESTAURANT</h1>
+    <%= form_for(@restaurant) do |f| %>
 
-<%= form_for(@restaurant) do |f| %>
-  <% if @restaurant.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this bean from being saved:</h2>
+        <%= f.label :name, 'RESTAURANT NAME' %><br>
+        <%= f.text_field :name, :class => "form-control input-lg" %>
 
-      <ul>
-      <% @restaurant.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <%= f.label :website, 'WEBSITE URL' %><br>
+        <%= f.text_field :website, :class => "form-control input-lg" %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, :class => "form-control input-lg" %>
-  </div>
-  <div class="field">
-    <%= f.label :website %><br>
-    <%= f.text_field :website, :class => "form-control input-lg" %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number, :class => "form-control input-lg" %>
-  </div>
-  <div class="field">
-    <%= f.label :street_address_1 %><br>
-    <%= f.text_field :street_address_1, :class => "form-control input-lg" %>
-  </div>
-    <div class="field">
-    <%= f.label :street_address_2 %><br>
-    <%= f.text_field :street_address_2, :class => "form-control input-lg" %>
-  </div>
-    <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city, :class => "form-control input-lg" %>
-  </div>
-    <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state, :class => "form-control input-lg" %>
-  </div>
-    <div class="field">
-    <%= f.label :zipcode %><br>
-    <%= f.text_field :zipcode, :class => "form-control input-lg" %>
-  </div>
-    <div class="field">
-    <%= f.label :country %><br>
-    <%= f.text_field :country, :class => "form-control input-lg" %>
-  </div>
-  <div class="field">
-    <%= f.label :yelp_id %><br>
-    <%= f.text_field :yelp_id, :class => "form-control input-lg" %>
-  </div>
-  <div class="field">
-    <%= f.label :image_url %><br>
-    <%= f.text_field :image_url, :class => "form-control input-lg" %>
-  </div>
-  <div class="field">
-    <%= f.label :categories %><br>
-    <%= f.text_field :categories, :class => "form-control input-lg" %>
-  </div>
-  <div class="spacer25"></div>
-  <div class="actions">
-    <%= f.hidden_field :lat, :value => 34.0218628 %>
-    <%= f.hidden_field :lng, :value => -118.4804206 %>
-    <%= f.submit "Create", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
-  </div>
-<% end %>
+        <%= f.label :phone_number, 'PHONE' %><br>
+        <%= f.text_field :phone_number, :class => "form-control input-lg" %>
 
+        <%= f.label :street_address_1, 'STREET ADDRESS' %><br>
+        <%= f.text_field :street_address_1, :class => "form-control input-lg" %>
+
+
+        <%= f.label :street_address_2, 'APT/SUITE' %><br>
+        <%= f.text_field :street_address_2, :class => "form-control input-lg" %>
+
+
+        <%= f.label :city, 'CITY' %><br>
+        <%= f.text_field :city, :class => "form-control input-lg" %>
+
+
+        <%= f.label :state, 'STATE' %><br>
+        <%= f.text_field :state, :class => "form-control input-lg" %>
+
+
+        <%= f.label :zipcode, 'ZIP' %><br>
+        <%= f.text_field :zipcode, :class => "form-control input-lg" %>
+
+
+        <%= f.label :country, 'COUNTRY' %><br>
+        <%= f.text_field :country, :class => "form-control input-lg" %>
+
+        <%= f.label :yelp_id, 'YELP ID' %><br>
+        <%= f.text_field :yelp_id, :class => "form-control input-lg" %>
+
+        <%= f.label :image_url, 'IMAGE URLS' %><br>
+        <%= f.text_field :image_url, :class => "form-control input-lg" %>
+
+        <%= f.label :categories, 'CATEGORIES' %><br>
+        <%= f.text_field :categories, :class => "form-control input-lg" %>
+        <%= f.label :lat, 'LATITUDE' %><br>
+        <%= f.text_field :lat, :class => "form-control input-lg", :id => 'lat-form' %>
+        <%= f.label :lng, 'LONGITUDE' %><br>
+        <%= f.text_field :lng, :class => "form-control input-lg", :id => 'lng-form' %>
+      <div class="spacer25"></div>
+        <%= f.submit "CREATE RESTAURANT", :class => "btn btn-default btn-lg btn-block", :id => "transparent-button" %>
+    <% end %>
+    <button class="btn btn-default btn-lg btn-block" onclick="getLocation()">MY LOCATION</button><br>
+  </div>
 </div>
-</div>
+
+<script>
+  // Get user's coordinates
+  var x = document.getElementById("lat-form");
+  var y = document.getElementById("lng-form");
+  getLocation = function(){
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.value = "Geolocation is not supported by this browser.";
+      y.value = "Geolocation is not supported by this browser.";
+    }
+
+    function showPosition(position) {
+      // Convert Geocode into physical adddress for OrdrIn search
+      x.value = position.coords.latitude;
+      y.value = position.coords.longitude;
+
+
+      // geocoder = new google.maps.Geocoder();
+      // var latlng = new google.maps.LatLng(lat, lng);
+      // geocoder.geocode({'latLng': latlng}, function(results, status) {
+      //   if (status == google.maps.GeocoderStatus.OK) {
+      //     if (results[1]) {
+      //       console.log(results[1]);
+      //       x.value = results[1].formatted_address;
+      //     }
+      //   } else {
+      //     alert("Address lookup failed due to: " + status);
+      //   }
+      // });
+    }
+  }
+
+</script>
