@@ -5,3 +5,8 @@ deploy:
   app: feedmeapp
   on:
     repo: toannguyenle/feedmeapp
+language: ruby
+rvm:
+- 2.0.0-p481
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
