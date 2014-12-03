@@ -1,0 +1,7 @@
+deploy:
+  provider: heroku
+  api_key:
+    secure: tfFgy2pNm3npyN6TkmZznkzJrjca8ADi54SOfEF54YSCIeqLIYJmS+th5R+gHEBkGy77vgOoCnv2X8a0xuwO8A8rqxHieMglo1Ko1AOHuRM1JNX8TpGmcYNaw15dWfjE7TH5yRJgB98OVecH+Gsnip3xAEVlErHB1hncOAnBCkU=
+  app: feedmeapp
+  on:
+    repo: toannguyenle/feedmeapp

@@ -3,6 +3,7 @@ gem 'ordrin'
 gem 'yelp', require: 'yelp'
 gem "geocoder"
 gem 'httparty'
+gem 'travis'
 group :development, :test do
     # Testing
   gem 'better_errors'
