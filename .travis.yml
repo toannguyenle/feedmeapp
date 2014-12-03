@@ -1,3 +1,8 @@
+language: ruby
+rvm:
+- 2.0.0-p481
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
 deploy:
   provider: heroku
   api_key:
@@ -5,8 +10,7 @@ deploy:
   app: feedmeapp
   on:
     repo: toannguyenle/feedmeapp
-language: ruby
-rvm:
-- 2.0.0-p481
-before_script:
-- psql -c 'create database travis_ci_test;' -U postgres
+  run:
+  #remember that migrations you run locally must run in the release environment
+    - "rake db:migrate"
+    - restart

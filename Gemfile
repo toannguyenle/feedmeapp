@@ -6,7 +6,7 @@ gem 'httparty'
 gem 'travis'
 group :development, :test do
     # Testing
-  gem 'better_errors'
+  # gem 'better_errors'
   gem 'binding_of_caller'
   # Add factory girl
   gem 'factory_girl_rails'
