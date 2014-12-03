@@ -46,9 +46,9 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: feedmeapp_test
+  database: travis_ci_test
   pool: 5
-  username:
+  username: postgres
   password:
 
 production:
